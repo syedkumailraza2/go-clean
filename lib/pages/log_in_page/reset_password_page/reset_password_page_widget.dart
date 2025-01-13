@@ -1,3 +1,5 @@
+import 'package:translator/translator.dart';
+
 import '/backend/api_requests/api_calls.dart';
 import '/components/custom_center_appbar_widget.dart';
 import '/components/password_succsess_alrt_widget.dart';
@@ -33,12 +35,42 @@ class _ResetPasswordPageWidgetState extends State<ResetPasswordPageWidget> {
     super.initState();
     _model = createModel(context, () => ResetPasswordPageModel());
 
+    //if(_isToggled == true){
+    //       Translate('en', 'hr');
+    //     }
+    //     else {
+    //       Translate('hr', 'en');
+    //     }
+
     _model.textController1 ??= TextEditingController();
     _model.textFieldFocusNode1 ??= FocusNode();
 
     _model.textController2 ??= TextEditingController();
     _model.textFieldFocusNode2 ??= FocusNode();
   }
+
+
+  var translated = List<String>.filled(10, '', growable: false);
+  List<String> txt = [
+    'Reset password',
+    'Please enter the email address you\'d like your password reset information sent to',
+    'New password',
+    'Confirm password',
+    'Please Same Password!',
+    'Reset pasword',
+  ];
+
+
+  Future<void> Translate(String from, String dest) async {
+    GoogleTranslator translator = GoogleTranslator();
+    for (int i = 0; i < txt.length; i++) {
+      var translation = await translator.translate(txt[i], from: from, to: dest);
+      setState(() {
+        translated[i] = translation.text.toString();
+      });
+    }
+  }
+
 
   @override
   void dispose() {
@@ -63,7 +95,7 @@ class _ResetPasswordPageWidgetState extends State<ResetPasswordPageWidget> {
                 model: _model.customCenterAppbarModel,
                 updateCallback: () => safeSetState(() {}),
                 child: CustomCenterAppbarWidget(
-                  title: 'Reset password',
+                  title: translated[0].isEmpty ? txt[0] : translated[0], //'Reset password',
                   backIcon: false,
                   addIcon: false,
                   onTapAdd: () async {},
@@ -86,7 +118,7 @@ class _ResetPasswordPageWidgetState extends State<ResetPasswordPageWidget> {
                       scrollDirection: Axis.vertical,
                       children: [
                         Text(
-                          'Please enter the email address you\'d like your password reset information sent to',
+                          translated[1].isEmpty ? txt[1] : translated[1], //'Please enter the email address you\'d like your password reset information sent to',
                           textAlign: TextAlign.center,
                           style:
                               FlutterFlowTheme.of(context).bodyMedium.override(
@@ -107,7 +139,7 @@ class _ResetPasswordPageWidgetState extends State<ResetPasswordPageWidget> {
                             textInputAction: TextInputAction.next,
                             obscureText: !_model.passwordVisibility1,
                             decoration: InputDecoration(
-                              labelText: 'New password',
+                              labelText: translated[2].isEmpty ? txt[2] : translated[2], //'New password',
                               labelStyle: FlutterFlowTheme.of(context)
                                   .labelMedium
                                   .override(
@@ -118,7 +150,7 @@ class _ResetPasswordPageWidgetState extends State<ResetPasswordPageWidget> {
                                     letterSpacing: 0.0,
                                     useGoogleFonts: false,
                                   ),
-                              hintText: 'New password',
+                              hintText: translated[2].isEmpty ? txt[2] : translated[2], //'New password',
                               hintStyle: FlutterFlowTheme.of(context)
                                   .labelMedium
                                   .override(
@@ -209,7 +241,7 @@ class _ResetPasswordPageWidgetState extends State<ResetPasswordPageWidget> {
                           textInputAction: TextInputAction.done,
                           obscureText: !_model.passwordVisibility2,
                           decoration: InputDecoration(
-                            labelText: 'Confirm password',
+                            labelText: translated[3].isEmpty ? txt[3] : translated[3], //'Confirm password',
                             labelStyle: FlutterFlowTheme.of(context)
                                 .labelMedium
                                 .override(
@@ -220,7 +252,7 @@ class _ResetPasswordPageWidgetState extends State<ResetPasswordPageWidget> {
                                   letterSpacing: 0.0,
                                   useGoogleFonts: false,
                                 ),
-                            hintText: 'Confirm password',
+                            hintText:  translated[3].isEmpty ? txt[3] : translated[3], //'Confirm password',
                             hintStyle: FlutterFlowTheme.of(context)
                                 .labelMedium
                                 .override(
@@ -377,7 +409,7 @@ class _ResetPasswordPageWidgetState extends State<ResetPasswordPageWidget> {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                       content: Text(
-                                        'Please Same Password!',
+                                        translated[4].isEmpty ? txt[4] : translated[4], //'Please Same Password!',
                                         style: TextStyle(
                                           color: FlutterFlowTheme.of(context)
                                               .primaryBackground,
@@ -393,7 +425,7 @@ class _ResetPasswordPageWidgetState extends State<ResetPasswordPageWidget> {
 
                                 safeSetState(() {});
                               },
-                              text: 'Reset pasword',
+                              text:  translated[5].isEmpty ? txt[5] : translated[5], //'Reset pasword',
                               options: FFButtonOptions(
                                 width: double.infinity,
                                 height: 56.0,

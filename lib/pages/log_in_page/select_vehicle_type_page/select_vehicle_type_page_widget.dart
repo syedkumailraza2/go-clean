@@ -1,3 +1,5 @@
+import 'package:translator/translator.dart';
+
 import '/backend/api_requests/api_calls.dart';
 import '/components/custom_center_appbar_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -33,11 +35,40 @@ class _SelectVehicleTypePageWidgetState
     super.initState();
     _model = createModel(context, () => SelectVehicleTypePageModel());
 
+    //if(_isToggled == true){
+    //       Translate('en', 'hr');
+    //     }
+    //     else {
+    //       Translate('hr', 'en');
+    //     }
+
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       FFAppState().selectVehicleTypeList = 0;
       safeSetState(() {});
     });
+  }
+
+
+  var translated = List<String>.filled(10, '', growable: false);
+  List<String> txt = [
+    'Select vehicle type',
+    'Please enter the email address you\'d like your password reset information sent to',
+    'New password',
+    'Confirm password',
+    'Please Same Password!',
+    'Reset pasword',
+  ];
+
+
+  Future<void> Translate(String from, String dest) async {
+    GoogleTranslator translator = GoogleTranslator();
+    for (int i = 0; i < txt.length; i++) {
+      var translation = await translator.translate(txt[i], from: from, to: dest);
+      setState(() {
+        translated[i] = translation.text.toString();
+      });
+    }
   }
 
   @override
@@ -65,7 +96,7 @@ class _SelectVehicleTypePageWidgetState
                 model: _model.customCenterAppbarModel,
                 updateCallback: () => safeSetState(() {}),
                 child: CustomCenterAppbarWidget(
-                  title: 'Select vehicle type',
+                  title:  translated[0].isEmpty ? txt[0] : translated[0], //'Select vehicle type',
                   backIcon: FFAppState().isLoginVehicleCheck == true,
                   addIcon: false,
                   onTapAdd: () async {},

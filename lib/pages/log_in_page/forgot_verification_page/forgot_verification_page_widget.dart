@@ -1,3 +1,5 @@
+import 'package:translator/translator.dart';
+
 import '/backend/api_requests/api_calls.dart';
 import '/components/custom_center_appbar_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -34,7 +36,36 @@ class _ForgotVerificationPageWidgetState
   void initState() {
     super.initState();
     _model = createModel(context, () => ForgotVerificationPageModel());
+    //if(_isToggled == true){
+    //       Translate('en', 'hr');
+    //     }
+    //     else {
+    //       Translate('hr', 'en');
+    //     }
   }
+
+  var translated = List<String>.filled(10, '', growable: false);
+  List<String> txt = [
+    'Verification',
+    'Please enter the email address you\'d like your password reset information sent to',
+    'Code Sent To ',
+    'Send',
+    'Didn’t receive a code? ',
+    'Resend code'
+  ];
+
+
+  Future<void> Translate(String from, String dest) async {
+    GoogleTranslator translator = GoogleTranslator();
+    for (int i = 0; i < txt.length; i++) {
+      var translation = await translator.translate(txt[i], from: from, to: dest);
+      setState(() {
+        translated[i] = translation.text.toString();
+      });
+    }
+  }
+
+
 
   @override
   void dispose() {
@@ -59,7 +90,7 @@ class _ForgotVerificationPageWidgetState
                 model: _model.customCenterAppbarModel,
                 updateCallback: () => safeSetState(() {}),
                 child: CustomCenterAppbarWidget(
-                  title: 'Verification',
+                  title: translated[0].isEmpty ? txt[0] : translated[0], //'Verification',
                   backIcon: false,
                   addIcon: false,
                   onTapAdd: () async {},
@@ -78,7 +109,7 @@ class _ForgotVerificationPageWidgetState
                     scrollDirection: Axis.vertical,
                     children: [
                       Text(
-                        'Please enter the email address you\'d like your password reset information sent to',
+                        translated[1].isEmpty ? txt[1] : translated[1], //'Please enter the email address you\'d like your password reset information sent to',
                         textAlign: TextAlign.center,
                         maxLines: 2,
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -99,7 +130,7 @@ class _ForgotVerificationPageWidgetState
                             text: TextSpan(
                               children: [
                                 TextSpan(
-                                  text: 'Code Sent To ',
+                                  text: translated[2].isEmpty ? txt[2] : translated[2], //'Code Sent To ',
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
@@ -235,7 +266,7 @@ class _ForgotVerificationPageWidgetState
 
                           safeSetState(() {});
                         },
-                        text: 'Send',
+                        text: translated[3].isEmpty ? txt[3] : translated[3], //'Send',
                         options: FFButtonOptions(
                           width: double.infinity,
                           height: 56.0,
@@ -273,7 +304,7 @@ class _ForgotVerificationPageWidgetState
                             text: TextSpan(
                               children: [
                                 TextSpan(
-                                  text: 'Didn’t receive a code? ',
+                                  text: translated[4].isEmpty ? txt[4] : translated[4], //'Didn’t receive a code? ',
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
@@ -287,7 +318,7 @@ class _ForgotVerificationPageWidgetState
                                       ),
                                 ),
                                 TextSpan(
-                                  text: 'Resend code',
+                                  text: translated[5].isEmpty ? txt[5] : translated[5], //'Resend code',
                                   style: TextStyle(
                                     color: FlutterFlowTheme.of(context)
                                         .primaryText,
