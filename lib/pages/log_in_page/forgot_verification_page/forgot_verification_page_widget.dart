@@ -1,3 +1,4 @@
+import 'package:get_storage/get_storage.dart';
 import 'package:translator/translator.dart';
 
 import '/backend/api_requests/api_calls.dart';
@@ -32,16 +33,15 @@ class _ForgotVerificationPageWidgetState
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
+  final box = GetStorage();
+
   @override
   void initState() {
     super.initState();
     _model = createModel(context, () => ForgotVerificationPageModel());
-    //if(_isToggled == true){
-    //       Translate('en', 'hr');
-    //     }
-    //     else {
-    //       Translate('hr', 'en');
-    //     }
+
+    translated = box.read('forgot_verification_static') ?? txt;
+
   }
 
   var translated = List<String>.filled(10, '', growable: false);
@@ -54,16 +54,29 @@ class _ForgotVerificationPageWidgetState
     'Resend code'
   ];
 
+  List<String> translatedTexts = [];
 
-  Future<void> Translate(String from, String dest) async {
+
+  Future<void> forgot_verification_static_translate (String from, String dest) async {
     GoogleTranslator translator = GoogleTranslator();
-    for (int i = 0; i < txt.length; i++) {
-      var translation = await translator.translate(txt[i], from: from, to: dest);
-      setState(() {
-        translated[i] = translation.text.toString();
-      });
+    List<String> translatedTexts = [];
+
+    for (String text in txt) {
+      try {
+        var translation = await translator.translate(text, from: from, to: dest);
+        translatedTexts.add(translation.text.toString());
+      } catch (e) {
+        print('Translation error: $e');
+        translatedTexts.add(text); // Fallback to original text if translation fails
+      }
     }
+
+    setState(() {
+      translated = translatedTexts;
+      box.write('forgot_verification_static', translatedTexts);
+    });
   }
+
 
 
 

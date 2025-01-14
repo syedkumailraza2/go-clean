@@ -1,3 +1,4 @@
+import 'package:get_storage/get_storage.dart';
 import 'package:translator/translator.dart';
 
 import '/backend/api_requests/api_calls.dart';
@@ -31,17 +32,16 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget>
 
   final animationsMap = <String, AnimationInfo>{};
 
+  final box = GetStorage();
+
   @override
   void initState() {
     super.initState();
     _model = createModel(context, () => SignUpPageModel());
 
-    //if(_isToggled == true){
-      //       Translate('en', 'hr');
-      //     }
-      //     else {
-      //       Translate('hr', 'en');
-      //     }
+    //signup_page_static_translate('en', 'hi');
+
+    translated = box.read('signup_page_static') ?? txt;
 
     _model.textController1 ??= TextEditingController();
     _model.textFieldFocusNode1 ??= FocusNode();
@@ -74,19 +74,6 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget>
     });
   }
 
-  // bool _isToggled = false;
-  //
-  // void _toggleButton() {
-  //   setState(() {
-  //     _isToggled = !_isToggled;
-  //     if(_isToggled == true){
-  //       Translate('en', 'hr');
-  //     }
-  //     else {
-  //       Translate('hr', 'en');
-  //     }
-  //   });
-  // }
 
 
   var translated = List<String>.filled(10, '', growable: false);
@@ -103,15 +90,29 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget>
     'Sign in'
   ];
 
-  Future<void> Translate(String from, String dest) async {
+  List<String> translatedTexts = [];
+
+
+  Future<void> signup_page_static_translate (String from, String dest) async {
     GoogleTranslator translator = GoogleTranslator();
-    for (int i = 0; i < txt.length; i++) {
-      var translation = await translator.translate(txt[i], from: from, to: dest);
-      setState(() {
-        translated[i] = translation.text.toString();
-      });
+    List<String> translatedTexts = [];
+
+    for (String text in txt) {
+      try {
+        var translation = await translator.translate(text, from: from, to: dest);
+        translatedTexts.add(translation.text.toString());
+      } catch (e) {
+        print('Translation error: $e');
+        translatedTexts.add(text); // Fallback to original text if translation fails
+      }
     }
+
+    setState(() {
+      translated = translatedTexts;
+      box.write('signup_page_static', translatedTexts);
+    });
   }
+
 
 
   @override

@@ -1,3 +1,5 @@
+import 'package:get_storage/get_storage.dart';
+
 import '/custom_code/actions/index.dart' as actions;
 import 'package:provider/provider.dart';
 import 'package:flutter/gestures.dart';
@@ -12,6 +14,7 @@ import 'index.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await GetStorage.init();
   GoRouter.optionURLReflectsImperativeAPIs = true;
   usePathUrlStrategy();
   // firebase firebaseInit error add ios and android app
