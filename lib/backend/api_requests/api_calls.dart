@@ -17,7 +17,7 @@ class CarServiceGroup {
   static String getBaseUrl({
     String? token = '',
   }) =>
-      'http://192.168.0.104:3000/api';
+      'https://go-clean-backend.onrender.com/api';
   static Map<String, String> headers = {
     'Authorization': 'Bearer [token]',
   };
