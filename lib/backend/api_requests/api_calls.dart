@@ -17,7 +17,8 @@ class CarServiceGroup {
   static String getBaseUrl({
     String? token = '',
   }) =>
-      'https://go-clean-backend.onrender.com/api';
+        'https://stage.goclean.ba/api';
+      //'https://go-clean-backend.onrender.com/api';
   static Map<String, String> headers = {
     'Authorization': 'Bearer [token]',
   };
@@ -1261,6 +1262,8 @@ class AddVehicleApiCall {
       callType: ApiCallType.POST,
       headers: {
         'Authorization': 'Bearer ${token}',
+
+
       },
       params: {},
       body: ffApiRequestBody,

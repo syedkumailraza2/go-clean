@@ -966,28 +966,24 @@ class _HomeComponantWidgetState extends State<HomeComponantWidget> {
                                                                       MainAxisAlignment
                                                                           .spaceBetween,
                                                                   children: [
-                                                                    Text(
-                                                                      'Our Service',
-                                                                      maxLines:
-                                                                          1,
-                                                                      style: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .bodyMedium
-                                                                          .override(
-                                                                            fontFamily:
-                                                                                'SF Pro Display',
-                                                                            fontSize:
-                                                                                18.0,
-                                                                            letterSpacing:
-                                                                                0.0,
-                                                                            fontWeight:
-                                                                                FontWeight.w600,
-                                                                            useGoogleFonts:
-                                                                                false,
-                                                                            lineHeight:
-                                                                                1.5,
-                                                                          ),
-                                                                    ),
+                                                                    
+                                                                  Center(
+  child: Text(
+    'Our Service',
+    textAlign: TextAlign.center,
+    style: FlutterFlowTheme.of(context)
+        .bodyMedium
+        .override(
+          fontFamily: 'SF Pro Display',
+          fontSize: 18.0,
+          letterSpacing: 0.0,
+          fontWeight: FontWeight.w600,
+          useGoogleFonts: false,
+          lineHeight: 1.5,
+        ),
+  ),
+),
+
                                                                     InkWell(
                                                                       splashColor:
                                                                           Colors
@@ -1032,154 +1028,290 @@ class _HomeComponantWidgetState extends State<HomeComponantWidget> {
                                                                           0.0,
                                                                           16.0,
                                                                           0.0),
-                                                              child: ListView(
-                                                                padding:
-                                                                    EdgeInsets
-                                                                        .fromLTRB(
-                                                                  0,
-                                                                  16.0,
-                                                                  0,
-                                                                  16.0,
-                                                                ),
-                                                                primary: false,
-                                                                shrinkWrap:
-                                                                    true,
-                                                                scrollDirection:
-                                                                    Axis.vertical,
-                                                                children: [
-                                                                  if (CarServiceGroup
-                                                                          .servicesApiCall
-                                                                          .serviceDetailsList(
-                                                                            containerServicesApiResponse.jsonBody,
-                                                                          )
-                                                                          ?.length !=
-                                                                      0)
-                                                                    Builder(
-                                                                      builder:
-                                                                          (context) {
-                                                                        final recommendedServiceList = (CarServiceGroup.servicesApiCall
-                                                                                    .serviceDetailsList(
-                                                                                      containerServicesApiResponse.jsonBody,
-                                                                                    )
-                                                                                    ?.toList() ??
-                                                                                [])
-                                                                            .take(6)
-                                                                            .toList();
+                                                              
+                                                              // child: ListView(  
+                                                              //   padding:
+                                                              //       EdgeInsets
+                                                              //           .fromLTRB(
+                                                              //     0,
+                                                              //     16.0,
+                                                              //     0,
+                                                              //     16.0,
+                                                              //   ),
+                                                              //   primary: false,
+                                                              //   shrinkWrap:
+                                                              //       true,
+                                                              //   scrollDirection:
+                                                              //       Axis.vertical,
+                                                              //   children: [
+                                                              //     if (CarServiceGroup
+                                                              //             .servicesApiCall
+                                                              //             .serviceDetailsList(
+                                                              //               containerServicesApiResponse.jsonBody,
+                                                              //             )
+                                                              //             ?.length !=
+                                                              //         0)
+                                                              //       Builder(
+                                                              //         builder:
+                                                              //             (context) {
+                                                              //           final recommendedServiceList = (CarServiceGroup.servicesApiCall
+                                                              //                       .serviceDetailsList(
+                                                              //                         containerServicesApiResponse.jsonBody,
+                                                              //                       )
+                                                              //                       ?.toList() ??
+                                                              //                   [])
+                                                              //               .take(6)
+                                                              //               .toList();
 
-                                                                        return Wrap(
-                                                                          spacing:
-                                                                              16.0,
-                                                                          runSpacing:
-                                                                              16.0,
-                                                                          alignment:
-                                                                              WrapAlignment.start,
-                                                                          crossAxisAlignment:
-                                                                              WrapCrossAlignment.start,
-                                                                          direction:
-                                                                              Axis.horizontal,
-                                                                          runAlignment:
-                                                                              WrapAlignment.start,
-                                                                          verticalDirection:
-                                                                              VerticalDirection.down,
-                                                                          clipBehavior:
-                                                                              Clip.none,
-                                                                          children: List.generate(
-                                                                              recommendedServiceList.length,
-                                                                              (recommendedServiceListIndex) {
-                                                                            final recommendedServiceListItem =
-                                                                                recommendedServiceList[recommendedServiceListIndex];
-                                                                            return InkWell(
-                                                                              splashColor: Colors.transparent,
-                                                                              focusColor: Colors.transparent,
-                                                                              hoverColor: Colors.transparent,
-                                                                              highlightColor: Colors.transparent,
-                                                                              onTap: () async {
-                                                                                context.pushNamed(
-                                                                                  'BannerPage',
-                                                                                  queryParameters: {
-                                                                                    'serviceId': serializeParam(
-                                                                                      getJsonField(
-                                                                                        recommendedServiceListItem,
-                                                                                        r'''$.id''',
-                                                                                      ).toString(),
-                                                                                      ParamType.String,
-                                                                                    ),
-                                                                                    'name': serializeParam(
-                                                                                      getJsonField(
-                                                                                        recommendedServiceListItem,
-                                                                                        r'''$.name''',
-                                                                                      ).toString(),
-                                                                                      ParamType.String,
-                                                                                    ),
-                                                                                  }.withoutNulls,
-                                                                                );
-                                                                              },
-                                                                              child: Container(
-                                                                                width: () {
-                                                                                  if (MediaQuery.sizeOf(context).width < 810.0) {
-                                                                                    return ((MediaQuery.sizeOf(context).width - 64) * 1 / 3);
-                                                                                  } else if ((MediaQuery.sizeOf(context).width >= 810.0) && (MediaQuery.sizeOf(context).width < 1280.0)) {
-                                                                                    return ((MediaQuery.sizeOf(context).width - 96) * 1 / 5);
-                                                                                  } else if (MediaQuery.sizeOf(context).width >= 1280.0) {
-                                                                                    return ((MediaQuery.sizeOf(context).width - 144) * 1 / 8);
-                                                                                  } else {
-                                                                                    return ((MediaQuery.sizeOf(context).width - 144) * 1 / 8);
-                                                                                  }
-                                                                                }(),
-                                                                                height: 142.0,
-                                                                                decoration: BoxDecoration(),
-                                                                                child: Column(
-                                                                                  mainAxisSize: MainAxisSize.max,
-                                                                                  mainAxisAlignment: MainAxisAlignment.start,
-                                                                                  children: [
-                                                                                    Container(
-                                                                                      width: 91.0,
-                                                                                      height: 91.0,
-                                                                                      decoration: BoxDecoration(
-                                                                                        color: FlutterFlowTheme.of(context).primaryBackground,
-                                                                                        shape: BoxShape.circle,
-                                                                                      ),
-                                                                                      alignment: AlignmentDirectional(0.0, 0.0),
-                                                                                      child: ClipRRect(
-                                                                                        borderRadius: BorderRadius.circular(0.0),
-                                                                                        child: CachedNetworkImage(
-                                                                                          fadeInDuration: Duration(milliseconds: 200),
-                                                                                          fadeOutDuration: Duration(milliseconds: 200),
-                                                                                          imageUrl: '${FFAppConstants.imageUrl}${getJsonField(
-                                                                                            recommendedServiceListItem,
-                                                                                            r'''$.image''',
-                                                                                          ).toString()}',
-                                                                                          width: 40.0,
-                                                                                          height: 40.0,
-                                                                                          fit: BoxFit.contain,
-                                                                                        ),
-                                                                                      ),
-                                                                                    ),
-                                                                                    Text(
-                                                                                      getJsonField(
-                                                                                        recommendedServiceListItem,
-                                                                                        r'''$.name''',
-                                                                                      ).toString(),
-                                                                                      textAlign: TextAlign.center,
-                                                                                      maxLines: 2,
-                                                                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                            fontFamily: 'SF Pro Display',
-                                                                                            fontSize: 16.0,
-                                                                                            letterSpacing: 0.0,
-                                                                                            useGoogleFonts: false,
-                                                                                            lineHeight: 1.2,
-                                                                                          ),
-                                                                                    ),
-                                                                                  ].divide(SizedBox(height: 8.0)),
-                                                                                ),
-                                                                              ),
-                                                                            );
-                                                                          }),
-                                                                        );
-                                                                      },
-                                                                    ),
-                                                                ],
-                                                              ),
+                                                              //           return Wrap(
+                                                              //             spacing:
+                                                              //                 16.0,
+                                                              //             runSpacing:
+                                                              //                 16.0,
+                                                              //             alignment:
+                                                              //                 WrapAlignment.start,
+                                                              //             crossAxisAlignment:
+                                                              //                 WrapCrossAlignment.start,
+                                                              //             direction:
+                                                              //                 Axis.horizontal,
+                                                              //             runAlignment:
+                                                              //                 WrapAlignment.start,
+                                                              //             verticalDirection:
+                                                              //                 VerticalDirection.down,
+                                                              //             clipBehavior:
+                                                              //                 Clip.none,
+                                                              //             children: List.generate(
+                                                              //                 recommendedServiceList.length,
+                                                              //                 (recommendedServiceListIndex) {
+                                                              //               final recommendedServiceListItem =
+                                                              //                   recommendedServiceList[recommendedServiceListIndex];
+                                                              //               return InkWell(
+                                                              //                 splashColor: Colors.transparent,
+                                                              //                 focusColor: Colors.transparent,
+                                                              //                 hoverColor: Colors.transparent,
+                                                              //                 highlightColor: Colors.transparent,
+                                                              //                 onTap: () async {
+                                                              //                   context.pushNamed(
+                                                              //                     'BannerPage',
+                                                              //                     queryParameters: {
+                                                              //                       'serviceId': serializeParam(
+                                                              //                         getJsonField(
+                                                              //                           recommendedServiceListItem,
+                                                              //                           r'''$.id''',
+                                                              //                         ).toString(),
+                                                              //                         ParamType.String,
+                                                              //                       ),
+                                                              //                       'name': serializeParam(
+                                                              //                         getJsonField(
+                                                              //                           recommendedServiceListItem,
+                                                              //                           r'''$.name''',
+                                                              //                         ).toString(),
+                                                              //                         ParamType.String,
+                                                              //                       ),
+                                                              //                     }.withoutNulls,
+                                                              //                   );
+                                                              //                 },
+                                                              //                 child: Container(
+                                                              //                   width: () {
+                                                              //                     if (MediaQuery.sizeOf(context).width < 810.0) {
+                                                              //                       return ((MediaQuery.sizeOf(context).width - 64) * 1 / 3);
+                                                              //                     } else if ((MediaQuery.sizeOf(context).width >= 810.0) && (MediaQuery.sizeOf(context).width < 1280.0)) {
+                                                              //                       return ((MediaQuery.sizeOf(context).width - 96) * 1 / 5);
+                                                              //                     } else if (MediaQuery.sizeOf(context).width >= 1280.0) {
+                                                              //                       return ((MediaQuery.sizeOf(context).width - 144) * 1 / 8);
+                                                              //                     } else {
+                                                              //                       return ((MediaQuery.sizeOf(context).width - 144) * 1 / 8);
+                                                              //                     }
+                                                              //                   }(),
+                                                              //                   height: 142.0,
+                                                              //                   decoration: BoxDecoration(),
+                                                              //                   child: Column(
+                                                              //                     mainAxisSize: MainAxisSize.max,
+                                                              //                     mainAxisAlignment: MainAxisAlignment.start,
+                                                              //                     children: [
+                                                              //                       Container(
+                                                              //                         width: 91.0,
+                                                              //                         height: 91.0,
+                                                              //                         decoration: BoxDecoration(
+                                                              //                           color: FlutterFlowTheme.of(context).primaryBackground,
+                                                              //                           shape: BoxShape.circle,
+                                                              //                         ),
+                                                              //                         alignment: AlignmentDirectional(0.0, 0.0),
+                                                              //                         child: ClipRRect(
+                                                              //                           borderRadius: BorderRadius.circular(0.0),
+                                                              //                           child: CachedNetworkImage(
+                                                              //                             fadeInDuration: Duration(milliseconds: 200),
+                                                              //                             fadeOutDuration: Duration(milliseconds: 200),
+                                                              //                             imageUrl: '${FFAppConstants.imageUrl}${getJsonField(
+                                                              //                               recommendedServiceListItem,
+                                                              //                               r'''$.image''',
+                                                              //                             ).toString()}',
+                                                              //                             width: 40.0,
+                                                              //                             height: 40.0,
+                                                              //                             fit: BoxFit.contain,
+                                                              //                           ),
+                                                              //                         ),
+                                                              //                       ),
+                                                              //                       Text(
+                                                              //                         getJsonField(
+                                                              //                           recommendedServiceListItem,
+                                                              //                           r'''$.name''',
+                                                              //                         ).toString(),
+                                                              //                         textAlign: TextAlign.center,
+                                                              //                         maxLines: 2,
+                                                              //                         style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                              //                               fontFamily: 'SF Pro Display',
+                                                              //                               fontSize: 16.0,
+                                                              //                               letterSpacing: 0.0,
+                                                              //                               useGoogleFonts: false,
+                                                              //                               lineHeight: 1.2,
+                                                              //                             ),
+                                                              //                       ),
+                                                              //                     ].divide(SizedBox(height: 8.0)),
+                                                              //                   ),
+                                                              //                 ),
+                                                              //               );
+                                                              //             }),
+                                                              //           );
+                                                              //         },
+                                                              //       ),
+                                                              //   ],
+                                                              // ),
+                                                            
+                                                            child: ListView(
+  padding: EdgeInsets.fromLTRB(0, 16.0, 0, 16.0),
+  primary: false,
+  shrinkWrap: true,
+  scrollDirection: Axis.vertical,
+  children: [
+    if (CarServiceGroup.servicesApiCall.serviceDetailsList(
+          containerServicesApiResponse.jsonBody,
+        )?.length !=
+        0)
+      Builder(
+        builder: (context) {
+          final recommendedServiceList = (CarServiceGroup.servicesApiCall
+                      .serviceDetailsList(
+                        containerServicesApiResponse.jsonBody,
+                      )
+                      ?.toList() ??
+                  [])
+              .take(6)
+              .toList();
+
+          return Wrap(
+            spacing: 16.0,
+            runSpacing: 16.0,
+            alignment: WrapAlignment.center, // Centering items horizontally
+            crossAxisAlignment: WrapCrossAlignment.start,
+            direction: Axis.horizontal,
+            runAlignment: WrapAlignment.start,
+            verticalDirection: VerticalDirection.down,
+            clipBehavior: Clip.none,
+            children: List.generate(
+              recommendedServiceList.length,
+              (recommendedServiceListIndex) {
+                final recommendedServiceListItem =
+                    recommendedServiceList[recommendedServiceListIndex];
+                return InkWell(
+                  splashColor: Colors.transparent,
+                  focusColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onTap: () async {
+                    context.pushNamed(
+                      'BannerPage',
+                      queryParameters: {
+                        'serviceId': serializeParam(
+                          getJsonField(
+                            recommendedServiceListItem,
+                            r'''$.id''',
+                          ).toString(),
+                          ParamType.String,
+                        ),
+                        'name': serializeParam(
+                          getJsonField(
+                            recommendedServiceListItem,
+                            r'''$.name''',
+                          ).toString(),
+                          ParamType.String,
+                        ),
+                      }.withoutNulls,
+                    );
+                  },
+                  child: Container(
+                    width: () {
+                      if (MediaQuery.sizeOf(context).width < 810.0) {
+                        return ((MediaQuery.sizeOf(context).width - 64) * 1 / 3);
+                      } else if ((MediaQuery.sizeOf(context).width >= 810.0) &&
+                          (MediaQuery.sizeOf(context).width < 1280.0)) {
+                        return ((MediaQuery.sizeOf(context).width - 96) * 1 / 5);
+                      } else if (MediaQuery.sizeOf(context).width >= 1280.0) {
+                        return ((MediaQuery.sizeOf(context).width - 144) * 1 / 8);
+                      } else {
+                        return ((MediaQuery.sizeOf(context).width - 144) * 1 / 8);
+                      }
+                    }(),
+                    height: 142.0,
+                    decoration: BoxDecoration(),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Container(
+                          width: 91.0,
+                          height: 91.0,
+                          decoration: BoxDecoration(
+                            color: FlutterFlowTheme.of(context)
+                                .primaryBackground,
+                            shape: BoxShape.circle,
+                          ),
+                          alignment: AlignmentDirectional(0.0, 0.0),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(0.0),
+                            child: CachedNetworkImage(
+                              fadeInDuration: Duration(milliseconds: 200),
+                              fadeOutDuration: Duration(milliseconds: 200),
+                              imageUrl:
+                                  '${FFAppConstants.imageUrl}${getJsonField(
+                                recommendedServiceListItem,
+                                r'''$.image''',
+                              ).toString()}',
+                              width: 40.0,
+                              height: 40.0,
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                        ),
+                        Text(
+                          getJsonField(
+                            recommendedServiceListItem,
+                            r'''$.name''',
+                          ).toString(),
+                          textAlign: TextAlign.center,
+                          maxLines: 2,
+                          style: FlutterFlowTheme.of(context)
+                              .bodyMedium
+                              .override(
+                                fontFamily: 'SF Pro Display',
+                                fontSize: 16.0,
+                                letterSpacing: 0.0,
+                                useGoogleFonts: false,
+                                lineHeight: 1.2,
+                              ),
+                        ),
+                      ].divide(SizedBox(height: 8.0)),
+                    ),
+                  ),
+                );
+              },
+            ),
+          );
+        },
+      ),
+  ],
+)
+,
                                                             ),
                                                           ],
                                                         ),

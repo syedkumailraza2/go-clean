@@ -18,7 +18,7 @@ import 'checkout_page_model.dart';
 export 'checkout_page_model.dart';
 
 class CheckoutPageWidget extends StatefulWidget {
-  const CheckoutPageWidget({
+  CheckoutPageWidget({
     super.key,
     required this.bookingDate,
     required this.packageId,
@@ -47,6 +47,17 @@ class CheckoutPageWidget extends StatefulWidget {
   State<CheckoutPageWidget> createState() => _CheckoutPageWidgetState();
 }
 
+class Service {
+  final String name;
+  final double price;
+
+  Service({
+    required this.name,
+    required this.price,
+  });
+}
+
+
 class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
   late CheckoutPageModel _model;
 
@@ -67,6 +78,29 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
 
     super.dispose();
   }
+
+  List<Service> selectedServices = [];
+
+  double grandTotal () {
+    double total = widget.packagePrice ?? 0;
+    for (var service in selectedServices) {
+      total = total + service.price;
+    } 
+    return total;
+  }
+
+
+void addService(Service service) {
+  setState(() {
+    if (selectedServices.any((s) => s.name == service.name)) {
+      selectedServices.removeWhere((s) => s.name == service.name);
+    } else {
+      selectedServices.add(service);
+    }
+  });
+}
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -964,6 +998,374 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                                                               16.0),
                                                     ),
                                                     child: Padding(
+                                                        padding: EdgeInsets.all(
+                                                            16.0),
+
+                                                        // child: Column(
+                                                        //   mainAxisSize:
+                                                        //       MainAxisSize.max,
+                                                        //   children: [
+                                                        //     Row(
+                                                        //       mainAxisSize:
+                                                        //           MainAxisSize
+                                                        //               .max,
+                                                        //       mainAxisAlignment:
+                                                        //           MainAxisAlignment
+                                                        //               .spaceBetween,
+                                                        //       children: [
+                                                        //         Expanded(
+                                                        //           child: Text(
+                                                        //             'Service included',
+                                                        //             style: FlutterFlowTheme.of(
+                                                        //                     context)
+                                                        //                 .bodyMedium
+                                                        //                 .override(
+                                                        //                   fontFamily:
+                                                        //                       'SF Pro Display',
+                                                        //                   fontSize:
+                                                        //                       18.0,
+                                                        //                   letterSpacing:
+                                                        //                       0.0,
+                                                        //                   fontWeight:
+                                                        //                       FontWeight.w600,
+                                                        //                   useGoogleFonts:
+                                                        //                       false,
+                                                        //                   lineHeight:
+                                                        //                       1.5,
+                                                        //                 ),
+                                                        //           ),
+                                                        //         ),
+                                                        //       ],
+                                                        //     ),
+
+                                                        //     Row(
+                                                        //       mainAxisSize:
+                                                        //           MainAxisSize
+                                                        //               .max,
+                                                        //       crossAxisAlignment:
+                                                        //           CrossAxisAlignment
+                                                        //               .start,
+                                                        //       children: [
+                                                        //         Expanded(
+                                                        //           child: Padding(
+                                                        //             padding: EdgeInsetsDirectional
+                                                        //                 .fromSTEB(
+                                                        //                     0.0,
+                                                        //                     0.0,
+                                                        //                     12.0,
+                                                        //                     0.0),
+                                                        //             child: Text(
+                                                        //               valueOrDefault<
+                                                        //                   String>(
+                                                        //                 widget!
+                                                        //                     .packageTitle,
+                                                        //                 'Name',
+                                                        //               ),
+                                                        //               textAlign:
+                                                        //                   TextAlign
+                                                        //                       .start,
+                                                        //               style: FlutterFlowTheme.of(
+                                                        //                       context)
+                                                        //                   .bodyMedium
+                                                        //                   .override(
+                                                        //                     fontFamily:
+                                                        //                         'SF Pro Display',
+                                                        //                     color:
+                                                        //                         FlutterFlowTheme.of(context).secondaryText,
+                                                        //                     fontSize:
+                                                        //                         16.0,
+                                                        //                     letterSpacing:
+                                                        //                         0.0,
+                                                        //                     useGoogleFonts:
+                                                        //                         false,
+                                                        //                     lineHeight:
+                                                        //                         1.5,
+                                                        //                   ),
+                                                        //             ),
+                                                        //           ),
+                                                        //         ),
+                                                        //         Padding(
+                                                        //           padding:
+                                                        //               EdgeInsetsDirectional
+                                                        //                   .fromSTEB(
+                                                        //                       0.0,
+                                                        //                       0.0,
+                                                        //                       0.0,
+                                                        //                       4.0),
+                                                        //           child: custom_widgets
+                                                        //               .GetCurrencySymbool(
+                                                        //             width: 15.0,
+                                                        //             height: 18.0,
+                                                        //             isSimbool: widget!
+                                                        //                 .currencySymbol,
+                                                        //             color: FlutterFlowTheme.of(
+                                                        //                     context)
+                                                        //                 .primaryText,
+                                                        //             fontSize:
+                                                        //                 16.0,
+                                                        //           ),
+                                                        //         ),
+                                                        //         Text(
+                                                        //           valueOrDefault<
+                                                        //               String>(
+                                                        //             widget!
+                                                        //                 .packagePrice
+                                                        //                 ?.toString(),
+                                                        //             '0',
+                                                        //           ),
+                                                        //           style: FlutterFlowTheme.of(
+                                                        //                   context)
+                                                        //               .bodyMedium
+                                                        //               .override(
+                                                        //                 fontFamily:
+                                                        //                     'SF Pro Display',
+                                                        //                 fontSize:
+                                                        //                     16.0,
+                                                        //                 letterSpacing:
+                                                        //                     0.0,
+                                                        //                 useGoogleFonts:
+                                                        //                     false,
+                                                        //                 lineHeight:
+                                                        //                     1.4,
+                                                        //               ),
+                                                        //         ),
+                                                        //       ],
+                                                        //     ),
+
+                                                        //   ].divide(SizedBox(
+                                                        //       height: 16.0)),
+                                                        // ),
+
+                                                        child: Column(
+                                                          children: [
+                                                            Row(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .spaceBetween,
+                                                              children: [
+                                                                Expanded(
+                                                                  child: Text(
+                                                                    'Service included',
+                                                                    style: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .override(
+                                                                          fontFamily:
+                                                                              'SF Pro Display',
+                                                                          fontSize:
+                                                                              18.0,
+                                                                          letterSpacing:
+                                                                              0.0,
+                                                                          fontWeight:
+                                                                              FontWeight.w600,
+                                                                          useGoogleFonts:
+                                                                              false,
+                                                                          lineHeight:
+                                                                              1.5,
+                                                                        ),
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                            Row(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
+                                                              children: [
+                                                                Expanded(
+                                                                  child:
+                                                                      Padding(
+                                                                    padding: EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            0.0,
+                                                                            0.0,
+                                                                            12.0,
+                                                                            0.0),
+                                                                    child: Text(
+                                                                      valueOrDefault<
+                                                                          String>(
+                                                                        widget!
+                                                                            .packageTitle,
+                                                                        'Name',
+                                                                      ),
+                                                                      textAlign:
+                                                                          TextAlign
+                                                                              .start,
+                                                                      style: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .override(
+                                                                            fontFamily:
+                                                                                'SF Pro Display',
+                                                                            color:
+                                                                                FlutterFlowTheme.of(context).secondaryText,
+                                                                            fontSize:
+                                                                                16.0,
+                                                                            letterSpacing:
+                                                                                0.0,
+                                                                            useGoogleFonts:
+                                                                                false,
+                                                                            lineHeight:
+                                                                                1.5,
+                                                                          ),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                Padding(
+                                                                  padding: EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          4.0),
+                                                                  child: custom_widgets
+                                                                      .GetCurrencySymbool(
+                                                                    width: 15.0,
+                                                                    height:
+                                                                        18.0,
+                                                                    isSimbool:
+                                                                        widget!
+                                                                            .currencySymbol,
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primaryText,
+                                                                    fontSize:
+                                                                        16.0,
+                                                                  ),
+                                                                ),
+                                                                Text(
+                                                                  valueOrDefault<
+                                                                      String>(
+                                                                    widget!
+                                                                        .packagePrice
+                                                                        ?.toString(),
+                                                                    '0',
+                                                                  ),
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'SF Pro Display',
+                                                                        fontSize:
+                                                                            16.0,
+                                                                        letterSpacing:
+                                                                            0.0,
+                                                                        useGoogleFonts:
+                                                                            false,
+                                                                        lineHeight:
+                                                                            1.4,
+                                                                      ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                            for (var service
+                                                                in selectedServices)
+
+                                                               Row(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
+                                                              children: [
+                                                                Expanded(
+                                                                  child:
+                                                                      Padding(
+                                                                    padding: EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            0.0,
+                                                                            0.0,
+                                                                            12.0,
+                                                                            0.0),
+                                                                    child: Text(
+                                                                     service.name,
+                                                                      textAlign:
+                                                                          TextAlign
+                                                                              .start,
+                                                                      style: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .override(
+                                                                            fontFamily:
+                                                                                'SF Pro Display',
+                                                                            color:
+                                                                                FlutterFlowTheme.of(context).secondaryText,
+                                                                            fontSize:
+                                                                                16.0,
+                                                                            letterSpacing:
+                                                                                0.0,
+                                                                            useGoogleFonts:
+                                                                                false,
+                                                                            lineHeight:
+                                                                                1.5,
+                                                                          ),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                Padding(
+                                                                  padding: EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          4.0),
+                                                                  child: custom_widgets
+                                                                      .GetCurrencySymbool(
+                                                                    width: 15.0,
+                                                                    height:
+                                                                        18.0,
+                                                                    isSimbool:
+                                                                        widget!
+                                                                            .currencySymbol,
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primaryText,
+                                                                    fontSize:
+                                                                        16.0,
+                                                                  ),
+                                                                ),
+                                                                Text(
+                                                               '${service.price}',
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'SF Pro Display',
+                                                                        fontSize:
+                                                                            16.0,
+                                                                        letterSpacing:
+                                                                            0.0,
+                                                                        useGoogleFonts:
+                                                                            false,
+                                                                        lineHeight:
+                                                                            1.4,
+                                                                      ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ],
+                                                        )),
+                                                  ),
+                                                  Container(
+                                                    width: double.infinity,
+                                                    decoration: BoxDecoration(
+                                                      color: FlutterFlowTheme
+                                                              .of(context)
+                                                          .primaryBackground,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              16.0),
+                                                    ),
+                                                    child: Padding(
                                                       padding:
                                                           EdgeInsets.all(16.0),
                                                       child: Column(
@@ -980,7 +1382,7 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                                                             children: [
                                                               Expanded(
                                                                 child: Text(
-                                                                  'Service included',
+                                                                  'Add Extra Service',
                                                                   style: FlutterFlowTheme.of(
                                                                           context)
                                                                       .bodyMedium
@@ -1002,101 +1404,47 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                                                               ),
                                                             ],
                                                           ),
-                                                          Row(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
-                                                            children: [
-                                                              Expanded(
-                                                                child: Padding(
-                                                                  padding: EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0.0,
-                                                                          0.0,
-                                                                          12.0,
-                                                                          0.0),
-                                                                  child: Text(
-                                                                    valueOrDefault<
-                                                                        String>(
-                                                                      widget!
-                                                                          .packageTitle,
-                                                                      'Name',
-                                                                    ),
-                                                                    textAlign:
-                                                                        TextAlign
-                                                                            .start,
-                                                                    style: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .override(
-                                                                          fontFamily:
-                                                                              'SF Pro Display',
-                                                                          color:
-                                                                              FlutterFlowTheme.of(context).secondaryText,
-                                                                          fontSize:
-                                                                              16.0,
-                                                                          letterSpacing:
-                                                                              0.0,
-                                                                          useGoogleFonts:
-                                                                              false,
-                                                                          lineHeight:
-                                                                              1.5,
-                                                                        ),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                              Padding(
-                                                                padding:
-                                                                    EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            4.0),
-                                                                child: custom_widgets
-                                                                    .GetCurrencySymbool(
-                                                                  width: 15.0,
-                                                                  height: 18.0,
-                                                                  isSimbool: widget!
-                                                                      .currencySymbol,
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primaryText,
-                                                                  fontSize:
-                                                                      16.0,
-                                                                ),
-                                                              ),
-                                                              Text(
-                                                                valueOrDefault<
-                                                                    String>(
-                                                                  widget!
-                                                                      .packagePrice
-                                                                      ?.toString(),
-                                                                  '0',
-                                                                ),
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          'SF Pro Display',
-                                                                      fontSize:
-                                                                          16.0,
-                                                                      letterSpacing:
-                                                                          0.0,
-                                                                      useGoogleFonts:
-                                                                          false,
-                                                                      lineHeight:
-                                                                          1.4,
-                                                                    ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ].divide(SizedBox(
-                                                            height: 16.0)),
+                                                          SizedBox(
+                                                              height:
+                                                                  16.0), // To add space between the Row and ListView
+                                                          SizedBox(
+                                                            height:
+                                                                100.0, // Constrain the height of the ListView
+                                                            child: ListView(
+                                                              scrollDirection:
+                                                                  Axis.horizontal,
+                                                              children: [
+                                                                _buildServiceItem(
+                                                                    Icons
+                                                                        .engineering,
+                                                                    'Engine Washing',10),
+                                                                _buildServiceItem(
+                                                                    Icons
+                                                                        .auto_awesome,
+                                                                    'Leather Restoration',10),
+                                                                _buildServiceItem(
+                                                                    Icons.air,
+                                                                    'Air Freshener',10),
+                                                                _buildServiceItem(
+                                                                    Icons
+                                                                        .cleaning_services,
+                                                                    'Window Cleaning',10),
+                                                                _buildServiceItem(
+                                                                    Icons
+                                                                        .stairs,
+                                                                    'Removing Stubborn Stains',10),
+                                                                _buildServiceItem(
+                                                                    Icons
+                                                                        .auto_fix_high,
+                                                                    'Interior Polishing',10),
+                                                                _buildServiceItem(
+                                                                    Icons
+                                                                        .car_repair,
+                                                                    'Tire Care',10),
+                                                              ],
+                                                            ),
+                                                          )
+                                                        ],
                                                       ),
                                                     ),
                                                   ),
@@ -1605,10 +1953,7 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                                                                     ),
                                                                   ),
                                                                   Text(
-                                                                    functions
-                                                                        .roundToTwoDecimalPlaces(
-                                                                            widget!.packagePrice!)
-                                                                        .toString(),
+                                                                    grandTotal().toString(),
                                                                     style: FlutterFlowTheme.of(
                                                                             context)
                                                                         .bodyMedium
@@ -1767,7 +2112,7 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                                                                             return Text(
                                                                               functions
                                                                                   .roundToTwoDecimalPlaces(functions.calculatePercentage(
-                                                                                      widget!.packagePrice!,
+                                                                                      grandTotal(),
                                                                                       getJsonField(
                                                                                         CarServiceGroup.getCouponsApiCall
                                                                                             .couponDetailsList(
@@ -1935,7 +2280,7 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                                                                                       return Text(
                                                                                         functions
                                                                                             .roundToTwoDecimalPlaces(functions.calculatePercentageOfDifference(
-                                                                                                widget!.packagePrice!,
+                                                                                                grandTotal(),
                                                                                                 valueOrDefault<int>(
                                                                                                   getJsonField(
                                                                                                     CarServiceGroup.getCouponsApiCall
@@ -1974,7 +2319,7 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                                                                                       return Text(
                                                                                         functions
                                                                                             .roundToTwoDecimalPlaces(functions.calculatePercentageOfResult(
-                                                                                                widget!.packagePrice!,
+                                                                                                grandTotal(),
                                                                                                 valueOrDefault<int>(
                                                                                                   getJsonField(
                                                                                                     CarServiceGroup.getCouponsApiCall
@@ -2016,7 +2361,7 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                                                                                 return Text(
                                                                                   functions
                                                                                       .roundToTwoDecimalPlaces(functions.calculatePercentageString(
-                                                                                          widget!.packagePrice!,
+                                                                                          grandTotal(),
                                                                                           valueOrDefault<String>(
                                                                                             CarServiceGroup.standardRateApiCall.taxRate(
                                                                                               columnStandardRateApiResponse.jsonBody,
@@ -2040,7 +2385,7 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                                                                           return Text(
                                                                             functions
                                                                                 .roundToTwoDecimalPlaces(functions.calculatePercentageString(
-                                                                                    widget!.packagePrice!,
+                                                                                    grandTotal(),
                                                                                     valueOrDefault<String>(
                                                                                       CarServiceGroup.standardRateApiCall.taxRate(
                                                                                         columnStandardRateApiResponse.jsonBody,
@@ -2125,6 +2470,7 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                                                                       ),
                                                                     ),
                                                                   ),
+
                                                                   Builder(
                                                                     builder:
                                                                         (context) {
@@ -2159,7 +2505,7 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                                                                                     return Text(
                                                                                       functions
                                                                                           .roundToTwoDecimalPlaces(functions.fixedCouponPrice(
-                                                                                              widget!.packagePrice!,
+                                                                                              grandTotal(),
                                                                                               valueOrDefault<int>(
                                                                                                 getJsonField(
                                                                                                   CarServiceGroup.getCouponsApiCall
@@ -2198,7 +2544,7 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                                                                                     return Text(
                                                                                       functions
                                                                                           .roundToTwoDecimalPlaces(functions.percentageCouponPrice(
-                                                                                              widget!.packagePrice!,
+                                                                                              grandTotal(),
                                                                                               valueOrDefault<int>(
                                                                                                 getJsonField(
                                                                                                   CarServiceGroup.getCouponsApiCall
@@ -2238,7 +2584,7 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                                                                               );
                                                                             } else {
                                                                               return Text(
-                                                                                functions.roundToTwoDecimalPlaces(widget!.packagePrice!).toString(),
+                                                                                functions.roundToTwoDecimalPlaces(grandTotal()).toString(),
                                                                                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                       fontFamily: 'SF Pro Display',
                                                                                       fontSize: 18.0,
@@ -2255,7 +2601,7 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                                                                         return Text(
                                                                           functions
                                                                               .roundToTwoDecimalPlaces(functions.additionAmountVat(
-                                                                                  widget!.packagePrice!,
+                                                                                  grandTotal(),
                                                                                   valueOrDefault<String>(
                                                                                     CarServiceGroup.standardRateApiCall.taxRate(
                                                                                       columnStandardRateApiResponse.jsonBody,
@@ -2277,6 +2623,7 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                                                                       }
                                                                     },
                                                                   ),
+                                                                
                                                                 ],
                                                               ),
                                                             ].divide(SizedBox(
@@ -2381,8 +2728,7 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                                                                     true)) {
                                                               return functions.roundToTwoDecimalPlaces(functions
                                                                   .fixedCouponPrice(
-                                                                      widget!
-                                                                          .packagePrice!,
+                                                                     grandTotal(),
                                                                       valueOrDefault<
                                                                           int>(
                                                                         getJsonField(
@@ -2442,8 +2788,7 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                                                                     true)) {
                                                               return functions.roundToTwoDecimalPlaces(functions
                                                                   .percentageCouponPrice(
-                                                                      widget!
-                                                                          .packagePrice!,
+                                                                     grandTotal(),
                                                                       valueOrDefault<
                                                                           int>(
                                                                         getJsonField(
@@ -2478,8 +2823,7 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                                                                 false) {
                                                               return functions.roundToTwoDecimalPlaces(functions
                                                                   .additionAmountVat(
-                                                                      widget!
-                                                                          .packagePrice!,
+                                                                      grandTotal(),
                                                                       valueOrDefault<
                                                                           String>(
                                                                         CarServiceGroup
@@ -2493,8 +2837,7 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                                                             } else {
                                                               return functions.roundToTwoDecimalPlaces(functions
                                                                   .additionAmountVat(
-                                                                      widget!
-                                                                          .packagePrice!,
+                                                                      grandTotal(),
                                                                       valueOrDefault<
                                                                           String>(
                                                                         CarServiceGroup
@@ -2528,8 +2871,7 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                                                             serializeParam(
                                                           functions
                                                               .roundToTwoDecimalPlaces(
-                                                                  widget!
-                                                                      .packagePrice!),
+                                                                  grandTotal()),
                                                           ParamType.double,
                                                         ),
                                                         'addressId':
@@ -3462,6 +3804,35 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
           ),
         );
       },
+    );
+  }
+
+  Widget _buildServiceItem(IconData icon, String serviceName, double price) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+      child: GestureDetector(
+        onTap: () {
+          addService(Service(name:serviceName, price:price));
+        },
+        child: Column(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(100),
+                color: selectedServices.contains(serviceName)? FlutterFlowTheme.of(context).primary : Colors.grey[200], // Optional background color
+              ),
+              padding: const EdgeInsets.all(20.0),
+              child: Icon(
+                icon,
+                color:  selectedServices.contains(serviceName)? Colors.white : Colors.black,
+                size: 30,
+              ),
+            ),
+            SizedBox(height: 10),
+            Text(serviceName),
+          ],
+        ),
+      ),
     );
   }
 }
