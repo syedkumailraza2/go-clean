@@ -1,3 +1,5 @@
+import 'package:get_storage/get_storage.dart';
+
 import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -86,6 +88,8 @@ class _PaymentSuccessPageWidgetState extends State<PaymentSuccessPageWidget> {
   late PaymentSuccessPageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  final box = GetStorage();
 
   @override
   void initState() {
@@ -288,17 +292,15 @@ Future<void> addDataToDB() async {
   try {
     final dio = Dio();
     final baseUrl = 'https://stage.goclean.ba/api';
-    final response = await dio.post(
-      '${baseUrl}/book_vehicle',
-      data: {
-        "user": {
+    final firstName = box.read('firstName');
+    final lastName = box.read('lastName');
+    final email = box.read('email');
+    final username = '$firstName $lastName';
+    final Data = {
+      "user": {
           "userId": FFAppState().userId,
-          "username": CarServiceGroup.getUserApiCall.username(
-              (_model.getUserPayment?.jsonBody ?? ''),
-            ),
-          "email": CarServiceGroup.getUserApiCall.email(
-              (_model.getUserPayment?.jsonBody ?? ''),
-            ),
+          "username": username,
+          "email": email,
         },
         "address": {
           "addressId": widget.addressId,
@@ -329,7 +331,7 @@ Future<void> addDataToDB() async {
         "bookingTime": widget.bookingTime,
         "paymentMode": widget.paymentMode,
         "transactionId": widget.transactionId,
-        "paymentStatus": widget.paymentStatus,
+        "paymentStatus":'pending',
         "orderStatus": widget.orderStatus,
         "subTotal": widget.subTotal,
         "coupon_code": widget.couponCode,
@@ -337,8 +339,18 @@ Future<void> addDataToDB() async {
         "coupon_amount": widget.couponAmount,
         "VAT": widget.vat,
         "Total": widget.total,
+    };
+
+     print('Data: ${Data}');
+    
+    final response = await dio.post(
+      '${baseUrl}/book_vehicle',
+      data: {
+        Data
       },
     );
+
+   
 
     if (response.statusCode == 201 || response.statusCode == 200) {
       print("Data successfully added: ${response.data}");

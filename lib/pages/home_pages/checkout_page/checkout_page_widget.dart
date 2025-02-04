@@ -65,6 +65,7 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   final box = GetStorage();
+  TextEditingController _vinController = TextEditingController();
 
   @override
   void initState() {
@@ -102,6 +103,7 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
     'Coupon',
     'Grand total',
     'Proceed to payment',
+    'Enter VIN Number'
   ];
 
   List<String> translatedTexts = [];
@@ -1293,6 +1295,7 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                                                                       )
                                                                     : SizedBox
                                                                         .shrink(),
+                                                                        
                                                                 widget.serviceName ==
                                                                         'Car Wash'
                                                                     ? Text(
@@ -1400,6 +1403,82 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                                                           ],
                                                         )),
                                                   ),
+                                                    widget.serviceName != 'Car Wash' ? 
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    16.0, 8.0, 16.0, 16.0),
+                                                    child: Container(
+                                                                          width:
+                                                                              double.infinity,
+                                                                          decoration:
+                                                                              BoxDecoration(
+                                                                            color:
+                                                                                FlutterFlowTheme.of(context).primaryBackground,
+                                                                            borderRadius:
+                                                                                BorderRadius.circular(16.0),
+                                                                          ),
+                                                                          child:
+                                                                              Padding(
+                                                                            padding: EdgeInsetsDirectional.fromSTEB(
+                                                                                0.0,
+                                                                                8.0,
+                                                                                8.0,
+                                                                                8.0),
+                                                                            child:
+                                                                                Row(
+                                                                              mainAxisSize: MainAxisSize.max,
+                                                                              children: [
+                                                                                Expanded(
+                                                                                  child: TextFormField(
+                                                                                    controller: _vinController,
+                                                                                    focusNode: _model.textFieldFocusNode,
+                                                                                    autofocus: false,
+                                                                                    textInputAction: TextInputAction.next,
+                                                                                    obscureText: false,
+                                                                                    decoration: InputDecoration(
+                                                                                      hintText: translated[23].isEmpty ? txt[23] : translated[23], //'Enter VIN Number',
+                                                                                      hintStyle: FlutterFlowTheme.of(context).labelMedium.override(
+                                                                                            fontFamily: 'SF Pro Display',
+                                                                                            fontSize: 16.0,
+                                                                                            letterSpacing: 0.0,
+                                                                                            useGoogleFonts: false,
+                                                                                            lineHeight: 1.2,
+                                                                                          ),
+                                                                                      errorStyle: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                            fontFamily: 'SF Pro Display',
+                                                                                            color: FlutterFlowTheme.of(context).error,
+                                                                                            fontSize: 16.0,
+                                                                                            letterSpacing: 0.0,
+                                                                                            useGoogleFonts: false,
+                                                                                            lineHeight: 1.2,
+                                                                                          ),
+                                                                                      enabledBorder: InputBorder.none,
+                                                                                      focusedBorder: InputBorder.none,
+                                                                                      errorBorder: InputBorder.none,
+                                                                                      focusedErrorBorder: InputBorder.none,
+                                                                                      contentPadding: EdgeInsetsDirectional.fromSTEB(16.0, 17.0, 16.0, 17.0),
+                                                                                    ),
+                                                                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                          fontFamily: 'SF Pro Display',
+                                                                                          fontSize: 16.0,
+                                                                                          letterSpacing: 0.0,
+                                                                                          useGoogleFonts: false,
+                                                                                          lineHeight: 1.2,
+                                                                                        ),
+                                                                                    keyboardType: TextInputType.emailAddress,
+                                                                                    cursorColor: FlutterFlowTheme.of(context).primaryText,
+                                                                                    validator: _model.textControllerValidator.asValidator(context),
+                                                                                  ),
+                                                                                ),
+                                                                                
+                                                                              ].divide(SizedBox(width: 12.0)),
+                                                                            ),
+                                                                          ),
+                                                                        )
+                                                                       
+                                          ) : SizedBox.shrink(),
+                                          
                                                   // Text(' Service Name: ${widget.serviceName}'),
                                                   // Text(' Package Name: ${widget.packageTitle}'),
                                                   Container(
@@ -2593,6 +2672,7 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                                               ),
                                             ),
                                           ),
+                                        
                                           Padding(
                                             padding:
                                                 EdgeInsetsDirectional.fromSTEB(
@@ -3808,7 +3888,11 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                                                           }(),
                                                           ParamType.double,
                                                         ),
-                                                        'isCarService': true,
+                                                        'isCarService': 
+                                                        serializeParam(
+                                                          true,
+                                                          ParamType.bool,
+                                                        ),
                                                         'packageId':
                                                             serializeParam(
                                                           widget!.packageId,
@@ -3877,7 +3961,7 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                                                                 ).toString(),
                                                           ParamType.String,
                                                         ),
-                                                        'type': serializeParam(
+                                                        'addressType': serializeParam(
                                                           CarServiceGroup
                                                                   .getAddressApiCall
                                                                   .addressDetails(
@@ -3922,7 +4006,7 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                                                                 ).toString(),
                                                           ParamType.String,
                                                         ),
-                                                        'street':
+                                                        'addressStreet':
                                                             serializeParam(
                                                           CarServiceGroup
                                                                   .getAddressApiCall
@@ -3968,7 +4052,7 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                                                                 ).toString(),
                                                           ParamType.String,
                                                         ),
-                                                        'city': serializeParam(
+                                                        'addressCity': serializeParam(
                                                           CarServiceGroup
                                                                   .getAddressApiCall
                                                                   .addressDetails(
@@ -4013,7 +4097,7 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                                                                 ).toString(),
                                                           ParamType.String,
                                                         ),
-                                                        'state': serializeParam(
+                                                        'addresState': serializeParam(
                                                           CarServiceGroup
                                                                   .getAddressApiCall
                                                                   .addressDetails(
@@ -4058,7 +4142,7 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                                                                 ).toString(),
                                                           ParamType.String,
                                                         ),
-                                                        'zipcode':
+                                                        'addresZipcode':
                                                             serializeParam(
                                                           CarServiceGroup
                                                                   .getAddressApiCall
@@ -4104,7 +4188,7 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                                                                 ).toString(),
                                                           ParamType.String,
                                                         ),
-                                                        'country':
+                                                        'addressCountry':
                                                             serializeParam(
                                                           CarServiceGroup
                                                                   .getAddressApiCall

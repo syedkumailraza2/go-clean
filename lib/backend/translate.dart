@@ -73,6 +73,7 @@ class Translate {
     'Coupon',
     'Grand total',
     'Proceed to payment',
+    'Enter VIN Number'
   ];
 
   List<String> home_static_translatedTexts = [];

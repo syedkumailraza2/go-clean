@@ -169,7 +169,22 @@ class _HomeComponantWidgetState extends State<HomeComponantWidget> {
                                   );
                                 }
                                 final columnGetUserApiResponse = snapshot.data!;
-
+                                final firstName = CarServiceGroup.getUserApiCall.firstname(
+                                                                columnGetUserApiResponse
+                                                                    .jsonBody,
+                                                              );
+                                final lastName = CarServiceGroup.getUserApiCall.lastname(
+                                                                columnGetUserApiResponse
+                                                                    .jsonBody,
+                                                              );
+                                final email = CarServiceGroup.getUserApiCall.email(
+                                                                columnGetUserApiResponse
+                                                                    .jsonBody,
+                                                              );
+                                box.write('firstName', firstName);
+                                box.write('lastName', lastName);
+                                box.write('email', email);
+                                                            
                                 return Column(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
@@ -211,13 +226,7 @@ class _HomeComponantWidgetState extends State<HomeComponantWidget> {
                                                                   .isLogin ==
                                                               true) {
                                                             return Text(
-                                                              'Hello, ${CarServiceGroup.getUserApiCall.firstname(
-                                                                columnGetUserApiResponse
-                                                                    .jsonBody,
-                                                              )} ${CarServiceGroup.getUserApiCall.lastname(
-                                                                columnGetUserApiResponse
-                                                                    .jsonBody,
-                                                              )}',
+                                                              'Hello, $firstName $lastName',
                                                               maxLines: 1,
                                                               style: FlutterFlowTheme
                                                                       .of(context)
