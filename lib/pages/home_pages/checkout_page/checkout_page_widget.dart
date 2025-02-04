@@ -2488,7 +2488,7 @@ void addService(Service service) {
                                                                           0.0),
                                                                       child:
                                                                           Text(
-                                                                        translated[20].isEmpty ? txt[20] : translated[20], //'Grand total',
+                                                                        translated[21].isEmpty ? txt[21] : translated[21], //'Grand total',
                                                                         style: FlutterFlowTheme.of(context)
                                                                             .bodyMedium
                                                                             .override(
