@@ -2647,9 +2647,10 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                                                             ''),
                                                       ))!
                                                           .isNotEmpty) {
-                                                    context.pushNamed(
-                                                      //'PaymentMethodPage',
-                                                      'PaymentSuccessPage',
+                                                    if(widget.serviceName == 'Car Wash'){
+                                                         context.pushNamed(
+                                                      'PaymentMethodPage',
+                                                      //'PaymentSuccessPage',
                                                       queryParameters: {
                                                         'total': serializeParam(
                                                           () {
@@ -3645,6 +3646,1008 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                                                       }.withoutNulls,
                                                     );
                                                  
+                                                    }
+                                                 else {
+                                                     context.pushNamed(
+                                                      //'PaymentMethodPage',
+                                                      'PaymentSuccessPage',
+                                                      queryParameters: {
+                                                        'total': serializeParam(
+                                                          () {
+                                                            if ((CarServiceGroup
+                                                                        .applyCouponApiCall
+                                                                        .success(
+                                                                      (_model.applyCouponFunction
+                                                                              ?.jsonBody ??
+                                                                          ''),
+                                                                    ) ==
+                                                                    1) &&
+                                                                ('fixed' ==
+                                                                    getJsonField(
+                                                                      CarServiceGroup
+                                                                          .getCouponsApiCall
+                                                                          .couponDetailsList(
+                                                                            checkoutPageGetCouponsApiResponse.jsonBody,
+                                                                          )
+                                                                          ?.where((e) =>
+                                                                              _model.textController.text ==
+                                                                              getJsonField(
+                                                                                e,
+                                                                                r'''$.coupon_code''',
+                                                                              ).toString())
+                                                                          .toList()
+                                                                          ?.first,
+                                                                      r'''$.coupon_type''',
+                                                                    )
+                                                                        .toString()) &&
+                                                                (_model.isApplied ==
+                                                                    true)) {
+                                                              return functions.roundToTwoDecimalPlaces(functions
+                                                                  .fixedCouponPrice(
+                                                                      grandTotal(),
+                                                                      valueOrDefault<
+                                                                          int>(
+                                                                        getJsonField(
+                                                                          CarServiceGroup
+                                                                              .getCouponsApiCall
+                                                                              .couponDetailsList(
+                                                                                checkoutPageGetCouponsApiResponse.jsonBody,
+                                                                              )
+                                                                              ?.where((e) =>
+                                                                                  _model.textController.text ==
+                                                                                  getJsonField(
+                                                                                    e,
+                                                                                    r'''$.coupon_code''',
+                                                                                  ).toString())
+                                                                              .toList()
+                                                                              ?.first,
+                                                                          r'''$.coupon_amount''',
+                                                                        ),
+                                                                        0,
+                                                                      ).toDouble(),
+                                                                      valueOrDefault<String>(
+                                                                        CarServiceGroup
+                                                                            .standardRateApiCall
+                                                                            .taxRate(
+                                                                          columnStandardRateApiResponse
+                                                                              .jsonBody,
+                                                                        ),
+                                                                        'Rate',
+                                                                      )));
+                                                            } else if ((CarServiceGroup
+                                                                        .applyCouponApiCall
+                                                                        .success(
+                                                                      (_model.applyCouponFunction
+                                                                              ?.jsonBody ??
+                                                                          ''),
+                                                                    ) ==
+                                                                    1) &&
+                                                                ('percentage' ==
+                                                                    getJsonField(
+                                                                      CarServiceGroup
+                                                                          .getCouponsApiCall
+                                                                          .couponDetailsList(
+                                                                            checkoutPageGetCouponsApiResponse.jsonBody,
+                                                                          )
+                                                                          ?.where((e) =>
+                                                                              _model.textController.text ==
+                                                                              getJsonField(
+                                                                                e,
+                                                                                r'''$.coupon_code''',
+                                                                              ).toString())
+                                                                          .toList()
+                                                                          ?.first,
+                                                                      r'''$.coupon_type''',
+                                                                    )
+                                                                        .toString()) &&
+                                                                (_model.isApplied ==
+                                                                    true)) {
+                                                              return functions.roundToTwoDecimalPlaces(functions
+                                                                  .percentageCouponPrice(
+                                                                      grandTotal(),
+                                                                      valueOrDefault<
+                                                                          int>(
+                                                                        getJsonField(
+                                                                          CarServiceGroup
+                                                                              .getCouponsApiCall
+                                                                              .couponDetailsList(
+                                                                                checkoutPageGetCouponsApiResponse.jsonBody,
+                                                                              )
+                                                                              ?.where((e) =>
+                                                                                  _model.textController.text ==
+                                                                                  getJsonField(
+                                                                                    e,
+                                                                                    r'''$.coupon_code''',
+                                                                                  ).toString())
+                                                                              .toList()
+                                                                              ?.first,
+                                                                          r'''$.coupon_amount''',
+                                                                        ),
+                                                                        0,
+                                                                      ).toDouble(),
+                                                                      valueOrDefault<String>(
+                                                                        CarServiceGroup
+                                                                            .standardRateApiCall
+                                                                            .taxRate(
+                                                                          columnStandardRateApiResponse
+                                                                              .jsonBody,
+                                                                        ),
+                                                                        'Rate',
+                                                                      )));
+                                                            } else if (_model
+                                                                    .isApplied ==
+                                                                false) {
+                                                              return functions.roundToTwoDecimalPlaces(functions
+                                                                  .additionAmountVat(
+                                                                      grandTotal(),
+                                                                      valueOrDefault<
+                                                                          String>(
+                                                                        CarServiceGroup
+                                                                            .standardRateApiCall
+                                                                            .taxRate(
+                                                                          columnStandardRateApiResponse
+                                                                              .jsonBody,
+                                                                        ),
+                                                                        '0',
+                                                                      )));
+                                                            } else {
+                                                              return functions.roundToTwoDecimalPlaces(functions
+                                                                  .additionAmountVat(
+                                                                      grandTotal(),
+                                                                      valueOrDefault<
+                                                                          String>(
+                                                                        CarServiceGroup
+                                                                            .standardRateApiCall
+                                                                            .taxRate(
+                                                                          columnStandardRateApiResponse
+                                                                              .jsonBody,
+                                                                        ),
+                                                                        '0',
+                                                                      )));
+                                                            }
+                                                          }(),
+                                                          ParamType.double,
+                                                        ),
+                                                        'isCarService': true,
+                                                        'packageId':
+                                                            serializeParam(
+                                                          widget!.packageId,
+                                                          ParamType.String,
+                                                        ),
+                                                        'packageTitle':
+                                                            serializeParam(
+                                                          widget!.packageTitle,
+                                                          ParamType.String,
+                                                        ),
+                                                        'packageImage':
+                                                            serializeParam(
+                                                          widget!.packageImage,
+                                                          ParamType.String,
+                                                        ),
+                                                        'packagePrice':
+                                                            serializeParam(
+                                                          functions
+                                                              .roundToTwoDecimalPlaces(
+                                                                  grandTotal()),
+                                                          ParamType.double,
+                                                        ),
+                                                        'addressId':
+                                                            serializeParam(
+                                                          CarServiceGroup
+                                                                  .getAddressApiCall
+                                                                  .addressDetails(
+                                                                    (_model.getAddressFunction
+                                                                            ?.jsonBody ??
+                                                                        ''),
+                                                                  )!
+                                                                  .where((e) =>
+                                                                      true ==
+                                                                      getJsonField(
+                                                                        e,
+                                                                        r'''$.is_default''',
+                                                                      ))
+                                                                  .toList()
+                                                                  .isNotEmpty
+                                                              ? getJsonField(
+                                                                  CarServiceGroup
+                                                                      .getAddressApiCall
+                                                                      .addressDetails(
+                                                                        (_model.getAddressFunction?.jsonBody ??
+                                                                            ''),
+                                                                      )
+                                                                      ?.where((e) =>
+                                                                          true ==
+                                                                          getJsonField(
+                                                                            e,
+                                                                            r'''$.is_default''',
+                                                                          ))
+                                                                      .toList()
+                                                                      ?.first,
+                                                                  r'''$.id''',
+                                                                ).toString()
+                                                              : getJsonField(
+                                                                  CarServiceGroup
+                                                                      .getAddressApiCall
+                                                                      .addressDetails(
+                                                                        (_model.getAddressFunction?.jsonBody ??
+                                                                            ''),
+                                                                      )
+                                                                      ?.first,
+                                                                  r'''$.id''',
+                                                                ).toString(),
+                                                          ParamType.String,
+                                                        ),
+                                                        'type': serializeParam(
+                                                          CarServiceGroup
+                                                                  .getAddressApiCall
+                                                                  .addressDetails(
+                                                                    (_model.getAddressFunction
+                                                                            ?.jsonBody ??
+                                                                        ''),
+                                                                  )!
+                                                                  .where((e) =>
+                                                                      true ==
+                                                                      getJsonField(
+                                                                        e,
+                                                                        r'''$.is_default''',
+                                                                      ))
+                                                                  .toList()
+                                                                  .isNotEmpty
+                                                              ? getJsonField(
+                                                                  CarServiceGroup
+                                                                      .getAddressApiCall
+                                                                      .addressDetails(
+                                                                        (_model.getAddressFunction?.jsonBody ??
+                                                                            ''),
+                                                                      )
+                                                                      ?.where((e) =>
+                                                                          true ==
+                                                                          getJsonField(
+                                                                            e,
+                                                                            r'''$.is_default''',
+                                                                          ))
+                                                                      .toList()
+                                                                      ?.first,
+                                                                  r'''$.type''',
+                                                                ).toString()
+                                                              : getJsonField(
+                                                                  CarServiceGroup
+                                                                      .getAddressApiCall
+                                                                      .addressDetails(
+                                                                        (_model.getAddressFunction?.jsonBody ??
+                                                                            ''),
+                                                                      )
+                                                                      ?.first,
+                                                                  r'''$.type''',
+                                                                ).toString(),
+                                                          ParamType.String,
+                                                        ),
+                                                        'street':
+                                                            serializeParam(
+                                                          CarServiceGroup
+                                                                  .getAddressApiCall
+                                                                  .addressDetails(
+                                                                    (_model.getAddressFunction
+                                                                            ?.jsonBody ??
+                                                                        ''),
+                                                                  )!
+                                                                  .where((e) =>
+                                                                      true ==
+                                                                      getJsonField(
+                                                                        e,
+                                                                        r'''$.is_default''',
+                                                                      ))
+                                                                  .toList()
+                                                                  .isNotEmpty
+                                                              ? getJsonField(
+                                                                  CarServiceGroup
+                                                                      .getAddressApiCall
+                                                                      .addressDetails(
+                                                                        (_model.getAddressFunction?.jsonBody ??
+                                                                            ''),
+                                                                      )
+                                                                      ?.where((e) =>
+                                                                          true ==
+                                                                          getJsonField(
+                                                                            e,
+                                                                            r'''$.is_default''',
+                                                                          ))
+                                                                      .toList()
+                                                                      ?.first,
+                                                                  r'''$.street''',
+                                                                ).toString()
+                                                              : getJsonField(
+                                                                  CarServiceGroup
+                                                                      .getAddressApiCall
+                                                                      .addressDetails(
+                                                                        (_model.getAddressFunction?.jsonBody ??
+                                                                            ''),
+                                                                      )
+                                                                      ?.first,
+                                                                  r'''$.street''',
+                                                                ).toString(),
+                                                          ParamType.String,
+                                                        ),
+                                                        'city': serializeParam(
+                                                          CarServiceGroup
+                                                                  .getAddressApiCall
+                                                                  .addressDetails(
+                                                                    (_model.getAddressFunction
+                                                                            ?.jsonBody ??
+                                                                        ''),
+                                                                  )!
+                                                                  .where((e) =>
+                                                                      true ==
+                                                                      getJsonField(
+                                                                        e,
+                                                                        r'''$.is_default''',
+                                                                      ))
+                                                                  .toList()
+                                                                  .isNotEmpty
+                                                              ? getJsonField(
+                                                                  CarServiceGroup
+                                                                      .getAddressApiCall
+                                                                      .addressDetails(
+                                                                        (_model.getAddressFunction?.jsonBody ??
+                                                                            ''),
+                                                                      )
+                                                                      ?.where((e) =>
+                                                                          true ==
+                                                                          getJsonField(
+                                                                            e,
+                                                                            r'''$.is_default''',
+                                                                          ))
+                                                                      .toList()
+                                                                      ?.first,
+                                                                  r'''$.city''',
+                                                                ).toString()
+                                                              : getJsonField(
+                                                                  CarServiceGroup
+                                                                      .getAddressApiCall
+                                                                      .addressDetails(
+                                                                        (_model.getAddressFunction?.jsonBody ??
+                                                                            ''),
+                                                                      )
+                                                                      ?.first,
+                                                                  r'''$.city''',
+                                                                ).toString(),
+                                                          ParamType.String,
+                                                        ),
+                                                        'state': serializeParam(
+                                                          CarServiceGroup
+                                                                  .getAddressApiCall
+                                                                  .addressDetails(
+                                                                    (_model.getAddressFunction
+                                                                            ?.jsonBody ??
+                                                                        ''),
+                                                                  )!
+                                                                  .where((e) =>
+                                                                      true ==
+                                                                      getJsonField(
+                                                                        e,
+                                                                        r'''$.is_default''',
+                                                                      ))
+                                                                  .toList()
+                                                                  .isNotEmpty
+                                                              ? getJsonField(
+                                                                  CarServiceGroup
+                                                                      .getAddressApiCall
+                                                                      .addressDetails(
+                                                                        (_model.getAddressFunction?.jsonBody ??
+                                                                            ''),
+                                                                      )
+                                                                      ?.where((e) =>
+                                                                          true ==
+                                                                          getJsonField(
+                                                                            e,
+                                                                            r'''$.is_default''',
+                                                                          ))
+                                                                      .toList()
+                                                                      ?.first,
+                                                                  r'''$.state''',
+                                                                ).toString()
+                                                              : getJsonField(
+                                                                  CarServiceGroup
+                                                                      .getAddressApiCall
+                                                                      .addressDetails(
+                                                                        (_model.getAddressFunction?.jsonBody ??
+                                                                            ''),
+                                                                      )
+                                                                      ?.first,
+                                                                  r'''$.state''',
+                                                                ).toString(),
+                                                          ParamType.String,
+                                                        ),
+                                                        'zipcode':
+                                                            serializeParam(
+                                                          CarServiceGroup
+                                                                  .getAddressApiCall
+                                                                  .addressDetails(
+                                                                    (_model.getAddressFunction
+                                                                            ?.jsonBody ??
+                                                                        ''),
+                                                                  )!
+                                                                  .where((e) =>
+                                                                      true ==
+                                                                      getJsonField(
+                                                                        e,
+                                                                        r'''$.is_default''',
+                                                                      ))
+                                                                  .toList()
+                                                                  .isNotEmpty
+                                                              ? getJsonField(
+                                                                  CarServiceGroup
+                                                                      .getAddressApiCall
+                                                                      .addressDetails(
+                                                                        (_model.getAddressFunction?.jsonBody ??
+                                                                            ''),
+                                                                      )
+                                                                      ?.where((e) =>
+                                                                          true ==
+                                                                          getJsonField(
+                                                                            e,
+                                                                            r'''$.is_default''',
+                                                                          ))
+                                                                      .toList()
+                                                                      ?.first,
+                                                                  r'''$.zipcode''',
+                                                                ).toString()
+                                                              : getJsonField(
+                                                                  CarServiceGroup
+                                                                      .getAddressApiCall
+                                                                      .addressDetails(
+                                                                        (_model.getAddressFunction?.jsonBody ??
+                                                                            ''),
+                                                                      )
+                                                                      ?.first,
+                                                                  r'''$.zipcode''',
+                                                                ).toString(),
+                                                          ParamType.String,
+                                                        ),
+                                                        'country':
+                                                            serializeParam(
+                                                          CarServiceGroup
+                                                                  .getAddressApiCall
+                                                                  .addressDetails(
+                                                                    (_model.getAddressFunction
+                                                                            ?.jsonBody ??
+                                                                        ''),
+                                                                  )!
+                                                                  .where((e) =>
+                                                                      true ==
+                                                                      getJsonField(
+                                                                        e,
+                                                                        r'''$.is_default''',
+                                                                      ))
+                                                                  .toList()
+                                                                  .isNotEmpty
+                                                              ? getJsonField(
+                                                                  CarServiceGroup
+                                                                      .getAddressApiCall
+                                                                      .addressDetails(
+                                                                        (_model.getAddressFunction?.jsonBody ??
+                                                                            ''),
+                                                                      )
+                                                                      ?.where((e) =>
+                                                                          true ==
+                                                                          getJsonField(
+                                                                            e,
+                                                                            r'''$.is_default''',
+                                                                          ))
+                                                                      .toList()
+                                                                      ?.first,
+                                                                  r'''$.country''',
+                                                                ).toString()
+                                                              : getJsonField(
+                                                                  CarServiceGroup
+                                                                      .getAddressApiCall
+                                                                      .addressDetails(
+                                                                        (_model.getAddressFunction?.jsonBody ??
+                                                                            ''),
+                                                                      )
+                                                                      ?.first,
+                                                                  r'''$.country''',
+                                                                ).toString(),
+                                                          ParamType.String,
+                                                        ),
+                                                        'vehicleId':
+                                                            serializeParam(
+                                                          CarServiceGroup
+                                                                  .vehicleListApiCall
+                                                                  .vehicleDetailsList(
+                                                                    (_model.vehicleListfunction
+                                                                            ?.jsonBody ??
+                                                                        ''),
+                                                                  )!
+                                                                  .where((e) =>
+                                                                      true ==
+                                                                      getJsonField(
+                                                                        e,
+                                                                        r'''$.is_default''',
+                                                                      ))
+                                                                  .toList()
+                                                                  .isNotEmpty
+                                                              ? getJsonField(
+                                                                  CarServiceGroup
+                                                                      .vehicleListApiCall
+                                                                      .vehicleDetailsList(
+                                                                        (_model.vehicleListfunction?.jsonBody ??
+                                                                            ''),
+                                                                      )
+                                                                      ?.where((e) =>
+                                                                          true ==
+                                                                          getJsonField(
+                                                                            e,
+                                                                            r'''$.is_default''',
+                                                                          ))
+                                                                      .toList()
+                                                                      ?.first,
+                                                                  r'''$.id''',
+                                                                ).toString()
+                                                              : getJsonField(
+                                                                  CarServiceGroup
+                                                                      .vehicleListApiCall
+                                                                      .vehicleDetailsList(
+                                                                        (_model.vehicleListfunction?.jsonBody ??
+                                                                            ''),
+                                                                      )
+                                                                      ?.first,
+                                                                  r'''$.id''',
+                                                                ).toString(),
+                                                          ParamType.String,
+                                                        ),
+                                                        'vehicleName':
+                                                            serializeParam(
+                                                          CarServiceGroup
+                                                                  .vehicleListApiCall
+                                                                  .vehicleDetailsList(
+                                                                    (_model.vehicleListfunction
+                                                                            ?.jsonBody ??
+                                                                        ''),
+                                                                  )!
+                                                                  .where((e) =>
+                                                                      true ==
+                                                                      getJsonField(
+                                                                        e,
+                                                                        r'''$.is_default''',
+                                                                      ))
+                                                                  .toList()
+                                                                  .isNotEmpty
+                                                              ? getJsonField(
+                                                                  CarServiceGroup
+                                                                      .vehicleListApiCall
+                                                                      .vehicleDetailsList(
+                                                                        (_model.vehicleListfunction?.jsonBody ??
+                                                                            ''),
+                                                                      )
+                                                                      ?.where((e) =>
+                                                                          true ==
+                                                                          getJsonField(
+                                                                            e,
+                                                                            r'''$.is_default''',
+                                                                          ))
+                                                                      .toList()
+                                                                      ?.first,
+                                                                  r'''$.vehicle_name''',
+                                                                ).toString()
+                                                              : getJsonField(
+                                                                  CarServiceGroup
+                                                                      .vehicleListApiCall
+                                                                      .vehicleDetailsList(
+                                                                        (_model.vehicleListfunction?.jsonBody ??
+                                                                            ''),
+                                                                      )
+                                                                      ?.first,
+                                                                  r'''$.vehicle_name''',
+                                                                ).toString(),
+                                                          ParamType.String,
+                                                        ),
+                                                        'vehicleNumber':
+                                                            serializeParam(
+                                                          CarServiceGroup
+                                                                  .vehicleListApiCall
+                                                                  .vehicleDetailsList(
+                                                                    (_model.vehicleListfunction
+                                                                            ?.jsonBody ??
+                                                                        ''),
+                                                                  )!
+                                                                  .where((e) =>
+                                                                      true ==
+                                                                      getJsonField(
+                                                                        e,
+                                                                        r'''$.is_default''',
+                                                                      ))
+                                                                  .toList()
+                                                                  .isNotEmpty
+                                                              ? getJsonField(
+                                                                  CarServiceGroup
+                                                                      .vehicleListApiCall
+                                                                      .vehicleDetailsList(
+                                                                        (_model.vehicleListfunction?.jsonBody ??
+                                                                            ''),
+                                                                      )
+                                                                      ?.where((e) =>
+                                                                          true ==
+                                                                          getJsonField(
+                                                                            e,
+                                                                            r'''$.is_default''',
+                                                                          ))
+                                                                      .toList()
+                                                                      ?.first,
+                                                                  r'''$.vehicle_number''',
+                                                                ).toString()
+                                                              : getJsonField(
+                                                                  CarServiceGroup
+                                                                      .vehicleListApiCall
+                                                                      .vehicleDetailsList(
+                                                                        (_model.vehicleListfunction?.jsonBody ??
+                                                                            ''),
+                                                                      )
+                                                                      ?.first,
+                                                                  r'''$.vehicle_number''',
+                                                                ).toString(),
+                                                          ParamType.String,
+                                                        ),
+                                                        'serviceId':
+                                                            serializeParam(
+                                                          widget!.serviceId,
+                                                          ParamType.String,
+                                                        ),
+                                                        'serviceName':
+                                                            serializeParam(
+                                                          widget!.serviceName,
+                                                          ParamType.String,
+                                                        ),
+                                                        'serviceImage':
+                                                            serializeParam(
+                                                          widget!.serviceImage,
+                                                          ParamType.String,
+                                                        ),
+                                                        'bookingDate':
+                                                            serializeParam(
+                                                          widget!.bookingDate,
+                                                          ParamType.String,
+                                                        ),
+                                                        'bookingTime':
+                                                            serializeParam(
+                                                          functions
+                                                              .extractStartTime(
+                                                                  widget!
+                                                                      .bookingTime!),
+                                                          ParamType.String,
+                                                        ),
+                                                        'subTotal':
+                                                            serializeParam(
+                                                          functions
+                                                              .roundToTwoDecimalPlaces(
+                                                                  widget!
+                                                                      .packagePrice!),
+                                                          ParamType.double,
+                                                        ),
+                                                        'vat': serializeParam(
+                                                          () {
+                                                            if ((CarServiceGroup
+                                                                        .applyCouponApiCall
+                                                                        .success(
+                                                                      (_model.applyCouponFunction
+                                                                              ?.jsonBody ??
+                                                                          ''),
+                                                                    ) ==
+                                                                    1) &&
+                                                                ('fixed' ==
+                                                                    getJsonField(
+                                                                      CarServiceGroup
+                                                                          .getCouponsApiCall
+                                                                          .couponDetailsList(
+                                                                            checkoutPageGetCouponsApiResponse.jsonBody,
+                                                                          )
+                                                                          ?.where((e) =>
+                                                                              _model.textController.text ==
+                                                                              getJsonField(
+                                                                                e,
+                                                                                r'''$.coupon_code''',
+                                                                              ).toString())
+                                                                          .toList()
+                                                                          ?.first,
+                                                                      r'''$.coupon_type''',
+                                                                    )
+                                                                        .toString()) &&
+                                                                (_model.isApplied ==
+                                                                    true)) {
+                                                              return functions.roundToTwoDecimalPlaces(functions
+                                                                  .calculatePercentageOfDifference(
+                                                                      widget!
+                                                                          .packagePrice!,
+                                                                      valueOrDefault<
+                                                                          int>(
+                                                                        getJsonField(
+                                                                          CarServiceGroup
+                                                                              .getCouponsApiCall
+                                                                              .couponDetailsList(
+                                                                                checkoutPageGetCouponsApiResponse.jsonBody,
+                                                                              )
+                                                                              ?.where((e) =>
+                                                                                  _model.textController.text ==
+                                                                                  getJsonField(
+                                                                                    e,
+                                                                                    r'''$.coupon_code''',
+                                                                                  ).toString())
+                                                                              .toList()
+                                                                              ?.first,
+                                                                          r'''$.coupon_amount''',
+                                                                        ),
+                                                                        0,
+                                                                      ).toDouble(),
+                                                                      valueOrDefault<String>(
+                                                                        CarServiceGroup
+                                                                            .standardRateApiCall
+                                                                            .taxRate(
+                                                                          columnStandardRateApiResponse
+                                                                              .jsonBody,
+                                                                        ),
+                                                                        'Rate',
+                                                                      )));
+                                                            } else if ((CarServiceGroup
+                                                                        .applyCouponApiCall
+                                                                        .success(
+                                                                      (_model.applyCouponFunction
+                                                                              ?.jsonBody ??
+                                                                          ''),
+                                                                    ) ==
+                                                                    1) &&
+                                                                ('percentage' ==
+                                                                    getJsonField(
+                                                                      CarServiceGroup
+                                                                          .getCouponsApiCall
+                                                                          .couponDetailsList(
+                                                                            checkoutPageGetCouponsApiResponse.jsonBody,
+                                                                          )
+                                                                          ?.where((e) =>
+                                                                              _model.textController.text ==
+                                                                              getJsonField(
+                                                                                e,
+                                                                                r'''$.coupon_code''',
+                                                                              ).toString())
+                                                                          .toList()
+                                                                          ?.first,
+                                                                      r'''$.coupon_type''',
+                                                                    )
+                                                                        .toString()) &&
+                                                                (_model.isApplied ==
+                                                                    true)) {
+                                                              return functions.roundToTwoDecimalPlaces(functions
+                                                                  .calculatePercentageOfResult(
+                                                                      widget!
+                                                                          .packagePrice!,
+                                                                      valueOrDefault<
+                                                                          int>(
+                                                                        getJsonField(
+                                                                          CarServiceGroup
+                                                                              .getCouponsApiCall
+                                                                              .couponDetailsList(
+                                                                                checkoutPageGetCouponsApiResponse.jsonBody,
+                                                                              )
+                                                                              ?.where((e) =>
+                                                                                  _model.textController.text ==
+                                                                                  getJsonField(
+                                                                                    e,
+                                                                                    r'''$.coupon_code''',
+                                                                                  ).toString())
+                                                                              .toList()
+                                                                              ?.first,
+                                                                          r'''$.coupon_amount''',
+                                                                        ),
+                                                                        0,
+                                                                      ).toDouble(),
+                                                                      valueOrDefault<String>(
+                                                                        CarServiceGroup
+                                                                            .standardRateApiCall
+                                                                            .taxRate(
+                                                                          columnStandardRateApiResponse
+                                                                              .jsonBody,
+                                                                        ),
+                                                                        'Rate',
+                                                                      )));
+                                                            } else if (_model
+                                                                    .isApplied ==
+                                                                false) {
+                                                              return functions.roundToTwoDecimalPlaces(functions
+                                                                  .calculatePercentageString(
+                                                                      widget!
+                                                                          .packagePrice!,
+                                                                      valueOrDefault<
+                                                                          String>(
+                                                                        CarServiceGroup
+                                                                            .standardRateApiCall
+                                                                            .taxRate(
+                                                                          columnStandardRateApiResponse
+                                                                              .jsonBody,
+                                                                        ),
+                                                                        'Rate',
+                                                                      )));
+                                                            } else {
+                                                              return functions.roundToTwoDecimalPlaces(functions
+                                                                  .calculatePercentageString(
+                                                                      widget!
+                                                                          .packagePrice!,
+                                                                      valueOrDefault<
+                                                                          String>(
+                                                                        CarServiceGroup
+                                                                            .standardRateApiCall
+                                                                            .taxRate(
+                                                                          columnStandardRateApiResponse
+                                                                              .jsonBody,
+                                                                        ),
+                                                                        'Rate',
+                                                                      )));
+                                                            }
+                                                          }(),
+                                                          ParamType.double,
+                                                        ),
+                                                        'couponCode':
+                                                            serializeParam(
+                                                          CarServiceGroup
+                                                                      .applyCouponApiCall
+                                                                      .success(
+                                                                    (_model.applyCouponFunction
+                                                                            ?.jsonBody ??
+                                                                        ''),
+                                                                  ) ==
+                                                                  1
+                                                              ? _model
+                                                                  .textController
+                                                                  .text
+                                                              : '0',
+                                                          ParamType.String,
+                                                        ),
+                                                        'couponType':
+                                                            serializeParam(
+                                                          CarServiceGroup
+                                                                      .applyCouponApiCall
+                                                                      .success(
+                                                                    (_model.applyCouponFunction
+                                                                            ?.jsonBody ??
+                                                                        ''),
+                                                                  ) ==
+                                                                  1
+                                                              ? getJsonField(
+                                                                  CarServiceGroup
+                                                                      .getCouponsApiCall
+                                                                      .couponDetailsList(
+                                                                        checkoutPageGetCouponsApiResponse
+                                                                            .jsonBody,
+                                                                      )
+                                                                      ?.where((e) =>
+                                                                          _model.textController.text ==
+                                                                          getJsonField(
+                                                                            e,
+                                                                            r'''$.coupon_code''',
+                                                                          ).toString())
+                                                                      .toList()
+                                                                      ?.first,
+                                                                  r'''$.coupon_type''',
+                                                                ).toString()
+                                                              : 'Type',
+                                                          ParamType.String,
+                                                        ),
+                                                        'couponAmount':
+                                                            serializeParam(
+                                                          () {
+                                                            if ((CarServiceGroup
+                                                                        .applyCouponApiCall
+                                                                        .success(
+                                                                      (_model.applyCouponFunction
+                                                                              ?.jsonBody ??
+                                                                          ''),
+                                                                    ) ==
+                                                                    1) &&
+                                                                ('fixed' ==
+                                                                    getJsonField(
+                                                                      CarServiceGroup
+                                                                          .getCouponsApiCall
+                                                                          .couponDetailsList(
+                                                                            checkoutPageGetCouponsApiResponse.jsonBody,
+                                                                          )
+                                                                          ?.where((e) =>
+                                                                              _model.textController.text ==
+                                                                              getJsonField(
+                                                                                e,
+                                                                                r'''$.coupon_code''',
+                                                                              ).toString())
+                                                                          .toList()
+                                                                          ?.first,
+                                                                      r'''$.coupon_type''',
+                                                                    )
+                                                                        .toString()) &&
+                                                                (_model.isApplied ==
+                                                                    true)) {
+                                                              return functions
+                                                                  .roundToTwoDecimalPlaces(
+                                                                      getJsonField(
+                                                                CarServiceGroup
+                                                                    .getCouponsApiCall
+                                                                    .couponDetailsList(
+                                                                      checkoutPageGetCouponsApiResponse
+                                                                          .jsonBody,
+                                                                    )!
+                                                                    .where((e) =>
+                                                                        _model.textController.text ==
+                                                                        getJsonField(
+                                                                          e,
+                                                                          r'''$.coupon_code''',
+                                                                        ).toString())
+                                                                    .toList()
+                                                                    .first,
+                                                                r'''$.coupon_amount''',
+                                                              ).toDouble());
+                                                            } else if ((CarServiceGroup
+                                                                        .applyCouponApiCall
+                                                                        .success(
+                                                                      (_model.applyCouponFunction
+                                                                              ?.jsonBody ??
+                                                                          ''),
+                                                                    ) ==
+                                                                    1) &&
+                                                                ('percentage' ==
+                                                                    getJsonField(
+                                                                      CarServiceGroup
+                                                                          .getCouponsApiCall
+                                                                          .couponDetailsList(
+                                                                            checkoutPageGetCouponsApiResponse.jsonBody,
+                                                                          )
+                                                                          ?.where((e) =>
+                                                                              _model.textController.text ==
+                                                                              getJsonField(
+                                                                                e,
+                                                                                r'''$.coupon_code''',
+                                                                              ).toString())
+                                                                          .toList()
+                                                                          ?.first,
+                                                                      r'''$.coupon_type''',
+                                                                    )
+                                                                        .toString()) &&
+                                                                (_model.isApplied ==
+                                                                    true)) {
+                                                              return functions.roundToTwoDecimalPlaces(functions
+                                                                  .calculatePercentage(
+                                                                      widget!
+                                                                          .packagePrice!,
+                                                                      getJsonField(
+                                                                        CarServiceGroup
+                                                                            .getCouponsApiCall
+                                                                            .couponDetailsList(
+                                                                              checkoutPageGetCouponsApiResponse.jsonBody,
+                                                                            )!
+                                                                            .where((e) =>
+                                                                                _model.textController.text ==
+                                                                                getJsonField(
+                                                                                  e,
+                                                                                  r'''$.coupon_code''',
+                                                                                ).toString())
+                                                                            .toList()
+                                                                            .first,
+                                                                        r'''$.coupon_amount''',
+                                                                      ).toDouble()));
+                                                            } else if (_model
+                                                                    .isApplied ==
+                                                                false) {
+                                                              return 0.0;
+                                                            } else {
+                                                              return 0.0;
+                                                            }
+                                                          }(),
+                                                          ParamType.double,
+                                                        ),
+                                                        'currencySymbol':
+                                                            serializeParam(
+                                                          widget!
+                                                              .currencySymbol,
+                                                          ParamType.String,
+                                                        ),
+                                                      }.withoutNulls,
+                                                    );
+                                                 
+                                                 }
                                                   } else {
                                                     ScaffoldMessenger.of(
                                                             context)

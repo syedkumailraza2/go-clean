@@ -9,10 +9,12 @@ import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'payment_success_page_model.dart';
 export 'payment_success_page_model.dart';
+import 'package:dio/dio.dart';
 
 class PaymentSuccessPageWidget extends StatefulWidget {
   const PaymentSuccessPageWidget({
     super.key,
+    required this.isCarService,
     required this.addressId,
     required this.addressType,
     required this.addressStreet,
@@ -45,6 +47,7 @@ class PaymentSuccessPageWidget extends StatefulWidget {
   });
 
   final String? addressId;
+  final bool? isCarService;
   final String? addressType;
   final String? addressStreet;
   final String? addressCity;
@@ -88,6 +91,10 @@ class _PaymentSuccessPageWidgetState extends State<PaymentSuccessPageWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => PaymentSuccessPageModel());
+
+    if(widget.isCarService == true){
+      addDataToDB();
+    }
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
@@ -259,22 +266,89 @@ class _PaymentSuccessPageWidgetState extends State<PaymentSuccessPageWidget> {
             );
           }
         }
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(
-              'faileddddd',
-              style: TextStyle(
-                color: FlutterFlowTheme.of(context).primaryText,
-              ),
-            ),
-            duration: Duration(milliseconds: 4000),
-            backgroundColor: FlutterFlowTheme.of(context).secondary,
-          ),
-        );
-      }
+      } 
+      // else {
+      //   ScaffoldMessenger.of(context).showSnackBar(
+      //     SnackBar(
+      //       content: Text(
+      //         'faileddddd',
+      //         style: TextStyle(
+      //           color: FlutterFlowTheme.of(context).primaryText,
+      //         ),
+      //       ),
+      //       duration: Duration(milliseconds: 4000),
+      //       backgroundColor: FlutterFlowTheme.of(context).secondary,
+      //     ),
+      //   );
+      // }
     });
   }
+
+Future<void> addDataToDB() async {
+  try {
+    final dio = Dio();
+    final baseUrl = 'https://stage.goclean.ba/api';
+    final response = await dio.post(
+      '${baseUrl}/book_vehicle',
+      data: {
+        "user": {
+          "userId": FFAppState().userId,
+          "username": CarServiceGroup.getUserApiCall.username(
+              (_model.getUserPayment?.jsonBody ?? ''),
+            ),
+          "email": CarServiceGroup.getUserApiCall.email(
+              (_model.getUserPayment?.jsonBody ?? ''),
+            ),
+        },
+        "address": {
+          "addressId": widget.addressId,
+          "type": widget.addressType,
+          "street": widget.addressStreet,
+          "city": widget.addressCity,
+          "state": widget.addresState,
+          "zipcode": widget.addresZipcode,
+          "country": widget.addressCountry,
+        },
+        "vehicle": {
+          "vehicleId": widget.vehicleId,
+          "vehicle_name": widget.vehicleName,
+          "vehicle_number": widget.vehicleNumber,
+        },
+        "service": {
+          "serviceId": widget.serviceId,
+          "name": widget.serviceName,
+          "image": widget.serviceImage,
+        },
+        "package": {
+          "packageId": widget.packageId,
+          "title": widget.packageTitle,
+          "image": widget.packageImage,
+          "price": widget.packagePrice,
+        },
+        "bookingDate": widget.bookingDate,
+        "bookingTime": widget.bookingTime,
+        "paymentMode": widget.paymentMode,
+        "transactionId": widget.transactionId,
+        "paymentStatus": widget.paymentStatus,
+        "orderStatus": widget.orderStatus,
+        "subTotal": widget.subTotal,
+        "coupon_code": widget.couponCode,
+        "coupon_type": widget.couponType,
+        "coupon_amount": widget.couponAmount,
+        "VAT": widget.vat,
+        "Total": widget.total,
+      },
+    );
+
+    if (response.statusCode == 201 || response.statusCode == 200) {
+      print("Data successfully added: ${response.data}");
+    } else {
+      print("Failed to add data. Status Code: ${response.statusCode}");
+    }
+  } catch (e) {
+    print("Error occurred: $e");
+  }
+}
 
   @override
   void dispose() {

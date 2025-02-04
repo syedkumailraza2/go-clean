@@ -580,6 +580,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'PaymentSuccessPage',
           path: '/paymentSuccessPage',
           builder: (context, params) => PaymentSuccessPageWidget(
+            isCarService: params.getParam('isCarService', ParamType.bool),
             addressId: params.getParam(
               'addressId',
               ParamType.String,
