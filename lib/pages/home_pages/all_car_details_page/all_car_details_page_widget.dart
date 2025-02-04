@@ -317,6 +317,7 @@ String? _selectedLang;
                                     ),
                               ),
                             ),
+                            widget.serviceName == 'Car Wash' ?
                             Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   16.0, 8.0, 16.0, 0.0),
@@ -357,7 +358,7 @@ String? _selectedLang;
                                   ),
                                 ],
                               ),
-                            ),
+                            ) : SizedBox.shrink(),
                             Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   16.0, 24.0, 16.0, 8.0),

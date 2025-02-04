@@ -313,6 +313,7 @@ class _BannerPageWidgetState extends State<BannerPageWidget> {
                                                                       1.5,
                                                                 ),
                                                           ),
+                                                          widget.name == 'Car Wash' ?
                                                           Row(
                                                             mainAxisSize:
                                                                 MainAxisSize
@@ -364,7 +365,8 @@ class _BannerPageWidgetState extends State<BannerPageWidget> {
                                                                     ),
                                                               ),
                                                             ],
-                                                          ),
+                                                          ) : SizedBox.shrink(),
+                                                          
                                                           Row(
                                                             mainAxisSize:
                                                                 MainAxisSize
