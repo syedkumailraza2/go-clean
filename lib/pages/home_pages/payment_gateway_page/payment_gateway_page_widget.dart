@@ -1319,6 +1319,7 @@ class _PaymentGatewayPageWidgetState extends State<PaymentGatewayPageWidget> {
                                                         ),
                                                       }.withoutNulls,
                                                     );
+                                                  
                                                   },
                                                   () async {
                                                     context.goNamed(
@@ -1331,7 +1332,7 @@ class _PaymentGatewayPageWidgetState extends State<PaymentGatewayPageWidget> {
 
                                             safeSetState(() {});
                                           },
-                                          text: 'Pay now',
+                                          text: 'Pay Now',
                                           options: FFButtonOptions(
                                             width: double.infinity,
                                             height: 54.0,

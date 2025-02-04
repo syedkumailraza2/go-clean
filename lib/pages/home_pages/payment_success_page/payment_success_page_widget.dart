@@ -32,16 +32,16 @@ class PaymentSuccessPageWidget extends StatefulWidget {
     required this.packagePrice,
     required this.bookingDate,
     required this.bookingTime,
-    required this.paymentMode,
+     this.paymentMode,
     required this.transactionId,
     required this.paymentStatus,
     required this.orderStatus,
-    required this.subTotal,
-    required this.couponCode,
-    required this.couponType,
-    required this.couponAmount,
-    required this.vat,
-    required this.total,
+     this.subTotal,
+     this.couponCode,
+     this.couponType,
+     this.couponAmount,
+     this.vat,
+     this.total,
   });
 
   final String? addressId;

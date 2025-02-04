@@ -59,14 +59,13 @@ class Service {
   });
 }
 
-
 class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
   late CheckoutPageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   final box = GetStorage();
-  
+
   @override
   void initState() {
     super.initState();
@@ -78,14 +77,14 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
     _model.textFieldFocusNode ??= FocusNode();
   }
 
- var translated = List<String>.filled(10, '', growable: false);
+  var translated = List<String>.filled(10, '', growable: false);
   List<String> txt = [
     'Checkout',
     'Add car',
     'Address',
     'Change address',
     'Add address',
-   'Date and time',
+    'Date and time',
     'Service included',
     'Add Extra Service',
     'Engine Washing',
@@ -107,7 +106,6 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
 
   List<String> translatedTexts = [];
 
-
   @override
   void dispose() {
     _model.dispose();
@@ -117,26 +115,23 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
 
   List<Service> selectedServices = [];
 
-  double grandTotal () {
+  double grandTotal() {
     double total = widget.packagePrice ?? 0;
     for (var service in selectedServices) {
       total = total + service.price;
-    } 
+    }
     return total;
   }
 
-
-void addService(Service service) {
-  setState(() {
-    if (selectedServices.any((s) => s.name == service.name)) {
-      selectedServices.removeWhere((s) => s.name == service.name);
-    } else {
-      selectedServices.add(service);
-    }
-  });
-}
-
-
+  void addService(Service service) {
+    setState(() {
+      if (selectedServices.any((s) => s.name == service.name)) {
+        selectedServices.removeWhere((s) => s.name == service.name);
+      } else {
+        selectedServices.add(service);
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -202,7 +197,9 @@ void addService(Service service) {
                               model: _model.customCenterAppbarModel,
                               updateCallback: () => safeSetState(() {}),
                               child: CustomCenterAppbarWidget(
-                                title: translated[0].isEmpty ? txt[0] : translated[0], //'Checkout',
+                                title: translated[0].isEmpty
+                                    ? txt[0]
+                                    : translated[0], //'Checkout',
                                 backIcon: false,
                                 addIcon: false,
                                 onTapAdd: () async {},
@@ -528,7 +525,9 @@ void addService(Service service) {
                                                                           ),
                                                                         ),
                                                                         Text(
-                                                                          translated[1].isEmpty ? txt[1] : translated[1],//'Add car',
+                                                                          translated[1].isEmpty
+                                                                              ? txt[1]
+                                                                              : translated[1], //'Add car',
                                                                           textAlign:
                                                                               TextAlign.center,
                                                                           style: FlutterFlowTheme.of(context)
@@ -609,7 +608,12 @@ void addService(Service service) {
                                                                 children: [
                                                                   Expanded(
                                                                     child: Text(
-                                                                      translated[2].isEmpty ? txt[2] : translated[2], //'Address',
+                                                                      translated[2]
+                                                                              .isEmpty
+                                                                          ? txt[
+                                                                              2]
+                                                                          : translated[
+                                                                              2], //'Address',
                                                                       style: FlutterFlowTheme.of(
                                                                               context)
                                                                           .bodyMedium
@@ -655,7 +659,9 @@ void addService(Service service) {
                                                                           },
                                                                           child:
                                                                               Text(
-                                                                             translated[3].isEmpty ? txt[3] : translated[3], //'Change address',
+                                                                            translated[3].isEmpty
+                                                                                ? txt[3]
+                                                                                : translated[3], //'Change address',
                                                                             style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                   fontFamily: 'SF Pro Display',
                                                                                   color: FlutterFlowTheme.of(context).primary,
@@ -682,7 +688,9 @@ void addService(Service service) {
                                                                           },
                                                                           child:
                                                                               Text(
-                                                                             translated[4].isEmpty ? txt[4] : translated[4], //'Add address',
+                                                                            translated[4].isEmpty
+                                                                                ? txt[4]
+                                                                                : translated[4], //'Add address',
                                                                             style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                   fontFamily: 'SF Pro Display',
                                                                                   color: FlutterFlowTheme.of(context).primary,
@@ -940,7 +948,11 @@ void addService(Service service) {
                                                             children: [
                                                               Expanded(
                                                                 child: Text(
-                                                                  translated[5].isEmpty ? txt[5] : translated[5],//'Date and time',
+                                                                  translated[5]
+                                                                          .isEmpty
+                                                                      ? txt[5]
+                                                                      : translated[
+                                                                          5], //'Date and time',
                                                                   style: FlutterFlowTheme.of(
                                                                           context)
                                                                       .bodyMedium
@@ -1184,7 +1196,11 @@ void addService(Service service) {
                                                               children: [
                                                                 Expanded(
                                                                   child: Text(
-                                                                    translated[6].isEmpty ? txt[6] : translated[6], //'Service included',
+                                                                    translated[6]
+                                                                            .isEmpty
+                                                                        ? txt[6]
+                                                                        : translated[
+                                                                            6], //'Service included',
                                                                     style: FlutterFlowTheme.of(
                                                                             context)
                                                                         .bodyMedium
@@ -1253,712 +1269,63 @@ void addService(Service service) {
                                                                     ),
                                                                   ),
                                                                 ),
-                                                               widget.serviceName == 'Car Wash'
-    ? Padding(
-                                                                  padding: EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0,
-                                                                          4.0),
-                                                                  child: custom_widgets
-                                                                      .GetCurrencySymbool(
-                                                                    width: 15.0,
-                                                                    height:
-                                                                        18.0,
-                                                                    isSimbool:
-                                                                        widget!
-                                                                            .currencySymbol,
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primaryText,
-                                                                    fontSize:
-                                                                        16.0,
-                                                                  ),
-                                                                )
-                                                                : SizedBox.shrink(),
-                                                                widget.serviceName == 'Car Wash'
-    ?Text(
-                                                                  valueOrDefault<
-                                                                      String>(
-                                                                    widget!
-                                                                        .packagePrice
-                                                                        ?.toString(),
-                                                                    '0',
-                                                                  ),
-                                                                  style: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMedium
-                                                                      .override(
-                                                                        fontFamily:
-                                                                            'SF Pro Display',
-                                                                        fontSize:
-                                                                            16.0,
-                                                                        letterSpacing:
+                                                                widget.serviceName ==
+                                                                        'Car Wash'
+                                                                    ? Padding(
+                                                                        padding: EdgeInsetsDirectional.fromSTEB(
                                                                             0.0,
-                                                                        useGoogleFonts:
-                                                                            false,
-                                                                        lineHeight:
-                                                                            1.4,
-                                                                      ),
-                                                                )
-                                                                : SizedBox.shrink()
-                                                              
+                                                                            0.0,
+                                                                            0.0,
+                                                                            4.0),
+                                                                        child: custom_widgets
+                                                                            .GetCurrencySymbool(
+                                                                          width:
+                                                                              15.0,
+                                                                          height:
+                                                                              18.0,
+                                                                          isSimbool:
+                                                                              widget!.currencySymbol,
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).primaryText,
+                                                                          fontSize:
+                                                                              16.0,
+                                                                        ),
+                                                                      )
+                                                                    : SizedBox
+                                                                        .shrink(),
+                                                                widget.serviceName ==
+                                                                        'Car Wash'
+                                                                    ? Text(
+                                                                        valueOrDefault<
+                                                                            String>(
+                                                                          widget!
+                                                                              .packagePrice
+                                                                              ?.toString(),
+                                                                          '0',
+                                                                        ),
+                                                                        style: FlutterFlowTheme.of(context)
+                                                                            .bodyMedium
+                                                                            .override(
+                                                                              fontFamily: 'SF Pro Display',
+                                                                              fontSize: 16.0,
+                                                                              letterSpacing: 0.0,
+                                                                              useGoogleFonts: false,
+                                                                              lineHeight: 1.4,
+                                                                            ),
+                                                                      )
+                                                                    : SizedBox
+                                                                        .shrink()
                                                               ],
                                                             ),
                                                             for (var service
                                                                 in selectedServices)
-
-                                                               Row(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .max,
-                                                              crossAxisAlignment:
-                                                                  CrossAxisAlignment
-                                                                      .start,
-                                                              children: [
-                                                                Expanded(
-                                                                  child:
-                                                                      Padding(
-                                                                    padding: EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            0.0,
-                                                                            0.0,
-                                                                            12.0,
-                                                                            0.0),
-                                                                    child: Text(
-                                                                     service.name,
-                                                                      textAlign:
-                                                                          TextAlign
-                                                                              .start,
-                                                                      style: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .bodyMedium
-                                                                          .override(
-                                                                            fontFamily:
-                                                                                'SF Pro Display',
-                                                                            color:
-                                                                                FlutterFlowTheme.of(context).secondaryText,
-                                                                            fontSize:
-                                                                                16.0,
-                                                                            letterSpacing:
-                                                                                0.0,
-                                                                            useGoogleFonts:
-                                                                                false,
-                                                                            lineHeight:
-                                                                                1.5,
-                                                                          ),
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                                Padding(
-                                                                  padding: EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0,
-                                                                          4.0),
-                                                                  child: custom_widgets
-                                                                      .GetCurrencySymbool(
-                                                                    width: 15.0,
-                                                                    height:
-                                                                        18.0,
-                                                                    isSimbool:
-                                                                        widget!
-                                                                            .currencySymbol,
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .primaryText,
-                                                                    fontSize:
-                                                                        16.0,
-                                                                  ),
-                                                                ),
-                                                                Text(
-                                                               '${service.price}',
-                                                                  style: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMedium
-                                                                      .override(
-                                                                        fontFamily:
-                                                                            'SF Pro Display',
-                                                                        fontSize:
-                                                                            16.0,
-                                                                        letterSpacing:
-                                                                            0.0,
-                                                                        useGoogleFonts:
-                                                                            false,
-                                                                        lineHeight:
-                                                                            1.4,
-                                                                      ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ],
-                                                        )),
-                                                  ),
-                                                  // Text(' Service Name: ${widget.serviceName}'),
-                                                  // Text(' Package Name: ${widget.packageTitle}'),
-                                                  Container(
-                                                    width: double.infinity,
-                                                    decoration: BoxDecoration(
-                                                      color: FlutterFlowTheme
-                                                              .of(context)
-                                                          .primaryBackground,
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              16.0),
-                                                    ),
-                                                      child: widget.serviceName == 'Car Wash'
-    ? Padding(
-                                                        padding:
-                                                            EdgeInsets.all(16.0),
-                                                        
-                                                        child: Column(
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          children: [
-                                                            Row(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .max,
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .spaceBetween,
-                                                              children: [
-                                                                Expanded(
-                                                                  child: Text(
-                                                                    translated[7].isEmpty ? txt[7] : translated[7], //'Add Extra Service',
-                                                                    style: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .override(
-                                                                          fontFamily:
-                                                                              'SF Pro Display',
-                                                                          fontSize:
-                                                                              18.0,
-                                                                          letterSpacing:
-                                                                              0.0,
-                                                                          fontWeight:
-                                                                              FontWeight.w600,
-                                                                          useGoogleFonts:
-                                                                              false,
-                                                                          lineHeight:
-                                                                              1.5,
-                                                                        ),
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                            SizedBox(
-                                                                height:
-                                                                    16.0), // To add space between the Row and ListView
-                                                            SizedBox(
-                                                              height:
-                                                                  100.0, // Constrain the height of the ListView
-                                                              child: ListView(
-                                                                scrollDirection:
-                                                                    Axis.horizontal,
-                                                                children: [
-                                                                  _buildServiceItem(
-                                                                      Icons
-                                                                          .engineering,
-                                                                      translated[8].isEmpty ? txt[8] : translated[8],//'Engine Washing'
-                                                                      10),
-                                                                  _buildServiceItem(
-                                                                      Icons
-                                                                          .auto_awesome,
-                                                                      translated[9].isEmpty ? txt[9] : translated[9], //'Leather Restoration',
-                                                                      10),
-                                                                  _buildServiceItem(
-                                                                      Icons.air,
-                                                                       translated[10].isEmpty ? txt[10] : translated[10],//'Air Freshener',
-                                                                      10),
-                                                                  _buildServiceItem(
-                                                                      Icons
-                                                                          .cleaning_services,
-                                                                     translated[11].isEmpty ? txt[11] : translated[11], //'Window Cleaning',
-                                                                      10),
-                                                                  _buildServiceItem(
-                                                                      Icons
-                                                                          .stairs,
-                                                                      translated[12].isEmpty ? txt[12] : translated[12], //'Removing Stubborn Stains',
-                                                                      10),
-                                                                  _buildServiceItem(
-                                                                      Icons
-                                                                          .auto_fix_high,
-                                                                      translated[13].isEmpty ? txt[13] : translated[13], //'Interior Polishing',
-                                                                      10),
-                                                                  _buildServiceItem(
-                                                                      Icons
-                                                                          .car_repair,
-                                                                      translated[14].isEmpty ? txt[14] : translated[14], //'Tire Care',
-                                                                      10),
-                                                                ],
-                                                              ),
-                                                            )
-                                                          ],
-                                                        ),
-                                                      
-                                                      )
-                                                  
-    :SizedBox.shrink()
-                                                  ),
-                                                  widget.serviceName == 'Car Wash'
-    ? Column(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        Row(
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          children: [
-                                                            Expanded(
-                                                              child: Builder(
-                                                                builder:
-                                                                    (context) {
-                                                                  if (_model
-                                                                          .isApplied ==
-                                                                      false) {
-                                                                    return Container(
-                                                                      width: double
-                                                                          .infinity,
-                                                                      decoration:
-                                                                          BoxDecoration(
-                                                                        color: FlutterFlowTheme.of(
-                                                                                context)
-                                                                            .primaryBackground,
-                                                                        borderRadius:
-                                                                            BorderRadius.circular(
-                                                                                16.0),
-                                                                      ),
-                                                                      child:
-                                                                          Padding(
-                                                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                                                            0.0,
-                                                                            8.0,
-                                                                            8.0,
-                                                                            8.0),
-                                                                        child:
-                                                                            Row(
-                                                                          mainAxisSize:
-                                                                              MainAxisSize.max,
-                                                                          children:
-                                                                              [
-                                                                            Expanded(
-                                                                              child:
-                                                                                  TextFormField(
-                                                                                controller: _model.textController,
-                                                                                focusNode: _model.textFieldFocusNode,
-                                                                                onFieldSubmitted: (_) async {
-                                                                                  if (_model.textController.text != null && _model.textController.text != '') {
-                                                                                    _model.applyCouponFunctionCopy = await CarServiceGroup.applyCouponApiCall.call(
-                                                                                      userId: FFAppState().userId,
-                                                                                      couponCode: _model.textController.text,
-                                                                                      token: FFAppState().token,
-                                                                                    );
-                                                    
-                                                                                    if (CarServiceGroup.applyCouponApiCall.success(
-                                                                                          (_model.applyCouponFunctionCopy?.jsonBody ?? ''),
-                                                                                        ) ==
-                                                                                        1) {
-                                                                                      ScaffoldMessenger.of(context).showSnackBar(
-                                                                                        SnackBar(
-                                                                                          content: Text(
-                                                                                            CarServiceGroup.applyCouponApiCall.message(
-                                                                                              (_model.applyCouponFunctionCopy?.jsonBody ?? ''),
-                                                                                            )!,
-                                                                                            style: TextStyle(
-                                                                                              color: FlutterFlowTheme.of(context).primaryText,
-                                                                                            ),
-                                                                                          ),
-                                                                                          duration: Duration(milliseconds: 2000),
-                                                                                          backgroundColor: FlutterFlowTheme.of(context).secondary,
-                                                                                        ),
-                                                                                      );
-                                                                                      _model.isApplied = true;
-                                                                                      _model.showText = true;
-                                                                                      safeSetState(() {});
-                                                                                      await Future.delayed(const Duration(milliseconds: 2000));
-                                                                                      _model.showText = false;
-                                                                                      safeSetState(() {});
-                                                                                    } else {
-                                                                                      ScaffoldMessenger.of(context).showSnackBar(
-                                                                                        SnackBar(
-                                                                                          content: Text(
-                                                                                            CarServiceGroup.applyCouponApiCall.message(
-                                                                                              (_model.applyCouponFunctionCopy?.jsonBody ?? ''),
-                                                                                            )!,
-                                                                                            style: TextStyle(
-                                                                                              color: FlutterFlowTheme.of(context).primaryText,
-                                                                                            ),
-                                                                                          ),
-                                                                                          duration: Duration(milliseconds: 2000),
-                                                                                          backgroundColor: FlutterFlowTheme.of(context).secondary,
-                                                                                        ),
-                                                                                      );
-                                                                                      safeSetState(() {
-                                                                                        _model.textController?.clear();
-                                                                                      });
-                                                                                      _model.showText = true;
-                                                                                      safeSetState(() {});
-                                                                                      await Future.delayed(const Duration(milliseconds: 2000));
-                                                                                      _model.showText = false;
-                                                                                      safeSetState(() {});
-                                                                                    }
-                                                                                  }
-                                                    
-                                                                                  safeSetState(() {});
-                                                                                },
-                                                                                autofocus: false,
-                                                                                textInputAction: TextInputAction.next,
-                                                                                obscureText: false,
-                                                                                decoration: InputDecoration(
-                                                                                  hintText: translated[15].isEmpty ? txt[15] : translated[15], //'Enter Coupon code',
-                                                                                  hintStyle: FlutterFlowTheme.of(context).labelMedium.override(
-                                                                                        fontFamily: 'SF Pro Display',
-                                                                                        fontSize: 16.0,
-                                                                                        letterSpacing: 0.0,
-                                                                                        useGoogleFonts: false,
-                                                                                        lineHeight: 1.2,
-                                                                                      ),
-                                                                                  errorStyle: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                        fontFamily: 'SF Pro Display',
-                                                                                        color: FlutterFlowTheme.of(context).error,
-                                                                                        fontSize: 16.0,
-                                                                                        letterSpacing: 0.0,
-                                                                                        useGoogleFonts: false,
-                                                                                        lineHeight: 1.2,
-                                                                                      ),
-                                                                                  enabledBorder: InputBorder.none,
-                                                                                  focusedBorder: InputBorder.none,
-                                                                                  errorBorder: InputBorder.none,
-                                                                                  focusedErrorBorder: InputBorder.none,
-                                                                                  contentPadding: EdgeInsetsDirectional.fromSTEB(16.0, 17.0, 16.0, 17.0),
-                                                                                ),
-                                                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                      fontFamily: 'SF Pro Display',
-                                                                                      fontSize: 16.0,
-                                                                                      letterSpacing: 0.0,
-                                                                                      useGoogleFonts: false,
-                                                                                      lineHeight: 1.2,
-                                                                                    ),
-                                                                                keyboardType: TextInputType.emailAddress,
-                                                                                cursorColor: FlutterFlowTheme.of(context).primaryText,
-                                                                                validator: _model.textControllerValidator.asValidator(context),
-                                                                              ),
-                                                                            ),
-                                                                            InkWell(
-                                                                              splashColor:
-                                                                                  Colors.transparent,
-                                                                              focusColor:
-                                                                                  Colors.transparent,
-                                                                              hoverColor:
-                                                                                  Colors.transparent,
-                                                                              highlightColor:
-                                                                                  Colors.transparent,
-                                                                              onTap:
-                                                                                  () async {
-                                                                                if (_model.textController.text != null && _model.textController.text != '') {
-                                                                                  _model.applyCouponFunction = await CarServiceGroup.applyCouponApiCall.call(
-                                                                                    userId: FFAppState().userId,
-                                                                                    couponCode: _model.textController.text,
-                                                                                    token: FFAppState().token,
-                                                                                  );
-                                                    
-                                                                                  if (CarServiceGroup.applyCouponApiCall.success(
-                                                                                        (_model.applyCouponFunction?.jsonBody ?? ''),
-                                                                                      ) ==
-                                                                                      1) {
-                                                                                    ScaffoldMessenger.of(context).showSnackBar(
-                                                                                      SnackBar(
-                                                                                        content: Text(
-                                                                                          CarServiceGroup.applyCouponApiCall.message(
-                                                                                            (_model.applyCouponFunction?.jsonBody ?? ''),
-                                                                                          )!,
-                                                                                          style: TextStyle(
-                                                                                            color: FlutterFlowTheme.of(context).primaryBackground,
-                                                                                          ),
-                                                                                        ),
-                                                                                        duration: Duration(milliseconds: 2000),
-                                                                                        backgroundColor: FlutterFlowTheme.of(context).primaryText,
-                                                                                      ),
-                                                                                    );
-                                                                                    _model.isApplied = true;
-                                                                                    _model.showText = true;
-                                                                                    safeSetState(() {});
-                                                                                    await Future.delayed(const Duration(milliseconds: 2000));
-                                                                                    _model.showText = false;
-                                                                                    safeSetState(() {});
-                                                                                  } else {
-                                                                                    ScaffoldMessenger.of(context).showSnackBar(
-                                                                                      SnackBar(
-                                                                                        content: Text(
-                                                                                          CarServiceGroup.applyCouponApiCall.message(
-                                                                                            (_model.applyCouponFunction?.jsonBody ?? ''),
-                                                                                          )!,
-                                                                                          style: TextStyle(
-                                                                                            color: FlutterFlowTheme.of(context).primaryBackground,
-                                                                                          ),
-                                                                                        ),
-                                                                                        duration: Duration(milliseconds: 2000),
-                                                                                        backgroundColor: FlutterFlowTheme.of(context).primaryText,
-                                                                                      ),
-                                                                                    );
-                                                                                    safeSetState(() {
-                                                                                      _model.textController?.clear();
-                                                                                    });
-                                                                                    _model.showText = true;
-                                                                                    safeSetState(() {});
-                                                                                    await Future.delayed(const Duration(milliseconds: 2000));
-                                                                                    _model.showText = false;
-                                                                                    safeSetState(() {});
-                                                                                  }
-                                                                                }
-                                                    
-                                                                                safeSetState(() {});
-                                                                              },
-                                                                              child:
-                                                                                  Container(
-                                                                                decoration: BoxDecoration(
-                                                                                  color: FlutterFlowTheme.of(context).primary,
-                                                                                  borderRadius: BorderRadius.circular(16.0),
-                                                                                ),
-                                                                                alignment: AlignmentDirectional(0.0, 0.0),
-                                                                                child: Padding(
-                                                                                  padding: EdgeInsetsDirectional.fromSTEB(24.0, 12.0, 24.0, 12.0),
-                                                                                  child: Text(
-                                                                                    translated[16].isEmpty ? txt[16] : translated[16], //'Apply',
-                                                                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                          fontFamily: 'SF Pro Display',
-                                                                                          color: FlutterFlowTheme.of(context).primaryBackground,
-                                                                                          fontSize: 16.0,
-                                                                                          letterSpacing: 0.0,
-                                                                                          useGoogleFonts: false,
-                                                                                        ),
-                                                                                  ),
-                                                                                ),
-                                                                              ),
-                                                                            ),
-                                                                          ].divide(SizedBox(width: 12.0)),
-                                                                        ),
-                                                                      ),
-                                                                    );
-                                                                  } else {
-                                                                    return Container(
-                                                                      width: double
-                                                                          .infinity,
-                                                                      decoration:
-                                                                          BoxDecoration(
-                                                                        color: FlutterFlowTheme.of(
-                                                                                context)
-                                                                            .primaryBackground,
-                                                                        borderRadius:
-                                                                            BorderRadius.circular(
-                                                                                16.0),
-                                                                      ),
-                                                                      child:
-                                                                          Padding(
-                                                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                                                            16.0,
-                                                                            11.0,
-                                                                            16.0,
-                                                                            11.0),
-                                                                        child:
-                                                                            Row(
-                                                                          mainAxisSize:
-                                                                              MainAxisSize.max,
-                                                                          mainAxisAlignment:
-                                                                              MainAxisAlignment.spaceBetween,
-                                                                          children:
-                                                                              [
-                                                                            Expanded(
-                                                                              child:
-                                                                                  Text(
-                                                                                _model.textController.text,
-                                                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                      fontFamily: 'SF Pro Display',
-                                                                                      fontSize: 16.0,
-                                                                                      letterSpacing: 0.0,
-                                                                                      useGoogleFonts: false,
-                                                                                      lineHeight: 1.5,
-                                                                                    ),
-                                                                              ),
-                                                                            ),
-                                                                            InkWell(
-                                                                              splashColor:
-                                                                                  Colors.transparent,
-                                                                              focusColor:
-                                                                                  Colors.transparent,
-                                                                              hoverColor:
-                                                                                  Colors.transparent,
-                                                                              highlightColor:
-                                                                                  Colors.transparent,
-                                                                              onTap:
-                                                                                  () async {
-                                                                                _model.isApplied = false;
-                                                                                safeSetState(() {});
-                                                                                safeSetState(() => _model.apiRequestCompleter = null);
-                                                                                await _model.waitForApiRequestCompleted();
-                                                                              },
-                                                                              child:
-                                                                                  Container(
-                                                                                width: 40.0,
-                                                                                height: 40.0,
-                                                                                decoration: BoxDecoration(
-                                                                                  color: FlutterFlowTheme.of(context).secondaryBackground,
-                                                                                  shape: BoxShape.circle,
-                                                                                ),
-                                                                                alignment: AlignmentDirectional(0.0, 0.0),
-                                                                                child: ClipRRect(
-                                                                                  borderRadius: BorderRadius.circular(0.0),
-                                                                                  child: SvgPicture.asset(
-                                                                                    'assets/images/close.svg',
-                                                                                    width: 24.0,
-                                                                                    height: 24.0,
-                                                                                    fit: BoxFit.cover,
-                                                                                  ),
-                                                                                ),
-                                                                              ),
-                                                                            ),
-                                                                          ].divide(SizedBox(width: 12.0)),
-                                                                        ),
-                                                                      ),
-                                                                    );
-                                                                  }
-                                                                },
-                                                              ),
-                                                            ),
-                                                            InkWell(
-                                                              splashColor: Colors
-                                                                  .transparent,
-                                                              focusColor: Colors
-                                                                  .transparent,
-                                                              hoverColor: Colors
-                                                                  .transparent,
-                                                              highlightColor:
-                                                                  Colors
-                                                                      .transparent,
-                                                              onTap: () async {
-                                                                context.pushNamed(
-                                                                    'MyCouponPage');
-                                                              },
-                                                              child: Text(
-                                                                translated[17].isEmpty ? txt[17] : translated[17],  //'View all',
-                                                                style: FlutterFlowTheme
-                                                                        .of(context)
-                                                                    .bodyMedium
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          'SF Pro Display',
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .secondaryText,
-                                                                      fontSize:
-                                                                          16.0,
-                                                                      letterSpacing:
-                                                                          0.0,
-                                                                      useGoogleFonts:
-                                                                          false,
-                                                                      lineHeight:
-                                                                          1.5,
-                                                                    ),
-                                                              ),
-                                                            ),
-                                                          ].divide(SizedBox(
-                                                              width: 16.0)),
-                                                        ),
-                                                        if (_model.showText ==
-                                                            true)
-                                                          Text(
-                                                            valueOrDefault<
-                                                                String>(
-                                                              CarServiceGroup
-                                                                  .applyCouponApiCall
-                                                                  .message(
-                                                                (_model.applyCouponFunction
-                                                                        ?.jsonBody ??
-                                                                    ''),
-                                                              ),
-                                                              'Done',
-                                                            ),
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'SF Pro Display',
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .error,
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  useGoogleFonts:
-                                                                      false,
-                                                                ),
-                                                          ),
-                                                      ].divide(
-                                                          SizedBox(height: 3.0)),
-                                                    )
-                                                 
-    : SizedBox.shrink(),
-                                                  widget.serviceName == 'Car Wash'
-    ? Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Text(
-                                                        translated[18].isEmpty ? txt[18] : translated[18],  //'Payment summary',
-                                                        style: FlutterFlowTheme
-                                                                .of(context)
-                                                            .bodyMedium
-                                                            .override(
-                                                              fontFamily:
-                                                                  'SF Pro Display',
-                                                              fontSize: 18.0,
-                                                              letterSpacing:
-                                                                  0.0,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600,
-                                                              useGoogleFonts:
-                                                                  false,
-                                                              lineHeight: 1.2,
-                                                            ),
-                                                      ),
-                                                      Container(
-                                                        width: double.infinity,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .primaryBackground,
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      16.0),
-                                                        ),
-                                                        child: Padding(
-                                                          padding:
-                                                              EdgeInsets.all(
-                                                                  16.0),
-                                                          child: Column(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
-                                                            children: [
                                                               Row(
                                                                 mainAxisSize:
                                                                     MainAxisSize
                                                                         .max,
+                                                                crossAxisAlignment:
+                                                                    CrossAxisAlignment
+                                                                        .start,
                                                                 children: [
                                                                   Expanded(
                                                                     child:
@@ -1970,7 +1337,10 @@ void addService(Service service) {
                                                                           0.0),
                                                                       child:
                                                                           Text(
-                                                                        translated[19].isEmpty ? txt[19] : translated[19], //'Cart total',
+                                                                        service
+                                                                            .name,
+                                                                        textAlign:
+                                                                            TextAlign.start,
                                                                         style: FlutterFlowTheme.of(context)
                                                                             .bodyMedium
                                                                             .override(
@@ -1984,35 +1354,31 @@ void addService(Service service) {
                                                                       ),
                                                                     ),
                                                                   ),
-                                                                  Align(
-                                                                    alignment:
-                                                                        AlignmentDirectional(
+                                                                  Padding(
+                                                                    padding: EdgeInsetsDirectional
+                                                                        .fromSTEB(
                                                                             0.0,
-                                                                            0.0),
-                                                                    child:
-                                                                        Padding(
-                                                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0,
-                                                                          6.0),
-                                                                      child: custom_widgets
-                                                                          .GetCurrencySymbool(
-                                                                        width:
-                                                                            15.0,
-                                                                        height:
-                                                                            18.0,
-                                                                        isSimbool:
-                                                                            widget!.currencySymbol,
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primaryText,
-                                                                        fontSize:
-                                                                            16.0,
-                                                                      ),
+                                                                            0.0,
+                                                                            0.0,
+                                                                            4.0),
+                                                                    child: custom_widgets
+                                                                        .GetCurrencySymbool(
+                                                                      width:
+                                                                          15.0,
+                                                                      height:
+                                                                          18.0,
+                                                                      isSimbool:
+                                                                          widget!
+                                                                              .currencySymbol,
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .primaryText,
+                                                                      fontSize:
+                                                                          16.0,
                                                                     ),
                                                                   ),
                                                                   Text(
-                                                                    grandTotal().toString(),
+                                                                    '${service.price}',
                                                                     style: FlutterFlowTheme.of(
                                                                             context)
                                                                         .bodyMedium
@@ -2026,377 +1392,940 @@ void addService(Service service) {
                                                                           useGoogleFonts:
                                                                               false,
                                                                           lineHeight:
-                                                                              1.5,
+                                                                              1.4,
                                                                         ),
                                                                   ),
                                                                 ],
                                                               ),
-                                                              if ((CarServiceGroup
-                                                                          .applyCouponApiCall
-                                                                          .success(
-                                                                        (_model.applyCouponFunction?.jsonBody ??
-                                                                            ''),
-                                                                      ) ==
-                                                                      1) &&
-                                                                  (_model.isApplied ==
-                                                                      true))
-                                                                Row(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .max,
-                                                                  children: [
-                                                                    Expanded(
-                                                                      child:
-                                                                          Padding(
-                                                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                                                            0.0,
-                                                                            0.0,
-                                                                            12.0,
-                                                                            0.0),
-                                                                        child:
-                                                                            Text(
-                                                                          translated[19].isEmpty ? txt[19] : translated[19], //'Coupon',
-                                                                          style: FlutterFlowTheme.of(context)
-                                                                              .bodyMedium
-                                                                              .override(
-                                                                                fontFamily: 'SF Pro Display',
-                                                                                color: FlutterFlowTheme.of(context).secondaryText,
-                                                                                fontSize: 16.0,
-                                                                                letterSpacing: 0.0,
-                                                                                useGoogleFonts: false,
-                                                                                lineHeight: 1.5,
-                                                                              ),
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                    Text(
-                                                                      '-',
-                                                                      style: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .bodyMedium
-                                                                          .override(
-                                                                            fontFamily:
-                                                                                'SF Pro Display',
-                                                                            color:
-                                                                                FlutterFlowTheme.of(context).primaryText,
-                                                                            fontSize:
-                                                                                16.0,
-                                                                            letterSpacing:
-                                                                                0.0,
-                                                                            useGoogleFonts:
-                                                                                false,
-                                                                            lineHeight:
-                                                                                1.5,
+                                                          ],
+                                                        )),
+                                                  ),
+                                                  // Text(' Service Name: ${widget.serviceName}'),
+                                                  // Text(' Package Name: ${widget.packageTitle}'),
+                                                  Container(
+                                                      width: double.infinity,
+                                                      decoration: BoxDecoration(
+                                                        color: FlutterFlowTheme
+                                                                .of(context)
+                                                            .primaryBackground,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(16.0),
+                                                      ),
+                                                      child:
+                                                          widget.serviceName ==
+                                                                  'Car Wash'
+                                                              ? Padding(
+                                                                  padding:
+                                                                      EdgeInsets
+                                                                          .all(
+                                                                              16.0),
+                                                                  child: Column(
+                                                                    mainAxisSize:
+                                                                        MainAxisSize
+                                                                            .max,
+                                                                    children: [
+                                                                      Row(
+                                                                        mainAxisSize:
+                                                                            MainAxisSize.max,
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.spaceBetween,
+                                                                        children: [
+                                                                          Expanded(
+                                                                            child:
+                                                                                Text(
+                                                                              translated[7].isEmpty ? txt[7] : translated[7], //'Add Extra Service',
+                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                    fontFamily: 'SF Pro Display',
+                                                                                    fontSize: 18.0,
+                                                                                    letterSpacing: 0.0,
+                                                                                    fontWeight: FontWeight.w600,
+                                                                                    useGoogleFonts: false,
+                                                                                    lineHeight: 1.5,
+                                                                                  ),
+                                                                            ),
                                                                           ),
-                                                                    ),
-                                                                    Align(
-                                                                      alignment:
-                                                                          AlignmentDirectional(
-                                                                              0.0,
-                                                                              0.0),
-                                                                      child:
-                                                                          Padding(
-                                                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            6.0),
-                                                                        child: custom_widgets
-                                                                            .GetCurrencySymbool(
-                                                                          width:
-                                                                              15.0,
-                                                                          height:
-                                                                              18.0,
-                                                                          isSimbool:
-                                                                              widget!.currencySymbol,
-                                                                          color:
-                                                                              FlutterFlowTheme.of(context).primaryText,
-                                                                          fontSize:
-                                                                              16.0,
-                                                                        ),
+                                                                        ],
                                                                       ),
-                                                                    ),
-                                                                    if (CarServiceGroup
-                                                                            .applyCouponApiCall
-                                                                            .success(
-                                                                          (_model.applyCouponFunction?.jsonBody ??
-                                                                              ''),
-                                                                        ) ==
-                                                                        1)
+                                                                      SizedBox(
+                                                                          height:
+                                                                              16.0), // To add space between the Row and ListView
+                                                                      SizedBox(
+                                                                        height:
+                                                                            100.0, // Constrain the height of the ListView
+                                                                        child:
+                                                                            ListView(
+                                                                          scrollDirection:
+                                                                              Axis.horizontal,
+                                                                          children: [
+                                                                            _buildServiceItem(
+                                                                                Icons.engineering,
+                                                                                translated[8].isEmpty ? txt[8] : translated[8], //'Engine Washing'
+                                                                                10),
+                                                                            _buildServiceItem(
+                                                                                Icons.auto_awesome,
+                                                                                translated[9].isEmpty ? txt[9] : translated[9], //'Leather Restoration',
+                                                                                10),
+                                                                            _buildServiceItem(
+                                                                                Icons.air,
+                                                                                translated[10].isEmpty ? txt[10] : translated[10], //'Air Freshener',
+                                                                                10),
+                                                                            _buildServiceItem(
+                                                                                Icons.cleaning_services,
+                                                                                translated[11].isEmpty ? txt[11] : translated[11], //'Window Cleaning',
+                                                                                10),
+                                                                            _buildServiceItem(
+                                                                                Icons.stairs,
+                                                                                translated[12].isEmpty ? txt[12] : translated[12], //'Removing Stubborn Stains',
+                                                                                10),
+                                                                            _buildServiceItem(
+                                                                                Icons.auto_fix_high,
+                                                                                translated[13].isEmpty ? txt[13] : translated[13], //'Interior Polishing',
+                                                                                10),
+                                                                            _buildServiceItem(
+                                                                                Icons.car_repair,
+                                                                                translated[14].isEmpty ? txt[14] : translated[14], //'Tire Care',
+                                                                                10),
+                                                                          ],
+                                                                        ),
+                                                                      )
+                                                                    ],
+                                                                  ),
+                                                                )
+                                                              : SizedBox
+                                                                  .shrink()),
+                                                  widget.serviceName ==
+                                                          'Car Wash'
+                                                      ? Column(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            Row(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              children: [
+                                                                Expanded(
+                                                                  child:
                                                                       Builder(
-                                                                        builder:
-                                                                            (context) {
-                                                                          if ('fixed' ==
-                                                                              getJsonField(
-                                                                                CarServiceGroup.getCouponsApiCall
-                                                                                    .couponDetailsList(
-                                                                                      checkoutPageGetCouponsApiResponse.jsonBody,
-                                                                                    )
-                                                                                    ?.where((e) =>
-                                                                                        _model.textController.text ==
-                                                                                        getJsonField(
-                                                                                          e,
-                                                                                          r'''$.coupon_code''',
-                                                                                        ).toString())
-                                                                                    .toList()
-                                                                                    ?.first,
-                                                                                r'''$.coupon_type''',
-                                                                              ).toString()) {
-                                                                            return Text(
-                                                                              (getJsonField(
-                                                                                CarServiceGroup.getCouponsApiCall
-                                                                                    .couponDetailsList(
-                                                                                      checkoutPageGetCouponsApiResponse.jsonBody,
-                                                                                    )!
-                                                                                    .where((e) =>
-                                                                                        _model.textController.text ==
-                                                                                        getJsonField(
-                                                                                          e,
-                                                                                          r'''$.coupon_code''',
-                                                                                        ).toString())
-                                                                                    .toList()
-                                                                                    .first,
-                                                                                r'''$.coupon_amount''',
-                                                                              ).toDouble())
-                                                                                  .toString(),
-                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                    fontFamily: 'SF Pro Display',
-                                                                                    fontSize: 16.0,
-                                                                                    letterSpacing: 0.0,
-                                                                                    useGoogleFonts: false,
-                                                                                    lineHeight: 1.5,
-                                                                                  ),
-                                                                            );
-                                                                          } else {
-                                                                            return Text(
-                                                                              functions
-                                                                                  .roundToTwoDecimalPlaces(functions.calculatePercentage(
-                                                                                      grandTotal(),
-                                                                                      getJsonField(
-                                                                                        CarServiceGroup.getCouponsApiCall
-                                                                                            .couponDetailsList(
-                                                                                              checkoutPageGetCouponsApiResponse.jsonBody,
-                                                                                            )!
-                                                                                            .where((e) =>
-                                                                                                _model.textController.text ==
-                                                                                                getJsonField(
-                                                                                                  e,
-                                                                                                  r'''$.coupon_code''',
-                                                                                                ).toString())
-                                                                                            .toList()
-                                                                                            .first,
-                                                                                        r'''$.coupon_amount''',
-                                                                                      ).toDouble()))
-                                                                                  .toString(),
-                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                    fontFamily: 'SF Pro Display',
-                                                                                    fontSize: 16.0,
-                                                                                    letterSpacing: 0.0,
-                                                                                    useGoogleFonts: false,
-                                                                                    lineHeight: 1.5,
-                                                                                  ),
-                                                                            );
-                                                                          }
-                                                                        },
-                                                                      ),
-                                                                  ],
-                                                                ),
-                                                              if (valueOrDefault<
-                                                                          String>(
-                                                                        CarServiceGroup
-                                                                            .standardRateApiCall
-                                                                            .taxRate(
-                                                                          columnStandardRateApiResponse
-                                                                              .jsonBody,
-                                                                        ),
-                                                                        'Rate',
-                                                                      ) !=
-                                                                      null &&
-                                                                  valueOrDefault<
-                                                                          String>(
-                                                                        CarServiceGroup
-                                                                            .standardRateApiCall
-                                                                            .taxRate(
-                                                                          columnStandardRateApiResponse
-                                                                              .jsonBody,
-                                                                        ),
-                                                                        'Rate',
-                                                                      ) !=
-                                                                      '')
-                                                                Row(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .max,
-                                                                  children: [
-                                                                    Expanded(
-                                                                      child:
-                                                                          Padding(
-                                                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                                                            0.0,
-                                                                            0.0,
-                                                                            12.0,
-                                                                            0.0),
-                                                                        child:
-                                                                            Text(
-                                                                          valueOrDefault<
-                                                                              String>(
-                                                                            CarServiceGroup.standardRateApiCall.taxName(
-                                                                              columnStandardRateApiResponse.jsonBody,
-                                                                            ),
-                                                                            'Tax',
-                                                                          ),
-                                                                          style: FlutterFlowTheme.of(context)
-                                                                              .bodyMedium
-                                                                              .override(
-                                                                                fontFamily: 'SF Pro Display',
-                                                                                color: FlutterFlowTheme.of(context).secondaryText,
-                                                                                fontSize: 16.0,
-                                                                                letterSpacing: 0.0,
-                                                                                useGoogleFonts: false,
-                                                                                lineHeight: 1.5,
-                                                                              ),
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                    Padding(
-                                                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0,
-                                                                          2.0),
-                                                                      child:
-                                                                          Text(
-                                                                        '+',
-                                                                        style: FlutterFlowTheme.of(context)
-                                                                            .bodyMedium
-                                                                            .override(
-                                                                              fontFamily: 'SF Pro Display',
-                                                                              color: FlutterFlowTheme.of(context).primaryText,
-                                                                              fontSize: 16.0,
-                                                                              letterSpacing: 0.0,
-                                                                              useGoogleFonts: false,
-                                                                              lineHeight: 1.5,
-                                                                            ),
-                                                                      ),
-                                                                    ),
-                                                                    Align(
-                                                                      alignment:
-                                                                          AlignmentDirectional(
-                                                                              0.0,
-                                                                              0.0),
-                                                                      child:
-                                                                          Padding(
-                                                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            6.0),
-                                                                        child: custom_widgets
-                                                                            .GetCurrencySymbool(
+                                                                    builder:
+                                                                        (context) {
+                                                                      if (_model
+                                                                              .isApplied ==
+                                                                          false) {
+                                                                        return Container(
                                                                           width:
-                                                                              15.0,
-                                                                          height:
-                                                                              18.0,
-                                                                          isSimbool:
-                                                                              widget!.currencySymbol,
-                                                                          color:
-                                                                              FlutterFlowTheme.of(context).primaryText,
-                                                                          fontSize:
-                                                                              16.0,
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                    Builder(
-                                                                      builder:
-                                                                          (context) {
-                                                                        if (_model.isApplied ==
-                                                                            true) {
-                                                                          return Builder(
-                                                                            builder:
-                                                                                (context) {
-                                                                              if (CarServiceGroup.applyCouponApiCall.success(
-                                                                                    (_model.applyCouponFunction?.jsonBody ?? ''),
-                                                                                  ) ==
-                                                                                  1) {
-                                                                                return Builder(
-                                                                                  builder: (context) {
-                                                                                    if ('fixed' ==
-                                                                                        getJsonField(
-                                                                                          CarServiceGroup.getCouponsApiCall
-                                                                                              .couponDetailsList(
-                                                                                                checkoutPageGetCouponsApiResponse.jsonBody,
-                                                                                              )
-                                                                                              ?.where((e) =>
-                                                                                                  _model.textController.text ==
-                                                                                                  getJsonField(
-                                                                                                    e,
-                                                                                                    r'''$.coupon_code''',
-                                                                                                  ).toString())
-                                                                                              .toList()
-                                                                                              ?.first,
-                                                                                          r'''$.coupon_type''',
-                                                                                        ).toString()) {
-                                                                                      return Text(
-                                                                                        functions
-                                                                                            .roundToTwoDecimalPlaces(functions.calculatePercentageOfDifference(
-                                                                                                grandTotal(),
-                                                                                                valueOrDefault<int>(
-                                                                                                  getJsonField(
-                                                                                                    CarServiceGroup.getCouponsApiCall
-                                                                                                        .couponDetailsList(
-                                                                                                          checkoutPageGetCouponsApiResponse.jsonBody,
-                                                                                                        )
-                                                                                                        ?.where((e) =>
-                                                                                                            _model.textController.text ==
-                                                                                                            getJsonField(
-                                                                                                              e,
-                                                                                                              r'''$.coupon_code''',
-                                                                                                            ).toString())
-                                                                                                        .toList()
-                                                                                                        ?.first,
-                                                                                                    r'''$.coupon_amount''',
-                                                                                                  ),
-                                                                                                  0,
-                                                                                                ).toDouble(),
-                                                                                                valueOrDefault<String>(
-                                                                                                  CarServiceGroup.standardRateApiCall.taxRate(
-                                                                                                    columnStandardRateApiResponse.jsonBody,
-                                                                                                  ),
-                                                                                                  'Rate',
-                                                                                                )))
-                                                                                            .toString(),
+                                                                              double.infinity,
+                                                                          decoration:
+                                                                              BoxDecoration(
+                                                                            color:
+                                                                                FlutterFlowTheme.of(context).primaryBackground,
+                                                                            borderRadius:
+                                                                                BorderRadius.circular(16.0),
+                                                                          ),
+                                                                          child:
+                                                                              Padding(
+                                                                            padding: EdgeInsetsDirectional.fromSTEB(
+                                                                                0.0,
+                                                                                8.0,
+                                                                                8.0,
+                                                                                8.0),
+                                                                            child:
+                                                                                Row(
+                                                                              mainAxisSize: MainAxisSize.max,
+                                                                              children: [
+                                                                                Expanded(
+                                                                                  child: TextFormField(
+                                                                                    controller: _model.textController,
+                                                                                    focusNode: _model.textFieldFocusNode,
+                                                                                    onFieldSubmitted: (_) async {
+                                                                                      if (_model.textController.text != null && _model.textController.text != '') {
+                                                                                        _model.applyCouponFunctionCopy = await CarServiceGroup.applyCouponApiCall.call(
+                                                                                          userId: FFAppState().userId,
+                                                                                          couponCode: _model.textController.text,
+                                                                                          token: FFAppState().token,
+                                                                                        );
+
+                                                                                        if (CarServiceGroup.applyCouponApiCall.success(
+                                                                                              (_model.applyCouponFunctionCopy?.jsonBody ?? ''),
+                                                                                            ) ==
+                                                                                            1) {
+                                                                                          ScaffoldMessenger.of(context).showSnackBar(
+                                                                                            SnackBar(
+                                                                                              content: Text(
+                                                                                                CarServiceGroup.applyCouponApiCall.message(
+                                                                                                  (_model.applyCouponFunctionCopy?.jsonBody ?? ''),
+                                                                                                )!,
+                                                                                                style: TextStyle(
+                                                                                                  color: FlutterFlowTheme.of(context).primaryText,
+                                                                                                ),
+                                                                                              ),
+                                                                                              duration: Duration(milliseconds: 2000),
+                                                                                              backgroundColor: FlutterFlowTheme.of(context).secondary,
+                                                                                            ),
+                                                                                          );
+                                                                                          _model.isApplied = true;
+                                                                                          _model.showText = true;
+                                                                                          safeSetState(() {});
+                                                                                          await Future.delayed(const Duration(milliseconds: 2000));
+                                                                                          _model.showText = false;
+                                                                                          safeSetState(() {});
+                                                                                        } else {
+                                                                                          ScaffoldMessenger.of(context).showSnackBar(
+                                                                                            SnackBar(
+                                                                                              content: Text(
+                                                                                                CarServiceGroup.applyCouponApiCall.message(
+                                                                                                  (_model.applyCouponFunctionCopy?.jsonBody ?? ''),
+                                                                                                )!,
+                                                                                                style: TextStyle(
+                                                                                                  color: FlutterFlowTheme.of(context).primaryText,
+                                                                                                ),
+                                                                                              ),
+                                                                                              duration: Duration(milliseconds: 2000),
+                                                                                              backgroundColor: FlutterFlowTheme.of(context).secondary,
+                                                                                            ),
+                                                                                          );
+                                                                                          safeSetState(() {
+                                                                                            _model.textController?.clear();
+                                                                                          });
+                                                                                          _model.showText = true;
+                                                                                          safeSetState(() {});
+                                                                                          await Future.delayed(const Duration(milliseconds: 2000));
+                                                                                          _model.showText = false;
+                                                                                          safeSetState(() {});
+                                                                                        }
+                                                                                      }
+
+                                                                                      safeSetState(() {});
+                                                                                    },
+                                                                                    autofocus: false,
+                                                                                    textInputAction: TextInputAction.next,
+                                                                                    obscureText: false,
+                                                                                    decoration: InputDecoration(
+                                                                                      hintText: translated[15].isEmpty ? txt[15] : translated[15], //'Enter Coupon code',
+                                                                                      hintStyle: FlutterFlowTheme.of(context).labelMedium.override(
+                                                                                            fontFamily: 'SF Pro Display',
+                                                                                            fontSize: 16.0,
+                                                                                            letterSpacing: 0.0,
+                                                                                            useGoogleFonts: false,
+                                                                                            lineHeight: 1.2,
+                                                                                          ),
+                                                                                      errorStyle: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                            fontFamily: 'SF Pro Display',
+                                                                                            color: FlutterFlowTheme.of(context).error,
+                                                                                            fontSize: 16.0,
+                                                                                            letterSpacing: 0.0,
+                                                                                            useGoogleFonts: false,
+                                                                                            lineHeight: 1.2,
+                                                                                          ),
+                                                                                      enabledBorder: InputBorder.none,
+                                                                                      focusedBorder: InputBorder.none,
+                                                                                      errorBorder: InputBorder.none,
+                                                                                      focusedErrorBorder: InputBorder.none,
+                                                                                      contentPadding: EdgeInsetsDirectional.fromSTEB(16.0, 17.0, 16.0, 17.0),
+                                                                                    ),
+                                                                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                          fontFamily: 'SF Pro Display',
+                                                                                          fontSize: 16.0,
+                                                                                          letterSpacing: 0.0,
+                                                                                          useGoogleFonts: false,
+                                                                                          lineHeight: 1.2,
+                                                                                        ),
+                                                                                    keyboardType: TextInputType.emailAddress,
+                                                                                    cursorColor: FlutterFlowTheme.of(context).primaryText,
+                                                                                    validator: _model.textControllerValidator.asValidator(context),
+                                                                                  ),
+                                                                                ),
+                                                                                InkWell(
+                                                                                  splashColor: Colors.transparent,
+                                                                                  focusColor: Colors.transparent,
+                                                                                  hoverColor: Colors.transparent,
+                                                                                  highlightColor: Colors.transparent,
+                                                                                  onTap: () async {
+                                                                                    if (_model.textController.text != null && _model.textController.text != '') {
+                                                                                      _model.applyCouponFunction = await CarServiceGroup.applyCouponApiCall.call(
+                                                                                        userId: FFAppState().userId,
+                                                                                        couponCode: _model.textController.text,
+                                                                                        token: FFAppState().token,
+                                                                                      );
+
+                                                                                      if (CarServiceGroup.applyCouponApiCall.success(
+                                                                                            (_model.applyCouponFunction?.jsonBody ?? ''),
+                                                                                          ) ==
+                                                                                          1) {
+                                                                                        ScaffoldMessenger.of(context).showSnackBar(
+                                                                                          SnackBar(
+                                                                                            content: Text(
+                                                                                              CarServiceGroup.applyCouponApiCall.message(
+                                                                                                (_model.applyCouponFunction?.jsonBody ?? ''),
+                                                                                              )!,
+                                                                                              style: TextStyle(
+                                                                                                color: FlutterFlowTheme.of(context).primaryBackground,
+                                                                                              ),
+                                                                                            ),
+                                                                                            duration: Duration(milliseconds: 2000),
+                                                                                            backgroundColor: FlutterFlowTheme.of(context).primaryText,
+                                                                                          ),
+                                                                                        );
+                                                                                        _model.isApplied = true;
+                                                                                        _model.showText = true;
+                                                                                        safeSetState(() {});
+                                                                                        await Future.delayed(const Duration(milliseconds: 2000));
+                                                                                        _model.showText = false;
+                                                                                        safeSetState(() {});
+                                                                                      } else {
+                                                                                        ScaffoldMessenger.of(context).showSnackBar(
+                                                                                          SnackBar(
+                                                                                            content: Text(
+                                                                                              CarServiceGroup.applyCouponApiCall.message(
+                                                                                                (_model.applyCouponFunction?.jsonBody ?? ''),
+                                                                                              )!,
+                                                                                              style: TextStyle(
+                                                                                                color: FlutterFlowTheme.of(context).primaryBackground,
+                                                                                              ),
+                                                                                            ),
+                                                                                            duration: Duration(milliseconds: 2000),
+                                                                                            backgroundColor: FlutterFlowTheme.of(context).primaryText,
+                                                                                          ),
+                                                                                        );
+                                                                                        safeSetState(() {
+                                                                                          _model.textController?.clear();
+                                                                                        });
+                                                                                        _model.showText = true;
+                                                                                        safeSetState(() {});
+                                                                                        await Future.delayed(const Duration(milliseconds: 2000));
+                                                                                        _model.showText = false;
+                                                                                        safeSetState(() {});
+                                                                                      }
+                                                                                    }
+
+                                                                                    safeSetState(() {});
+                                                                                  },
+                                                                                  child: Container(
+                                                                                    decoration: BoxDecoration(
+                                                                                      color: FlutterFlowTheme.of(context).primary,
+                                                                                      borderRadius: BorderRadius.circular(16.0),
+                                                                                    ),
+                                                                                    alignment: AlignmentDirectional(0.0, 0.0),
+                                                                                    child: Padding(
+                                                                                      padding: EdgeInsetsDirectional.fromSTEB(24.0, 12.0, 24.0, 12.0),
+                                                                                      child: Text(
+                                                                                        translated[16].isEmpty ? txt[16] : translated[16], //'Apply',
                                                                                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                               fontFamily: 'SF Pro Display',
-                                                                                              color: FlutterFlowTheme.of(context).primaryText,
+                                                                                              color: FlutterFlowTheme.of(context).primaryBackground,
                                                                                               fontSize: 16.0,
                                                                                               letterSpacing: 0.0,
                                                                                               useGoogleFonts: false,
-                                                                                              lineHeight: 1.2,
                                                                                             ),
+                                                                                      ),
+                                                                                    ),
+                                                                                  ),
+                                                                                ),
+                                                                              ].divide(SizedBox(width: 12.0)),
+                                                                            ),
+                                                                          ),
+                                                                        );
+                                                                      } else {
+                                                                        return Container(
+                                                                          width:
+                                                                              double.infinity,
+                                                                          decoration:
+                                                                              BoxDecoration(
+                                                                            color:
+                                                                                FlutterFlowTheme.of(context).primaryBackground,
+                                                                            borderRadius:
+                                                                                BorderRadius.circular(16.0),
+                                                                          ),
+                                                                          child:
+                                                                              Padding(
+                                                                            padding: EdgeInsetsDirectional.fromSTEB(
+                                                                                16.0,
+                                                                                11.0,
+                                                                                16.0,
+                                                                                11.0),
+                                                                            child:
+                                                                                Row(
+                                                                              mainAxisSize: MainAxisSize.max,
+                                                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                              children: [
+                                                                                Expanded(
+                                                                                  child: Text(
+                                                                                    _model.textController.text,
+                                                                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                          fontFamily: 'SF Pro Display',
+                                                                                          fontSize: 16.0,
+                                                                                          letterSpacing: 0.0,
+                                                                                          useGoogleFonts: false,
+                                                                                          lineHeight: 1.5,
+                                                                                        ),
+                                                                                  ),
+                                                                                ),
+                                                                                InkWell(
+                                                                                  splashColor: Colors.transparent,
+                                                                                  focusColor: Colors.transparent,
+                                                                                  hoverColor: Colors.transparent,
+                                                                                  highlightColor: Colors.transparent,
+                                                                                  onTap: () async {
+                                                                                    _model.isApplied = false;
+                                                                                    safeSetState(() {});
+                                                                                    safeSetState(() => _model.apiRequestCompleter = null);
+                                                                                    await _model.waitForApiRequestCompleted();
+                                                                                  },
+                                                                                  child: Container(
+                                                                                    width: 40.0,
+                                                                                    height: 40.0,
+                                                                                    decoration: BoxDecoration(
+                                                                                      color: FlutterFlowTheme.of(context).secondaryBackground,
+                                                                                      shape: BoxShape.circle,
+                                                                                    ),
+                                                                                    alignment: AlignmentDirectional(0.0, 0.0),
+                                                                                    child: ClipRRect(
+                                                                                      borderRadius: BorderRadius.circular(0.0),
+                                                                                      child: SvgPicture.asset(
+                                                                                        'assets/images/close.svg',
+                                                                                        width: 24.0,
+                                                                                        height: 24.0,
+                                                                                        fit: BoxFit.cover,
+                                                                                      ),
+                                                                                    ),
+                                                                                  ),
+                                                                                ),
+                                                                              ].divide(SizedBox(width: 12.0)),
+                                                                            ),
+                                                                          ),
+                                                                        );
+                                                                      }
+                                                                    },
+                                                                  ),
+                                                                ),
+                                                                InkWell(
+                                                                  splashColor:
+                                                                      Colors
+                                                                          .transparent,
+                                                                  focusColor: Colors
+                                                                      .transparent,
+                                                                  hoverColor: Colors
+                                                                      .transparent,
+                                                                  highlightColor:
+                                                                      Colors
+                                                                          .transparent,
+                                                                  onTap:
+                                                                      () async {
+                                                                    context.pushNamed(
+                                                                        'MyCouponPage');
+                                                                  },
+                                                                  child: Text(
+                                                                    translated[17]
+                                                                            .isEmpty
+                                                                        ? txt[
+                                                                            17]
+                                                                        : translated[
+                                                                            17], //'View all',
+                                                                    style: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .override(
+                                                                          fontFamily:
+                                                                              'SF Pro Display',
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).secondaryText,
+                                                                          fontSize:
+                                                                              16.0,
+                                                                          letterSpacing:
+                                                                              0.0,
+                                                                          useGoogleFonts:
+                                                                              false,
+                                                                          lineHeight:
+                                                                              1.5,
+                                                                        ),
+                                                                  ),
+                                                                ),
+                                                              ].divide(SizedBox(
+                                                                  width: 16.0)),
+                                                            ),
+                                                            if (_model
+                                                                    .showText ==
+                                                                true)
+                                                              Text(
+                                                                valueOrDefault<
+                                                                    String>(
+                                                                  CarServiceGroup
+                                                                      .applyCouponApiCall
+                                                                      .message(
+                                                                    (_model.applyCouponFunction
+                                                                            ?.jsonBody ??
+                                                                        ''),
+                                                                  ),
+                                                                  'Done',
+                                                                ),
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'SF Pro Display',
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .error,
+                                                                      letterSpacing:
+                                                                          0.0,
+                                                                      useGoogleFonts:
+                                                                          false,
+                                                                    ),
+                                                              ),
+                                                          ].divide(SizedBox(
+                                                              height: 3.0)),
+                                                        )
+                                                      : SizedBox.shrink(),
+                                                  widget.serviceName ==
+                                                          'Car Wash'
+                                                      ? Column(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            Text(
+                                                              translated[18]
+                                                                      .isEmpty
+                                                                  ? txt[18]
+                                                                  : translated[
+                                                                      18], //'Payment summary',
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .bodyMedium
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        'SF Pro Display',
+                                                                    fontSize:
+                                                                        18.0,
+                                                                    letterSpacing:
+                                                                        0.0,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w600,
+                                                                    useGoogleFonts:
+                                                                        false,
+                                                                    lineHeight:
+                                                                        1.2,
+                                                                  ),
+                                                            ),
+                                                            Container(
+                                                              width: double
+                                                                  .infinity,
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primaryBackground,
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            16.0),
+                                                              ),
+                                                              child: Padding(
+                                                                padding:
+                                                                    EdgeInsets
+                                                                        .all(
+                                                                            16.0),
+                                                                child: Column(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  crossAxisAlignment:
+                                                                      CrossAxisAlignment
+                                                                          .start,
+                                                                  children: [
+                                                                    Row(
+                                                                      mainAxisSize:
+                                                                          MainAxisSize
+                                                                              .max,
+                                                                      children: [
+                                                                        Expanded(
+                                                                          child:
+                                                                              Padding(
+                                                                            padding: EdgeInsetsDirectional.fromSTEB(
+                                                                                0.0,
+                                                                                0.0,
+                                                                                12.0,
+                                                                                0.0),
+                                                                            child:
+                                                                                Text(
+                                                                              translated[19].isEmpty ? txt[19] : translated[19], //'Cart total',
+                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                    fontFamily: 'SF Pro Display',
+                                                                                    color: FlutterFlowTheme.of(context).secondaryText,
+                                                                                    fontSize: 16.0,
+                                                                                    letterSpacing: 0.0,
+                                                                                    useGoogleFonts: false,
+                                                                                    lineHeight: 1.5,
+                                                                                  ),
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                        Align(
+                                                                          alignment: AlignmentDirectional(
+                                                                              0.0,
+                                                                              0.0),
+                                                                          child:
+                                                                              Padding(
+                                                                            padding: EdgeInsetsDirectional.fromSTEB(
+                                                                                0.0,
+                                                                                0.0,
+                                                                                0.0,
+                                                                                6.0),
+                                                                            child:
+                                                                                custom_widgets.GetCurrencySymbool(
+                                                                              width: 15.0,
+                                                                              height: 18.0,
+                                                                              isSimbool: widget!.currencySymbol,
+                                                                              color: FlutterFlowTheme.of(context).primaryText,
+                                                                              fontSize: 16.0,
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                        Text(
+                                                                          grandTotal()
+                                                                              .toString(),
+                                                                          style: FlutterFlowTheme.of(context)
+                                                                              .bodyMedium
+                                                                              .override(
+                                                                                fontFamily: 'SF Pro Display',
+                                                                                fontSize: 16.0,
+                                                                                letterSpacing: 0.0,
+                                                                                useGoogleFonts: false,
+                                                                                lineHeight: 1.5,
+                                                                              ),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                    if ((CarServiceGroup.applyCouponApiCall
+                                                                                .success(
+                                                                              (_model.applyCouponFunction?.jsonBody ?? ''),
+                                                                            ) ==
+                                                                            1) &&
+                                                                        (_model.isApplied ==
+                                                                            true))
+                                                                      Row(
+                                                                        mainAxisSize:
+                                                                            MainAxisSize.max,
+                                                                        children: [
+                                                                          Expanded(
+                                                                            child:
+                                                                                Padding(
+                                                                              padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 12.0, 0.0),
+                                                                              child: Text(
+                                                                                translated[19].isEmpty ? txt[19] : translated[19], //'Coupon',
+                                                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                      fontFamily: 'SF Pro Display',
+                                                                                      color: FlutterFlowTheme.of(context).secondaryText,
+                                                                                      fontSize: 16.0,
+                                                                                      letterSpacing: 0.0,
+                                                                                      useGoogleFonts: false,
+                                                                                      lineHeight: 1.5,
+                                                                                    ),
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                          Text(
+                                                                            '-',
+                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                  fontFamily: 'SF Pro Display',
+                                                                                  color: FlutterFlowTheme.of(context).primaryText,
+                                                                                  fontSize: 16.0,
+                                                                                  letterSpacing: 0.0,
+                                                                                  useGoogleFonts: false,
+                                                                                  lineHeight: 1.5,
+                                                                                ),
+                                                                          ),
+                                                                          Align(
+                                                                            alignment:
+                                                                                AlignmentDirectional(0.0, 0.0),
+                                                                            child:
+                                                                                Padding(
+                                                                              padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 6.0),
+                                                                              child: custom_widgets.GetCurrencySymbool(
+                                                                                width: 15.0,
+                                                                                height: 18.0,
+                                                                                isSimbool: widget!.currencySymbol,
+                                                                                color: FlutterFlowTheme.of(context).primaryText,
+                                                                                fontSize: 16.0,
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                          if (CarServiceGroup.applyCouponApiCall.success(
+                                                                                (_model.applyCouponFunction?.jsonBody ?? ''),
+                                                                              ) ==
+                                                                              1)
+                                                                            Builder(
+                                                                              builder: (context) {
+                                                                                if ('fixed' ==
+                                                                                    getJsonField(
+                                                                                      CarServiceGroup.getCouponsApiCall
+                                                                                          .couponDetailsList(
+                                                                                            checkoutPageGetCouponsApiResponse.jsonBody,
+                                                                                          )
+                                                                                          ?.where((e) =>
+                                                                                              _model.textController.text ==
+                                                                                              getJsonField(
+                                                                                                e,
+                                                                                                r'''$.coupon_code''',
+                                                                                              ).toString())
+                                                                                          .toList()
+                                                                                          ?.first,
+                                                                                      r'''$.coupon_type''',
+                                                                                    ).toString()) {
+                                                                                  return Text(
+                                                                                    (getJsonField(
+                                                                                      CarServiceGroup.getCouponsApiCall
+                                                                                          .couponDetailsList(
+                                                                                            checkoutPageGetCouponsApiResponse.jsonBody,
+                                                                                          )!
+                                                                                          .where((e) =>
+                                                                                              _model.textController.text ==
+                                                                                              getJsonField(
+                                                                                                e,
+                                                                                                r'''$.coupon_code''',
+                                                                                              ).toString())
+                                                                                          .toList()
+                                                                                          .first,
+                                                                                      r'''$.coupon_amount''',
+                                                                                    ).toDouble())
+                                                                                        .toString(),
+                                                                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                          fontFamily: 'SF Pro Display',
+                                                                                          fontSize: 16.0,
+                                                                                          letterSpacing: 0.0,
+                                                                                          useGoogleFonts: false,
+                                                                                          lineHeight: 1.5,
+                                                                                        ),
+                                                                                  );
+                                                                                } else {
+                                                                                  return Text(
+                                                                                    functions
+                                                                                        .roundToTwoDecimalPlaces(functions.calculatePercentage(
+                                                                                            grandTotal(),
+                                                                                            getJsonField(
+                                                                                              CarServiceGroup.getCouponsApiCall
+                                                                                                  .couponDetailsList(
+                                                                                                    checkoutPageGetCouponsApiResponse.jsonBody,
+                                                                                                  )!
+                                                                                                  .where((e) =>
+                                                                                                      _model.textController.text ==
+                                                                                                      getJsonField(
+                                                                                                        e,
+                                                                                                        r'''$.coupon_code''',
+                                                                                                      ).toString())
+                                                                                                  .toList()
+                                                                                                  .first,
+                                                                                              r'''$.coupon_amount''',
+                                                                                            ).toDouble()))
+                                                                                        .toString(),
+                                                                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                          fontFamily: 'SF Pro Display',
+                                                                                          fontSize: 16.0,
+                                                                                          letterSpacing: 0.0,
+                                                                                          useGoogleFonts: false,
+                                                                                          lineHeight: 1.5,
+                                                                                        ),
+                                                                                  );
+                                                                                }
+                                                                              },
+                                                                            ),
+                                                                        ],
+                                                                      ),
+                                                                    if (valueOrDefault<String>(
+                                                                              CarServiceGroup.standardRateApiCall.taxRate(
+                                                                                columnStandardRateApiResponse.jsonBody,
+                                                                              ),
+                                                                              'Rate',
+                                                                            ) !=
+                                                                            null &&
+                                                                        valueOrDefault<String>(
+                                                                              CarServiceGroup.standardRateApiCall.taxRate(
+                                                                                columnStandardRateApiResponse.jsonBody,
+                                                                              ),
+                                                                              'Rate',
+                                                                            ) !=
+                                                                            '')
+                                                                      Row(
+                                                                        mainAxisSize:
+                                                                            MainAxisSize.max,
+                                                                        children: [
+                                                                          Expanded(
+                                                                            child:
+                                                                                Padding(
+                                                                              padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 12.0, 0.0),
+                                                                              child: Text(
+                                                                                valueOrDefault<String>(
+                                                                                  CarServiceGroup.standardRateApiCall.taxName(
+                                                                                    columnStandardRateApiResponse.jsonBody,
+                                                                                  ),
+                                                                                  'Tax',
+                                                                                ),
+                                                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                      fontFamily: 'SF Pro Display',
+                                                                                      color: FlutterFlowTheme.of(context).secondaryText,
+                                                                                      fontSize: 16.0,
+                                                                                      letterSpacing: 0.0,
+                                                                                      useGoogleFonts: false,
+                                                                                      lineHeight: 1.5,
+                                                                                    ),
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                          Padding(
+                                                                            padding: EdgeInsetsDirectional.fromSTEB(
+                                                                                0.0,
+                                                                                0.0,
+                                                                                0.0,
+                                                                                2.0),
+                                                                            child:
+                                                                                Text(
+                                                                              '+',
+                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                    fontFamily: 'SF Pro Display',
+                                                                                    color: FlutterFlowTheme.of(context).primaryText,
+                                                                                    fontSize: 16.0,
+                                                                                    letterSpacing: 0.0,
+                                                                                    useGoogleFonts: false,
+                                                                                    lineHeight: 1.5,
+                                                                                  ),
+                                                                            ),
+                                                                          ),
+                                                                          Align(
+                                                                            alignment:
+                                                                                AlignmentDirectional(0.0, 0.0),
+                                                                            child:
+                                                                                Padding(
+                                                                              padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 6.0),
+                                                                              child: custom_widgets.GetCurrencySymbool(
+                                                                                width: 15.0,
+                                                                                height: 18.0,
+                                                                                isSimbool: widget!.currencySymbol,
+                                                                                color: FlutterFlowTheme.of(context).primaryText,
+                                                                                fontSize: 16.0,
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                          Builder(
+                                                                            builder:
+                                                                                (context) {
+                                                                              if (_model.isApplied == true) {
+                                                                                return Builder(
+                                                                                  builder: (context) {
+                                                                                    if (CarServiceGroup.applyCouponApiCall.success(
+                                                                                          (_model.applyCouponFunction?.jsonBody ?? ''),
+                                                                                        ) ==
+                                                                                        1) {
+                                                                                      return Builder(
+                                                                                        builder: (context) {
+                                                                                          if ('fixed' ==
+                                                                                              getJsonField(
+                                                                                                CarServiceGroup.getCouponsApiCall
+                                                                                                    .couponDetailsList(
+                                                                                                      checkoutPageGetCouponsApiResponse.jsonBody,
+                                                                                                    )
+                                                                                                    ?.where((e) =>
+                                                                                                        _model.textController.text ==
+                                                                                                        getJsonField(
+                                                                                                          e,
+                                                                                                          r'''$.coupon_code''',
+                                                                                                        ).toString())
+                                                                                                    .toList()
+                                                                                                    ?.first,
+                                                                                                r'''$.coupon_type''',
+                                                                                              ).toString()) {
+                                                                                            return Text(
+                                                                                              functions
+                                                                                                  .roundToTwoDecimalPlaces(functions.calculatePercentageOfDifference(
+                                                                                                      grandTotal(),
+                                                                                                      valueOrDefault<int>(
+                                                                                                        getJsonField(
+                                                                                                          CarServiceGroup.getCouponsApiCall
+                                                                                                              .couponDetailsList(
+                                                                                                                checkoutPageGetCouponsApiResponse.jsonBody,
+                                                                                                              )
+                                                                                                              ?.where((e) =>
+                                                                                                                  _model.textController.text ==
+                                                                                                                  getJsonField(
+                                                                                                                    e,
+                                                                                                                    r'''$.coupon_code''',
+                                                                                                                  ).toString())
+                                                                                                              .toList()
+                                                                                                              ?.first,
+                                                                                                          r'''$.coupon_amount''',
+                                                                                                        ),
+                                                                                                        0,
+                                                                                                      ).toDouble(),
+                                                                                                      valueOrDefault<String>(
+                                                                                                        CarServiceGroup.standardRateApiCall.taxRate(
+                                                                                                          columnStandardRateApiResponse.jsonBody,
+                                                                                                        ),
+                                                                                                        'Rate',
+                                                                                                      )))
+                                                                                                  .toString(),
+                                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                    fontFamily: 'SF Pro Display',
+                                                                                                    color: FlutterFlowTheme.of(context).primaryText,
+                                                                                                    fontSize: 16.0,
+                                                                                                    letterSpacing: 0.0,
+                                                                                                    useGoogleFonts: false,
+                                                                                                    lineHeight: 1.2,
+                                                                                                  ),
+                                                                                            );
+                                                                                          } else {
+                                                                                            return Text(
+                                                                                              functions
+                                                                                                  .roundToTwoDecimalPlaces(functions.calculatePercentageOfResult(
+                                                                                                      grandTotal(),
+                                                                                                      valueOrDefault<int>(
+                                                                                                        getJsonField(
+                                                                                                          CarServiceGroup.getCouponsApiCall
+                                                                                                              .couponDetailsList(
+                                                                                                                checkoutPageGetCouponsApiResponse.jsonBody,
+                                                                                                              )
+                                                                                                              ?.where((e) =>
+                                                                                                                  _model.textController.text ==
+                                                                                                                  getJsonField(
+                                                                                                                    e,
+                                                                                                                    r'''$.coupon_code''',
+                                                                                                                  ).toString())
+                                                                                                              .toList()
+                                                                                                              ?.first,
+                                                                                                          r'''$.coupon_amount''',
+                                                                                                        ),
+                                                                                                        0,
+                                                                                                      ).toDouble(),
+                                                                                                      valueOrDefault<String>(
+                                                                                                        CarServiceGroup.standardRateApiCall.taxRate(
+                                                                                                          columnStandardRateApiResponse.jsonBody,
+                                                                                                        ),
+                                                                                                        'Rate',
+                                                                                                      )))
+                                                                                                  .toString(),
+                                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                    fontFamily: 'SF Pro Display',
+                                                                                                    color: FlutterFlowTheme.of(context).primaryText,
+                                                                                                    fontSize: 16.0,
+                                                                                                    letterSpacing: 0.0,
+                                                                                                    useGoogleFonts: false,
+                                                                                                    lineHeight: 1.2,
+                                                                                                  ),
+                                                                                            );
+                                                                                          }
+                                                                                        },
                                                                                       );
                                                                                     } else {
                                                                                       return Text(
                                                                                         functions
-                                                                                            .roundToTwoDecimalPlaces(functions.calculatePercentageOfResult(
+                                                                                            .roundToTwoDecimalPlaces(functions.calculatePercentageString(
                                                                                                 grandTotal(),
-                                                                                                valueOrDefault<int>(
-                                                                                                  getJsonField(
-                                                                                                    CarServiceGroup.getCouponsApiCall
-                                                                                                        .couponDetailsList(
-                                                                                                          checkoutPageGetCouponsApiResponse.jsonBody,
-                                                                                                        )
-                                                                                                        ?.where((e) =>
-                                                                                                            _model.textController.text ==
-                                                                                                            getJsonField(
-                                                                                                              e,
-                                                                                                              r'''$.coupon_code''',
-                                                                                                            ).toString())
-                                                                                                        .toList()
-                                                                                                        ?.first,
-                                                                                                    r'''$.coupon_amount''',
-                                                                                                  ),
-                                                                                                  0,
-                                                                                                ).toDouble(),
                                                                                                 valueOrDefault<String>(
                                                                                                   CarServiceGroup.standardRateApiCall.taxRate(
                                                                                                     columnStandardRateApiResponse.jsonBody,
@@ -2439,196 +2368,178 @@ void addService(Service service) {
                                                                                 );
                                                                               }
                                                                             },
-                                                                          );
-                                                                        } else {
-                                                                          return Text(
-                                                                            functions
-                                                                                .roundToTwoDecimalPlaces(functions.calculatePercentageString(
-                                                                                    grandTotal(),
-                                                                                    valueOrDefault<String>(
-                                                                                      CarServiceGroup.standardRateApiCall.taxRate(
-                                                                                        columnStandardRateApiResponse.jsonBody,
-                                                                                      ),
-                                                                                      'Rate',
-                                                                                    )))
-                                                                                .toString(),
-                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                  fontFamily: 'SF Pro Display',
-                                                                                  color: FlutterFlowTheme.of(context).primaryText,
-                                                                                  fontSize: 16.0,
-                                                                                  letterSpacing: 0.0,
-                                                                                  useGoogleFonts: false,
-                                                                                  lineHeight: 1.2,
-                                                                                ),
-                                                                          );
-                                                                        }
-                                                                      },
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    Divider(
+                                                                      height:
+                                                                          0.0,
+                                                                      thickness:
+                                                                          0.0,
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .secondaryText,
                                                                     ),
-                                                                  ],
-                                                                ),
-                                                              Divider(
-                                                                height: 0.0,
-                                                                thickness: 0.0,
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .secondaryText,
-                                                              ),
-                                                              Row(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
-                                                                children: [
-                                                                  Expanded(
-                                                                    child:
-                                                                        Padding(
-                                                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                                                          0.0,
-                                                                          0.0,
-                                                                          12.0,
-                                                                          0.0),
-                                                                      child:
-                                                                          Text(
-                                                                        translated[21].isEmpty ? txt[21] : translated[21], //'Grand total',
-                                                                        style: FlutterFlowTheme.of(context)
-                                                                            .bodyMedium
-                                                                            .override(
-                                                                              fontFamily: 'SF Pro Display',
-                                                                              color: FlutterFlowTheme.of(context).primaryText,
-                                                                              fontSize: 16.0,
-                                                                              letterSpacing: 0.0,
-                                                                              useGoogleFonts: false,
-                                                                              lineHeight: 1.5,
+                                                                    Row(
+                                                                      mainAxisSize:
+                                                                          MainAxisSize
+                                                                              .max,
+                                                                      children: [
+                                                                        Expanded(
+                                                                          child:
+                                                                              Padding(
+                                                                            padding: EdgeInsetsDirectional.fromSTEB(
+                                                                                0.0,
+                                                                                0.0,
+                                                                                12.0,
+                                                                                0.0),
+                                                                            child:
+                                                                                Text(
+                                                                              translated[21].isEmpty ? txt[21] : translated[21], //'Grand total',
+                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                    fontFamily: 'SF Pro Display',
+                                                                                    color: FlutterFlowTheme.of(context).primaryText,
+                                                                                    fontSize: 16.0,
+                                                                                    letterSpacing: 0.0,
+                                                                                    useGoogleFonts: false,
+                                                                                    lineHeight: 1.5,
+                                                                                  ),
                                                                             ),
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                  Align(
-                                                                    alignment:
-                                                                        AlignmentDirectional(
-                                                                            0.0,
-                                                                            0.0),
-                                                                    child:
-                                                                        Padding(
-                                                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0,
-                                                                          6.0),
-                                                                      child: custom_widgets
-                                                                          .GetCurrencySymboolBold(
-                                                                        width:
-                                                                            15.0,
-                                                                        height:
-                                                                            20.0,
-                                                                        isSimbool:
-                                                                            widget!.currencySymbol,
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primaryText,
-                                                                        fontSize:
-                                                                            18.0,
-                                                                      ),
-                                                                    ),
-                                                                  ),
-
-                                                                  Builder(
-                                                                    builder:
-                                                                        (context) {
-                                                                      if (_model
-                                                                              .isApplied ==
-                                                                          true) {
-                                                                        return Builder(
+                                                                          ),
+                                                                        ),
+                                                                        Align(
+                                                                          alignment: AlignmentDirectional(
+                                                                              0.0,
+                                                                              0.0),
+                                                                          child:
+                                                                              Padding(
+                                                                            padding: EdgeInsetsDirectional.fromSTEB(
+                                                                                0.0,
+                                                                                0.0,
+                                                                                0.0,
+                                                                                6.0),
+                                                                            child:
+                                                                                custom_widgets.GetCurrencySymboolBold(
+                                                                              width: 15.0,
+                                                                              height: 20.0,
+                                                                              isSimbool: widget!.currencySymbol,
+                                                                              color: FlutterFlowTheme.of(context).primaryText,
+                                                                              fontSize: 18.0,
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                        Builder(
                                                                           builder:
                                                                               (context) {
-                                                                            if (CarServiceGroup.applyCouponApiCall.success(
-                                                                                  (_model.applyCouponFunction?.jsonBody ?? ''),
-                                                                                ) ==
-                                                                                1) {
+                                                                            if (_model.isApplied ==
+                                                                                true) {
                                                                               return Builder(
                                                                                 builder: (context) {
-                                                                                  if ('fixed' ==
-                                                                                      getJsonField(
-                                                                                        CarServiceGroup.getCouponsApiCall
-                                                                                            .couponDetailsList(
-                                                                                              checkoutPageGetCouponsApiResponse.jsonBody,
-                                                                                            )
-                                                                                            ?.where((e) =>
-                                                                                                _model.textController.text ==
-                                                                                                getJsonField(
-                                                                                                  e,
-                                                                                                  r'''$.coupon_code''',
-                                                                                                ).toString())
-                                                                                            .toList()
-                                                                                            ?.first,
-                                                                                        r'''$.coupon_type''',
-                                                                                      ).toString()) {
-                                                                                    return Text(
-                                                                                      functions
-                                                                                          .roundToTwoDecimalPlaces(functions.fixedCouponPrice(
-                                                                                              grandTotal(),
-                                                                                              valueOrDefault<int>(
-                                                                                                getJsonField(
-                                                                                                  CarServiceGroup.getCouponsApiCall
-                                                                                                      .couponDetailsList(
-                                                                                                        checkoutPageGetCouponsApiResponse.jsonBody,
-                                                                                                      )
-                                                                                                      ?.where((e) =>
-                                                                                                          _model.textController.text ==
-                                                                                                          getJsonField(
-                                                                                                            e,
-                                                                                                            r'''$.coupon_code''',
-                                                                                                          ).toString())
-                                                                                                      .toList()
-                                                                                                      ?.first,
-                                                                                                  r'''$.coupon_amount''',
+                                                                                  if (CarServiceGroup.applyCouponApiCall.success(
+                                                                                        (_model.applyCouponFunction?.jsonBody ?? ''),
+                                                                                      ) ==
+                                                                                      1) {
+                                                                                    return Builder(
+                                                                                      builder: (context) {
+                                                                                        if ('fixed' ==
+                                                                                            getJsonField(
+                                                                                              CarServiceGroup.getCouponsApiCall
+                                                                                                  .couponDetailsList(
+                                                                                                    checkoutPageGetCouponsApiResponse.jsonBody,
+                                                                                                  )
+                                                                                                  ?.where((e) =>
+                                                                                                      _model.textController.text ==
+                                                                                                      getJsonField(
+                                                                                                        e,
+                                                                                                        r'''$.coupon_code''',
+                                                                                                      ).toString())
+                                                                                                  .toList()
+                                                                                                  ?.first,
+                                                                                              r'''$.coupon_type''',
+                                                                                            ).toString()) {
+                                                                                          return Text(
+                                                                                            functions
+                                                                                                .roundToTwoDecimalPlaces(functions.fixedCouponPrice(
+                                                                                                    grandTotal(),
+                                                                                                    valueOrDefault<int>(
+                                                                                                      getJsonField(
+                                                                                                        CarServiceGroup.getCouponsApiCall
+                                                                                                            .couponDetailsList(
+                                                                                                              checkoutPageGetCouponsApiResponse.jsonBody,
+                                                                                                            )
+                                                                                                            ?.where((e) =>
+                                                                                                                _model.textController.text ==
+                                                                                                                getJsonField(
+                                                                                                                  e,
+                                                                                                                  r'''$.coupon_code''',
+                                                                                                                ).toString())
+                                                                                                            .toList()
+                                                                                                            ?.first,
+                                                                                                        r'''$.coupon_amount''',
+                                                                                                      ),
+                                                                                                      0,
+                                                                                                    ).toDouble(),
+                                                                                                    valueOrDefault<String>(
+                                                                                                      CarServiceGroup.standardRateApiCall.taxRate(
+                                                                                                        columnStandardRateApiResponse.jsonBody,
+                                                                                                      ),
+                                                                                                      'Rate',
+                                                                                                    )))
+                                                                                                .toString(),
+                                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                  fontFamily: 'SF Pro Display',
+                                                                                                  fontSize: 18.0,
+                                                                                                  letterSpacing: 0.0,
+                                                                                                  fontWeight: FontWeight.w600,
+                                                                                                  useGoogleFonts: false,
+                                                                                                  lineHeight: 1.5,
                                                                                                 ),
-                                                                                                0,
-                                                                                              ).toDouble(),
-                                                                                              valueOrDefault<String>(
-                                                                                                CarServiceGroup.standardRateApiCall.taxRate(
-                                                                                                  columnStandardRateApiResponse.jsonBody,
+                                                                                          );
+                                                                                        } else {
+                                                                                          return Text(
+                                                                                            functions
+                                                                                                .roundToTwoDecimalPlaces(functions.percentageCouponPrice(
+                                                                                                    grandTotal(),
+                                                                                                    valueOrDefault<int>(
+                                                                                                      getJsonField(
+                                                                                                        CarServiceGroup.getCouponsApiCall
+                                                                                                            .couponDetailsList(
+                                                                                                              checkoutPageGetCouponsApiResponse.jsonBody,
+                                                                                                            )
+                                                                                                            ?.where((e) =>
+                                                                                                                _model.textController.text ==
+                                                                                                                getJsonField(
+                                                                                                                  e,
+                                                                                                                  r'''$.coupon_code''',
+                                                                                                                ).toString())
+                                                                                                            .toList()
+                                                                                                            ?.first,
+                                                                                                        r'''$.coupon_amount''',
+                                                                                                      ),
+                                                                                                      0,
+                                                                                                    ).toDouble(),
+                                                                                                    valueOrDefault<String>(
+                                                                                                      CarServiceGroup.standardRateApiCall.taxRate(
+                                                                                                        columnStandardRateApiResponse.jsonBody,
+                                                                                                      ),
+                                                                                                      'Rate',
+                                                                                                    )))
+                                                                                                .toString(),
+                                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                  fontFamily: 'SF Pro Display',
+                                                                                                  fontSize: 18.0,
+                                                                                                  letterSpacing: 0.0,
+                                                                                                  fontWeight: FontWeight.w600,
+                                                                                                  useGoogleFonts: false,
+                                                                                                  lineHeight: 1.5,
                                                                                                 ),
-                                                                                                'Rate',
-                                                                                              )))
-                                                                                          .toString(),
-                                                                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                            fontFamily: 'SF Pro Display',
-                                                                                            fontSize: 18.0,
-                                                                                            letterSpacing: 0.0,
-                                                                                            fontWeight: FontWeight.w600,
-                                                                                            useGoogleFonts: false,
-                                                                                            lineHeight: 1.5,
-                                                                                          ),
+                                                                                          );
+                                                                                        }
+                                                                                      },
                                                                                     );
                                                                                   } else {
                                                                                     return Text(
-                                                                                      functions
-                                                                                          .roundToTwoDecimalPlaces(functions.percentageCouponPrice(
-                                                                                              grandTotal(),
-                                                                                              valueOrDefault<int>(
-                                                                                                getJsonField(
-                                                                                                  CarServiceGroup.getCouponsApiCall
-                                                                                                      .couponDetailsList(
-                                                                                                        checkoutPageGetCouponsApiResponse.jsonBody,
-                                                                                                      )
-                                                                                                      ?.where((e) =>
-                                                                                                          _model.textController.text ==
-                                                                                                          getJsonField(
-                                                                                                            e,
-                                                                                                            r'''$.coupon_code''',
-                                                                                                          ).toString())
-                                                                                                      .toList()
-                                                                                                      ?.first,
-                                                                                                  r'''$.coupon_amount''',
-                                                                                                ),
-                                                                                                0,
-                                                                                              ).toDouble(),
-                                                                                              valueOrDefault<String>(
-                                                                                                CarServiceGroup.standardRateApiCall.taxRate(
-                                                                                                  columnStandardRateApiResponse.jsonBody,
-                                                                                                ),
-                                                                                                'Rate',
-                                                                                              )))
-                                                                                          .toString(),
+                                                                                      functions.roundToTwoDecimalPlaces(grandTotal()).toString(),
                                                                                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                             fontFamily: 'SF Pro Display',
                                                                                             fontSize: 18.0,
@@ -2643,7 +2554,16 @@ void addService(Service service) {
                                                                               );
                                                                             } else {
                                                                               return Text(
-                                                                                functions.roundToTwoDecimalPlaces(grandTotal()).toString(),
+                                                                                functions
+                                                                                    .roundToTwoDecimalPlaces(functions.additionAmountVat(
+                                                                                        grandTotal(),
+                                                                                        valueOrDefault<String>(
+                                                                                          CarServiceGroup.standardRateApiCall.taxRate(
+                                                                                            columnStandardRateApiResponse.jsonBody,
+                                                                                          ),
+                                                                                          '0',
+                                                                                        )))
+                                                                                    .toString(),
                                                                                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                       fontFamily: 'SF Pro Display',
                                                                                       fontSize: 18.0,
@@ -2655,46 +2575,19 @@ void addService(Service service) {
                                                                               );
                                                                             }
                                                                           },
-                                                                        );
-                                                                      } else {
-                                                                        return Text(
-                                                                          functions
-                                                                              .roundToTwoDecimalPlaces(functions.additionAmountVat(
-                                                                                  grandTotal(),
-                                                                                  valueOrDefault<String>(
-                                                                                    CarServiceGroup.standardRateApiCall.taxRate(
-                                                                                      columnStandardRateApiResponse.jsonBody,
-                                                                                    ),
-                                                                                    '0',
-                                                                                  )))
-                                                                              .toString(),
-                                                                          style: FlutterFlowTheme.of(context)
-                                                                              .bodyMedium
-                                                                              .override(
-                                                                                fontFamily: 'SF Pro Display',
-                                                                                fontSize: 18.0,
-                                                                                letterSpacing: 0.0,
-                                                                                fontWeight: FontWeight.w600,
-                                                                                useGoogleFonts: false,
-                                                                                lineHeight: 1.5,
-                                                                              ),
-                                                                        );
-                                                                      }
-                                                                    },
-                                                                  ),
-                                                                
-                                                                ],
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ].divide(SizedBox(
+                                                                      height:
+                                                                          16.0)),
+                                                                ),
                                                               ),
-                                                            ].divide(SizedBox(
-                                                                height: 16.0)),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ].divide(
-                                                        SizedBox(height: 16.0)),
-                                                  )
-                                                
-    :SizedBox.shrink()
+                                                            ),
+                                                          ].divide(SizedBox(
+                                                              height: 16.0)),
+                                                        )
+                                                      : SizedBox.shrink()
                                                 ].divide(
                                                     SizedBox(height: 24.0)),
                                               ),
@@ -2755,7 +2648,8 @@ void addService(Service service) {
                                                       ))!
                                                           .isNotEmpty) {
                                                     context.pushNamed(
-                                                      'PaymentMethodPage',
+                                                      //'PaymentMethodPage',
+                                                      'PaymentSuccessPage',
                                                       queryParameters: {
                                                         'total': serializeParam(
                                                           () {
@@ -2789,7 +2683,7 @@ void addService(Service service) {
                                                                     true)) {
                                                               return functions.roundToTwoDecimalPlaces(functions
                                                                   .fixedCouponPrice(
-                                                                     grandTotal(),
+                                                                      grandTotal(),
                                                                       valueOrDefault<
                                                                           int>(
                                                                         getJsonField(
@@ -2849,7 +2743,7 @@ void addService(Service service) {
                                                                     true)) {
                                                               return functions.roundToTwoDecimalPlaces(functions
                                                                   .percentageCouponPrice(
-                                                                     grandTotal(),
+                                                                      grandTotal(),
                                                                       valueOrDefault<
                                                                           int>(
                                                                         getJsonField(
@@ -3750,6 +3644,7 @@ void addService(Service service) {
                                                         ),
                                                       }.withoutNulls,
                                                     );
+                                                 
                                                   } else {
                                                     ScaffoldMessenger.of(
                                                             context)
@@ -3796,7 +3691,10 @@ void addService(Service service) {
 
                                                 safeSetState(() {});
                                               },
-                                              text: translated[22].isEmpty ? txt[22] : translated[22], //'Proceed to payment',
+                                              text: translated[22].isEmpty
+                                                  ? txt[22]
+                                                  : translated[
+                                                      22], //'Proceed to payment',
                                               options: FFButtonOptions(
                                                 width: double.infinity,
                                                 height: 56.0,
@@ -3873,19 +3771,23 @@ void addService(Service service) {
       padding: const EdgeInsets.symmetric(horizontal: 10.0),
       child: GestureDetector(
         onTap: () {
-          addService(Service(name:serviceName, price:price));
+          addService(Service(name: serviceName, price: price));
         },
         child: Column(
           children: [
             Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(100),
-                color: selectedServices.contains(serviceName)? FlutterFlowTheme.of(context).primary : Colors.grey[200], // Optional background color
+                color: selectedServices.contains(serviceName)
+                    ? FlutterFlowTheme.of(context).primary
+                    : Colors.grey[200], // Optional background color
               ),
               padding: const EdgeInsets.all(20.0),
               child: Icon(
                 icon,
-                color:  selectedServices.contains(serviceName)? Colors.white : Colors.black,
+                color: selectedServices.contains(serviceName)
+                    ? Colors.white
+                    : Colors.black,
                 size: 30,
               ),
             ),
