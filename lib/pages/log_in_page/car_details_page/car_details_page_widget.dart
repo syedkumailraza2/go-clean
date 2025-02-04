@@ -48,34 +48,34 @@ class _CarDetailsPageWidgetState extends State<CarDetailsPageWidget> {
 
 
   var translated = List<String>.filled(10, '', growable: false);
+  
   List<String> txt = [
     'Add car details',
     'Car name',
     'Car number',
     'Add',
   ];
-  List<String> translatedTexts = [];
 
 
-  Future<void> car_detail_static_translate (String from, String dest) async {
-    GoogleTranslator translator = GoogleTranslator();
-    List<String> translatedTexts = [];
+  // Future<void> car_detail_static_translate (String from, String dest) async {
+  //   GoogleTranslator translator = GoogleTranslator();
+  //   List<String> translatedTexts = [];
 
-    for (String text in txt) {
-      try {
-        var translation = await translator.translate(text, from: from, to: dest);
-        translatedTexts.add(translation.text.toString());
-      } catch (e) {
-        print('Translation error: $e');
-        translatedTexts.add(text); // Fallback to original text if translation fails
-      }
-    }
+  //   for (String text in txt) {
+  //     try {
+  //       var translation = await translator.translate(text, from: from, to: dest);
+  //       translatedTexts.add(translation.text.toString());
+  //     } catch (e) {
+  //       print('Translation error: $e');
+  //       translatedTexts.add(text); // Fallback to original text if translation fails
+  //     }
+  //   }
 
-    setState(() {
-      translated = translatedTexts;
-      box.write('car_detail_static', translatedTexts);
-    });
-  }
+  //   setState(() {
+  //     translated = translatedTexts;
+  //     box.write('car_detail_static', translatedTexts);
+  //   });
+  // }
 
 
   @override

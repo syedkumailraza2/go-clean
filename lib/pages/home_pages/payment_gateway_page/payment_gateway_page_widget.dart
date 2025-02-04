@@ -215,7 +215,7 @@ class _PaymentGatewayPageWidgetState extends State<PaymentGatewayPageWidget> {
                                                       CrossAxisAlignment.start,
                                                   children: [
                                                     Text(
-                                                      'Your Secured Payment Detail',
+                                                      'Your Secured Payment Details',
                                                       style: FlutterFlowTheme
                                                               .of(context)
                                                           .bodyMedium

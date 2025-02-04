@@ -57,25 +57,25 @@ class _ForgotVerificationPageWidgetState
   List<String> translatedTexts = [];
 
 
-  Future<void> forgot_verification_static_translate (String from, String dest) async {
-    GoogleTranslator translator = GoogleTranslator();
-    List<String> translatedTexts = [];
+  // Future<void> forgot_verification_static_translate (String from, String dest) async {
+  //   GoogleTranslator translator = GoogleTranslator();
+  //   List<String> translatedTexts = [];
 
-    for (String text in txt) {
-      try {
-        var translation = await translator.translate(text, from: from, to: dest);
-        translatedTexts.add(translation.text.toString());
-      } catch (e) {
-        print('Translation error: $e');
-        translatedTexts.add(text); // Fallback to original text if translation fails
-      }
-    }
+  //   for (String text in txt) {
+  //     try {
+  //       var translation = await translator.translate(text, from: from, to: dest);
+  //       translatedTexts.add(translation.text.toString());
+  //     } catch (e) {
+  //       print('Translation error: $e');
+  //       translatedTexts.add(text); // Fallback to original text if translation fails
+  //     }
+  //   }
 
-    setState(() {
-      translated = translatedTexts;
-      box.write('forgot_verification_static', translatedTexts);
-    });
-  }
+  //   setState(() {
+  //     translated = translatedTexts;
+  //     box.write('forgot_verification_static', translatedTexts);
+  //   });
+  // }
 
 
 

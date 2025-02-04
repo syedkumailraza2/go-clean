@@ -1,3 +1,5 @@
+import 'package:car_wash/pages/profile_pages/setting_page/change_lang.dart';
+
 import '/backend/api_requests/api_calls.dart';
 import '/components/custom_center_appbar_widget.dart';
 import '/components/delete_ac_dialog_widget.dart';
@@ -302,7 +304,10 @@ class _SettingPageWidgetState extends State<SettingPageWidget> {
                           hoverColor: Colors.transparent,
                           highlightColor: Colors.transparent,
                           onTap: () async {
-                            context.pushNamed('ChangeLanguagePage');
+                            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ChangeLang()),
+            );
                           },
                           child: Container(
                             width: double.infinity,
@@ -339,7 +344,7 @@ class _SettingPageWidgetState extends State<SettingPageWidget> {
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           16.0, 0.0, 16.0, 0.0),
                                       child: Text(
-                                        'Privacy policy',
+                                        'Change Language',
                                         maxLines: 1,
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium

@@ -1,3 +1,5 @@
+import 'package:get_storage/get_storage.dart';
+
 import '/backend/api_requests/api_calls.dart';
 import '/componants/no_coupon_set_componant/no_coupon_set_componant_widget.dart';
 import '/components/custom_center_appbar_widget.dart';
@@ -25,14 +27,27 @@ class _MyCouponPageWidgetState extends State<MyCouponPageWidget> {
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
+  final box = GetStorage();
+
   @override
   void initState() {
     super.initState();
     _model = createModel(context, () => MyCouponPageModel());
-
+    translated = box.read('coupon_static') ?? txt;
     _model.textController ??= TextEditingController();
     _model.textFieldFocusNode ??= FocusNode();
   }
+
+    var translated = List<String>.filled(10, '', growable: false);
+  List<String> txt = [
+    'View your account details here',
+    'Default',
+    'Add car',
+    'Our Services',
+    'View all',
+  ];
+
+  List<String> translatedTexts = [];
 
   @override
   void dispose() {
@@ -60,7 +75,7 @@ class _MyCouponPageWidgetState extends State<MyCouponPageWidget> {
                 model: _model.customCenterAppbarModel,
                 updateCallback: () => safeSetState(() {}),
                 child: CustomCenterAppbarWidget(
-                  title: 'My coupon',
+                  title: translated[0].isEmpty ? txt[0] : translated[0], //'My coupon',
                   backIcon: false,
                   addIcon: false,
                   onTapAdd: () async {},
@@ -86,7 +101,7 @@ class _MyCouponPageWidgetState extends State<MyCouponPageWidget> {
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 0.0, 8.0),
                                 child: Text(
-                                  'Have a coupon code',
+                                  translated[1].isEmpty ? txt[1] : translated[1], //'Have a coupon code',
                                   maxLines: 1,
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
@@ -120,7 +135,7 @@ class _MyCouponPageWidgetState extends State<MyCouponPageWidget> {
                                           textInputAction: TextInputAction.next,
                                           obscureText: false,
                                           decoration: InputDecoration(
-                                            hintText: 'Enter Coupon code',
+                                            hintText: translated[2].isEmpty ? txt[2] : translated[2], //'Enter Coupon code',
                                             hintStyle:
                                                 FlutterFlowTheme.of(context)
                                                     .labelMedium
@@ -263,7 +278,7 @@ class _MyCouponPageWidgetState extends State<MyCouponPageWidget> {
                                                 EdgeInsetsDirectional.fromSTEB(
                                                     24.0, 12.0, 24.0, 12.0),
                                             child: Text(
-                                              'Apply',
+                                              translated[3].isEmpty ? txt[3] : translated[3], //'Apply',
                                               style:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium
@@ -289,7 +304,7 @@ class _MyCouponPageWidgetState extends State<MyCouponPageWidget> {
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 24.0, 0.0, 0.0),
                                 child: Text(
-                                  'Coupon code',
+                                  translated[4].isEmpty ? txt[4] : translated[4], //'Coupon code',
                                   maxLines: 1,
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium

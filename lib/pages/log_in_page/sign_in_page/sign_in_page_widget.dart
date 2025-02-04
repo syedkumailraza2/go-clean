@@ -542,7 +542,7 @@ class _SignInPageWidgetState extends State<SignInPageWidget>
                                   ),
                             ),
                             TextSpan(
-                              text: translated[6].isEmpty ? txt[6] : translated[6], // 'Sign Up',
+                              text: translated[7].isEmpty ? txt[7] : translated[7], // 'Sign Up',
                               style: TextStyle(
                                 color: FlutterFlowTheme.of(context).primary,
                                 fontWeight: FontWeight.w600,

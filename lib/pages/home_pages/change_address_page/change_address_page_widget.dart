@@ -1,3 +1,5 @@
+import 'package:get_storage/get_storage.dart';
+
 import '/components/custom_center_appbar_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -41,10 +43,14 @@ class _ChangeAddressPageWidgetState extends State<ChangeAddressPageWidget> {
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
+  final box = GetStorage();
+
   @override
   void initState() {
     super.initState();
     _model = createModel(context, () => ChangeAddressPageModel());
+    
+    translated = box.read('change_address_static') ?? txt;
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
@@ -67,6 +73,23 @@ class _ChangeAddressPageWidgetState extends State<ChangeAddressPageWidget> {
     _model.textController5 ??= TextEditingController(text: widget!.country);
     _model.textFieldFocusNode5 ??= FocusNode();
   }
+
+    var translated = List<String>.filled(10, '', growable: false);
+  List<String> txt = [
+    'Edit address',
+     'Locatility / area / street',
+    'City',
+    'State',
+    'Zipcode',
+    'Country',
+    'Home',
+    'Office',
+    'Other',
+    'Save',
+  ];
+
+  List<String> translatedTexts = [];
+
 
   @override
   void dispose() {
@@ -94,7 +117,7 @@ class _ChangeAddressPageWidgetState extends State<ChangeAddressPageWidget> {
                 model: _model.customCenterAppbarModel,
                 updateCallback: () => safeSetState(() {}),
                 child: CustomCenterAppbarWidget(
-                  title: 'Edit address',
+                  title: translated[0].isEmpty ? txt[0] : translated[0],//'Edit address',
                   backIcon: false,
                   addIcon: false,
                   onTapAdd: () async {},
@@ -145,7 +168,7 @@ class _ChangeAddressPageWidgetState extends State<ChangeAddressPageWidget> {
                                           obscureText: false,
                                           decoration: InputDecoration(
                                             labelText:
-                                                'Locatility / area / street',
+                                                translated[1].isEmpty ? txt[1] : translated[1],
                                             labelStyle: FlutterFlowTheme.of(
                                                     context)
                                                 .labelMedium
@@ -159,7 +182,7 @@ class _ChangeAddressPageWidgetState extends State<ChangeAddressPageWidget> {
                                                   useGoogleFonts: false,
                                                 ),
                                             hintText:
-                                                'Locatility / area / street',
+                                                translated[1].isEmpty ? txt[1] : translated[1], //'Locatility / area / street',
                                             hintStyle:
                                                 FlutterFlowTheme.of(context)
                                                     .labelMedium
@@ -257,7 +280,7 @@ class _ChangeAddressPageWidgetState extends State<ChangeAddressPageWidget> {
                                           textInputAction: TextInputAction.next,
                                           obscureText: false,
                                           decoration: InputDecoration(
-                                            labelText: 'City',
+                                            labelText:translated[2].isEmpty ? txt[2] : translated[2], //'City',
                                             labelStyle: FlutterFlowTheme.of(
                                                     context)
                                                 .labelMedium
@@ -270,7 +293,7 @@ class _ChangeAddressPageWidgetState extends State<ChangeAddressPageWidget> {
                                                   letterSpacing: 0.0,
                                                   useGoogleFonts: false,
                                                 ),
-                                            hintText: 'City',
+                                            hintText: translated[2].isEmpty ? txt[2] : translated[2],//'City',
                                             hintStyle:
                                                 FlutterFlowTheme.of(context)
                                                     .labelMedium
@@ -367,7 +390,7 @@ class _ChangeAddressPageWidgetState extends State<ChangeAddressPageWidget> {
                                           textInputAction: TextInputAction.next,
                                           obscureText: false,
                                           decoration: InputDecoration(
-                                            labelText: 'State',
+                                            labelText: translated[3].isEmpty ? txt[3] : translated[3],//'State',
                                             labelStyle: FlutterFlowTheme.of(
                                                     context)
                                                 .labelMedium
@@ -380,7 +403,7 @@ class _ChangeAddressPageWidgetState extends State<ChangeAddressPageWidget> {
                                                   letterSpacing: 0.0,
                                                   useGoogleFonts: false,
                                                 ),
-                                            hintText: 'State',
+                                            hintText: translated[3].isEmpty ? txt[3] : translated[3], //'State',
                                             hintStyle:
                                                 FlutterFlowTheme.of(context)
                                                     .labelMedium
@@ -477,7 +500,7 @@ class _ChangeAddressPageWidgetState extends State<ChangeAddressPageWidget> {
                                           textInputAction: TextInputAction.next,
                                           obscureText: false,
                                           decoration: InputDecoration(
-                                            labelText: 'Zipcode',
+                                            labelText: translated[4].isEmpty ? txt[4] : translated[4], //'Zipcode',
                                             labelStyle: FlutterFlowTheme.of(
                                                     context)
                                                 .labelMedium
@@ -490,7 +513,7 @@ class _ChangeAddressPageWidgetState extends State<ChangeAddressPageWidget> {
                                                   letterSpacing: 0.0,
                                                   useGoogleFonts: false,
                                                 ),
-                                            hintText: 'Zipcode',
+                                            hintText:  translated[4].isEmpty ? txt[4] : translated[4], //'Zipcode',
                                             hintStyle:
                                                 FlutterFlowTheme.of(context)
                                                     .labelMedium
@@ -585,7 +608,7 @@ class _ChangeAddressPageWidgetState extends State<ChangeAddressPageWidget> {
                                         textInputAction: TextInputAction.next,
                                         obscureText: false,
                                         decoration: InputDecoration(
-                                          labelText: 'Country',
+                                          labelText:  translated[5].isEmpty ? txt[5] : translated[5],  //'Country',
                                           labelStyle: FlutterFlowTheme.of(
                                                   context)
                                               .labelMedium
@@ -598,7 +621,7 @@ class _ChangeAddressPageWidgetState extends State<ChangeAddressPageWidget> {
                                                 letterSpacing: 0.0,
                                                 useGoogleFonts: false,
                                               ),
-                                          hintText: 'Country',
+                                          hintText:  translated[5].isEmpty ? txt[5] : translated[5], //'Country',
                                           hintStyle:
                                               FlutterFlowTheme.of(context)
                                                   .labelMedium
@@ -697,7 +720,7 @@ class _ChangeAddressPageWidgetState extends State<ChangeAddressPageWidget> {
                                               highlightColor:
                                                   Colors.transparent,
                                               onTap: () async {
-                                                _model.addressType = 'Home';
+                                                _model.addressType =  'Home';
                                                 safeSetState(() {});
                                               },
                                               child: Row(
@@ -743,7 +766,7 @@ class _ChangeAddressPageWidgetState extends State<ChangeAddressPageWidget> {
                                                             .fromSTEB(8.0, 0.0,
                                                                 16.0, 0.0),
                                                     child: Text(
-                                                      'Home',
+                                                      translated[6].isEmpty ? txt[6] : translated[6], //'Home',
                                                       style: FlutterFlowTheme
                                                               .of(context)
                                                           .bodyMedium
@@ -814,7 +837,7 @@ class _ChangeAddressPageWidgetState extends State<ChangeAddressPageWidget> {
                                                             .fromSTEB(8.0, 0.0,
                                                                 16.0, 0.0),
                                                     child: Text(
-                                                      'Office ',
+                                                     translated[7].isEmpty ? txt[7] : translated[7], //'Office ',
                                                       style: FlutterFlowTheme
                                                               .of(context)
                                                           .bodyMedium
@@ -885,7 +908,7 @@ class _ChangeAddressPageWidgetState extends State<ChangeAddressPageWidget> {
                                                             .fromSTEB(8.0, 0.0,
                                                                 16.0, 0.0),
                                                     child: Text(
-                                                      'Other',
+                                                      translated[8].isEmpty ? txt[8] : translated[8],//'Other',
                                                       style: FlutterFlowTheme
                                                               .of(context)
                                                           .bodyMedium
@@ -913,7 +936,7 @@ class _ChangeAddressPageWidgetState extends State<ChangeAddressPageWidget> {
                                           onPressed: () async {
                                             context.safePop();
                                           },
-                                          text: 'Save',
+                                          text: translated[9].isEmpty ? txt[9] : translated[9],//'Save',
                                           options: FFButtonOptions(
                                             width: double.infinity,
                                             height: 56.0,

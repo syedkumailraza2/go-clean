@@ -5,6 +5,7 @@ abstract class FFAppConstants {
   static const String imageUrl =
       //'https://go-clean-backend.onrender.com/images/';
       'https://stage.goclean.ba/images/';
+      //'http://192.168.0.105:3000/images';
   static const String apiKey = 'AIzaSyBvecUP300B0DvdGnGZA6BKUQwez2E44O8';
   static const String appId = '1:463819102155:web:295edc1857bab5b4ba884e';
   static const String messagingSenderId = '463819102155';

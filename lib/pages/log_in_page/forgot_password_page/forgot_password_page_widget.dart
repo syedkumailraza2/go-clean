@@ -32,7 +32,7 @@ class _ForgotPasswordPageWidgetState extends State<ForgotPasswordPageWidget> {
     super.initState();
     _model = createModel(context, () => ForgotPasswordPageModel());
 
-    translated = box.read('car_detail_static') ?? txt;
+    translated = box.read('forgot_password_static') ?? txt;
 
     _model.textController ??= TextEditingController();
     _model.textFieldFocusNode ??= FocusNode();
@@ -50,25 +50,25 @@ class _ForgotPasswordPageWidgetState extends State<ForgotPasswordPageWidget> {
   List<String> translatedTexts = [];
 
 
-  Future<void> forgot_password_static_translate (String from, String dest) async {
-    GoogleTranslator translator = GoogleTranslator();
-    List<String> translatedTexts = [];
+  // Future<void> forgot_password_static_translate (String from, String dest) async {
+  //   GoogleTranslator translator = GoogleTranslator();
+  //   List<String> translatedTexts = [];
 
-    for (String text in txt) {
-      try {
-        var translation = await translator.translate(text, from: from, to: dest);
-        translatedTexts.add(translation.text.toString());
-      } catch (e) {
-        print('Translation error: $e');
-        translatedTexts.add(text); // Fallback to original text if translation fails
-      }
-    }
+  //   for (String text in txt) {
+  //     try {
+  //       var translation = await translator.translate(text, from: from, to: dest);
+  //       translatedTexts.add(translation.text.toString());
+  //     } catch (e) {
+  //       print('Translation error: $e');
+  //       translatedTexts.add(text); // Fallback to original text if translation fails
+  //     }
+  //   }
 
-    setState(() {
-      translated = translatedTexts;
-      box.write('forgot_password_static', translatedTexts);
-    });
-  }
+  //   setState(() {
+  //     translated = translatedTexts;
+  //     box.write('forgot_password_static', translatedTexts);
+  //   });
+  // }
 
 
 

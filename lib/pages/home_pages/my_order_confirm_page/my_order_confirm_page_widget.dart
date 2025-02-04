@@ -1,3 +1,5 @@
+import 'package:get_storage/get_storage.dart';
+
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -26,17 +28,30 @@ class _MyOrderConfirmPageWidgetState extends State<MyOrderConfirmPageWidget>
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
+   final box = GetStorage();
+
   @override
   void initState() {
     super.initState();
     _model = createModel(context, () => MyOrderConfirmPageModel());
-
+translated = box.read('my_order_static') ?? txt;
     _model.tabBarController = TabController(
       vsync: this,
       length: 3,
       initialIndex: 0,
     )..addListener(() => safeSetState(() {}));
   }
+
+   var translated = List<String>.filled(10, '', growable: false);
+  List<String> txt = [
+    'View your account details here',
+    'Default',
+    'Add car',
+    'Our Services',
+    'View all',
+  ];
+
+  List<String> translatedTexts = [];
 
   @override
   void dispose() {
@@ -114,7 +129,7 @@ class _MyOrderConfirmPageWidgetState extends State<MyOrderConfirmPageWidget>
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     12.0, 0.0, 12.0, 0.0),
                                 child: Text(
-                                  'My order',
+                                  translated[0].isEmpty ? txt[0] : translated[0], //'My order',
                                   textAlign: TextAlign.center,
                                   maxLines: 1,
                                   style: FlutterFlowTheme.of(context)
@@ -187,13 +202,13 @@ class _MyOrderConfirmPageWidgetState extends State<MyOrderConfirmPageWidget>
                                 padding: EdgeInsets.all(4.0),
                                 tabs: [
                                   Tab(
-                                    text: 'Ongoing',
+                                    text: translated[1].isEmpty ? txt[1] : translated[1], //'Ongoing',
                                   ),
                                   Tab(
-                                    text: 'Canceled',
+                                    text: translated[2].isEmpty ? txt[2] : translated[2], //'Canceled',
                                   ),
                                   Tab(
-                                    text: 'Completed',
+                                    text: translated[3].isEmpty ? txt[3] : translated[3], //'Completed',
                                   ),
                                 ],
                                 controller: _model.tabBarController,

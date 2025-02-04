@@ -1,3 +1,5 @@
+import 'package:get_storage/get_storage.dart';
+
 import '/backend/api_requests/api_calls.dart';
 import '/components/verified_email_dialog_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
@@ -87,9 +89,14 @@ class _AllCarDetailsPageWidgetState extends State<AllCarDetailsPageWidget>
   Widget build(BuildContext context) {
     context.watch<FFAppState>();
 
+final box = GetStorage();
+String? _selectedLang;
+ _selectedLang = box.read('selected_lang') ?? 'en';
+
     return FutureBuilder<ApiCallResponse>(
       future: CarServiceGroup.packageDetailsApiCall.call(
         packageId: widget!.packageId,
+        langCode: _selectedLang
       ),
       builder: (context, snapshot) {
         // Customize what your widget looks like when it's loading.

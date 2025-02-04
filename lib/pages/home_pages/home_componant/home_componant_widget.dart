@@ -1,3 +1,5 @@
+import 'package:get_storage/get_storage.dart';
+
 import '/backend/api_requests/api_calls.dart';
 import '/components/car_change_success_componant_widget.dart';
 import '/components/change_car_componant_widget.dart';
@@ -34,11 +36,25 @@ class _HomeComponantWidgetState extends State<HomeComponantWidget> {
     _model.onUpdate();
   }
 
+  final box = GetStorage();
+
   @override
   void initState() {
     super.initState();
+    translated = box.read('home_static') ?? txt;
     _model = createModel(context, () => HomeComponantModel());
   }
+
+  var translated = List<String>.filled(10, '', growable: false);
+  List<String> txt = [
+    'View your account details here',
+    'Default',
+    'Add car',
+    'Our Services',
+    'View all',
+  ];
+
+  List<String> translatedTexts = [];
 
   @override
   void dispose() {
@@ -255,7 +271,10 @@ class _HomeComponantWidgetState extends State<HomeComponantWidget> {
                                                         },
                                                       ),
                                                       Text(
-                                                        'View your account details here',
+                                                        translated[0].isEmpty
+                                                            ? txt[0]
+                                                            : translated[
+                                                                0], //'View your account details here',
                                                         maxLines: 1,
                                                         style: FlutterFlowTheme
                                                                 .of(context)
@@ -598,7 +617,7 @@ class _HomeComponantWidgetState extends State<HomeComponantWidget> {
                                                                                             child: Padding(
                                                                                               padding: EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 0.0),
                                                                                               child: Text(
-                                                                                                'Default',
+                                                                                                translated[1].isEmpty ? txt[1] : translated[1], //'Default',
                                                                                                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                       fontFamily: 'SF Pro Display',
                                                                                                       color: true ==
@@ -708,7 +727,11 @@ class _HomeComponantWidgetState extends State<HomeComponantWidget> {
                                                                   ),
                                                                 ),
                                                                 Text(
-                                                                  'Add car',
+                                                                  translated[2]
+                                                                          .isEmpty
+                                                                      ? txt[2]
+                                                                      : translated[
+                                                                          2], //'Add car',
                                                                   textAlign:
                                                                       TextAlign
                                                                           .center,
@@ -817,7 +840,11 @@ class _HomeComponantWidgetState extends State<HomeComponantWidget> {
                                                             ),
                                                           ),
                                                           Text(
-                                                            'Add car',
+                                                            translated[2]
+                                                                    .isEmpty
+                                                                ? txt[2]
+                                                                : translated[
+                                                                    2], //'Add car',
                                                             textAlign: TextAlign
                                                                 .center,
                                                             style: FlutterFlowTheme
@@ -966,24 +993,24 @@ class _HomeComponantWidgetState extends State<HomeComponantWidget> {
                                                                       MainAxisAlignment
                                                                           .spaceBetween,
                                                                   children: [
-                                                                    
-                                                                  Center(
-  child: Text(
-    'Our Service',
-    textAlign: TextAlign.center,
-    style: FlutterFlowTheme.of(context)
-        .bodyMedium
-        .override(
-          fontFamily: 'SF Pro Display',
-          fontSize: 18.0,
-          letterSpacing: 0.0,
-          fontWeight: FontWeight.w600,
-          useGoogleFonts: false,
-          lineHeight: 1.5,
-        ),
-  ),
-),
-
+                                                                    Center(
+                                                                      child:
+                                                                          Text(
+                                                                        translated[3].isEmpty ? txt[3] : translated[3], //'Our Services',
+                                                                        textAlign:
+                                                                            TextAlign.center,
+                                                                        style: FlutterFlowTheme.of(context)
+                                                                            .bodyMedium
+                                                                            .override(
+                                                                              fontFamily: 'SF Pro Display',
+                                                                              fontSize: 18.0,
+                                                                              letterSpacing: 0.0,
+                                                                              fontWeight: FontWeight.w600,
+                                                                              useGoogleFonts: false,
+                                                                              lineHeight: 1.5,
+                                                                            ),
+                                                                      ),
+                                                                    ),
                                                                     InkWell(
                                                                       splashColor:
                                                                           Colors
@@ -1004,7 +1031,7 @@ class _HomeComponantWidgetState extends State<HomeComponantWidget> {
                                                                       },
                                                                       child:
                                                                           Text(
-                                                                        'View all',
+                                                                        translated[4].isEmpty ? txt[4] : translated[4], //'View all',
                                                                         style: FlutterFlowTheme.of(context)
                                                                             .bodyMedium
                                                                             .override(
@@ -1028,8 +1055,8 @@ class _HomeComponantWidgetState extends State<HomeComponantWidget> {
                                                                           0.0,
                                                                           16.0,
                                                                           0.0),
-                                                              
-                                                              // child: ListView(  
+
+                                                              // child: ListView(
                                                               //   padding:
                                                               //       EdgeInsets
                                                               //           .fromLTRB(
@@ -1177,141 +1204,154 @@ class _HomeComponantWidgetState extends State<HomeComponantWidget> {
                                                               //       ),
                                                               //   ],
                                                               // ),
-                                                            
-                                                            child: ListView(
-  padding: EdgeInsets.fromLTRB(0, 16.0, 0, 16.0),
-  primary: false,
-  shrinkWrap: true,
-  scrollDirection: Axis.vertical,
-  children: [
-    if (CarServiceGroup.servicesApiCall.serviceDetailsList(
-          containerServicesApiResponse.jsonBody,
-        )?.length !=
-        0)
-      Builder(
-        builder: (context) {
-          final recommendedServiceList = (CarServiceGroup.servicesApiCall
-                      .serviceDetailsList(
-                        containerServicesApiResponse.jsonBody,
-                      )
-                      ?.toList() ??
-                  [])
-              .take(6)
-              .toList();
 
-          return Wrap(
-            spacing: 16.0,
-            runSpacing: 16.0,
-            alignment: WrapAlignment.center, // Centering items horizontally
-            crossAxisAlignment: WrapCrossAlignment.start,
-            direction: Axis.horizontal,
-            runAlignment: WrapAlignment.start,
-            verticalDirection: VerticalDirection.down,
-            clipBehavior: Clip.none,
-            children: List.generate(
-              recommendedServiceList.length,
-              (recommendedServiceListIndex) {
-                final recommendedServiceListItem =
-                    recommendedServiceList[recommendedServiceListIndex];
-                return InkWell(
-                  splashColor: Colors.transparent,
-                  focusColor: Colors.transparent,
-                  hoverColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                  onTap: () async {
-                    context.pushNamed(
-                      'BannerPage',
-                      queryParameters: {
-                        'serviceId': serializeParam(
-                          getJsonField(
-                            recommendedServiceListItem,
-                            r'''$.id''',
-                          ).toString(),
-                          ParamType.String,
-                        ),
-                        'name': serializeParam(
-                          getJsonField(
-                            recommendedServiceListItem,
-                            r'''$.name''',
-                          ).toString(),
-                          ParamType.String,
-                        ),
-                      }.withoutNulls,
-                    );
-                  },
-                  child: Container(
-                    width: () {
-                      if (MediaQuery.sizeOf(context).width < 810.0) {
-                        return ((MediaQuery.sizeOf(context).width - 64) * 1 / 3);
-                      } else if ((MediaQuery.sizeOf(context).width >= 810.0) &&
-                          (MediaQuery.sizeOf(context).width < 1280.0)) {
-                        return ((MediaQuery.sizeOf(context).width - 96) * 1 / 5);
-                      } else if (MediaQuery.sizeOf(context).width >= 1280.0) {
-                        return ((MediaQuery.sizeOf(context).width - 144) * 1 / 8);
-                      } else {
-                        return ((MediaQuery.sizeOf(context).width - 144) * 1 / 8);
-                      }
-                    }(),
-                    height: 142.0,
-                    decoration: BoxDecoration(),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Container(
-                          width: 91.0,
-                          height: 91.0,
-                          decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context)
-                                .primaryBackground,
-                            shape: BoxShape.circle,
-                          ),
-                          alignment: AlignmentDirectional(0.0, 0.0),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(0.0),
-                            child: CachedNetworkImage(
-                              fadeInDuration: Duration(milliseconds: 200),
-                              fadeOutDuration: Duration(milliseconds: 200),
-                              imageUrl:
-                                  '${FFAppConstants.imageUrl}${getJsonField(
-                                recommendedServiceListItem,
-                                r'''$.image''',
-                              ).toString()}',
-                              width: 40.0,
-                              height: 40.0,
-                              fit: BoxFit.contain,
-                            ),
-                          ),
-                        ),
-                        Text(
-                          getJsonField(
-                            recommendedServiceListItem,
-                            r'''$.name''',
-                          ).toString(),
-                          textAlign: TextAlign.center,
-                          maxLines: 2,
-                          style: FlutterFlowTheme.of(context)
-                              .bodyMedium
-                              .override(
-                                fontFamily: 'SF Pro Display',
-                                fontSize: 16.0,
-                                letterSpacing: 0.0,
-                                useGoogleFonts: false,
-                                lineHeight: 1.2,
-                              ),
-                        ),
-                      ].divide(SizedBox(height: 8.0)),
-                    ),
-                  ),
-                );
-              },
-            ),
-          );
-        },
-      ),
-  ],
-)
-,
+                                                              child: ListView(
+                                                                padding: EdgeInsets
+                                                                    .fromLTRB(
+                                                                        0,
+                                                                        16.0,
+                                                                        0,
+                                                                        16.0),
+                                                                primary: false,
+                                                                shrinkWrap:
+                                                                    true,
+                                                                scrollDirection:
+                                                                    Axis.vertical,
+                                                                children: [
+                                                                  if (CarServiceGroup
+                                                                          .servicesApiCall
+                                                                          .serviceDetailsList(
+                                                                            containerServicesApiResponse.jsonBody,
+                                                                          )
+                                                                          ?.length !=
+                                                                      0)
+                                                                    Builder(
+                                                                      builder:
+                                                                          (context) {
+                                                                        final recommendedServiceList = (CarServiceGroup.servicesApiCall
+                                                                                    .serviceDetailsList(
+                                                                                      containerServicesApiResponse.jsonBody,
+                                                                                    )
+                                                                                    ?.toList() ??
+                                                                                [])
+                                                                            .take(6)
+                                                                            .toList();
+
+                                                                        return Wrap(
+                                                                          spacing:
+                                                                              16.0,
+                                                                          runSpacing:
+                                                                              16.0,
+                                                                          alignment:
+                                                                              WrapAlignment.center, // Centering items horizontally
+                                                                          crossAxisAlignment:
+                                                                              WrapCrossAlignment.start,
+                                                                          direction:
+                                                                              Axis.horizontal,
+                                                                          runAlignment:
+                                                                              WrapAlignment.start,
+                                                                          verticalDirection:
+                                                                              VerticalDirection.down,
+                                                                          clipBehavior:
+                                                                              Clip.none,
+                                                                          children:
+                                                                              List.generate(
+                                                                            recommendedServiceList.length,
+                                                                            (recommendedServiceListIndex) {
+                                                                              final recommendedServiceListItem = recommendedServiceList[recommendedServiceListIndex];
+                                                                              return InkWell(
+                                                                                splashColor: Colors.transparent,
+                                                                                focusColor: Colors.transparent,
+                                                                                hoverColor: Colors.transparent,
+                                                                                highlightColor: Colors.transparent,
+                                                                                onTap: () async {
+                                                                                  context.pushNamed(
+                                                                                    'BannerPage',
+                                                                                    queryParameters: {
+                                                                                      'serviceId': serializeParam(
+                                                                                        getJsonField(
+                                                                                          recommendedServiceListItem,
+                                                                                          r'''$.id''',
+                                                                                        ).toString(),
+                                                                                        ParamType.String,
+                                                                                      ),
+                                                                                      'name': serializeParam(
+                                                                                        getJsonField(
+                                                                                          recommendedServiceListItem,
+                                                                                          r'''$.name''',
+                                                                                        ).toString(),
+                                                                                        ParamType.String,
+                                                                                      ),
+                                                                                    }.withoutNulls,
+                                                                                  );
+                                                                                },
+                                                                                child: Container(
+                                                                                  width: () {
+                                                                                    if (MediaQuery.sizeOf(context).width < 810.0) {
+                                                                                      return ((MediaQuery.sizeOf(context).width - 64) * 1 / 3);
+                                                                                    } else if ((MediaQuery.sizeOf(context).width >= 810.0) && (MediaQuery.sizeOf(context).width < 1280.0)) {
+                                                                                      return ((MediaQuery.sizeOf(context).width - 96) * 1 / 5);
+                                                                                    } else if (MediaQuery.sizeOf(context).width >= 1280.0) {
+                                                                                      return ((MediaQuery.sizeOf(context).width - 144) * 1 / 8);
+                                                                                    } else {
+                                                                                      return ((MediaQuery.sizeOf(context).width - 144) * 1 / 8);
+                                                                                    }
+                                                                                  }(),
+                                                                                  height: 142.0,
+                                                                                  decoration: BoxDecoration(),
+                                                                                  child: Column(
+                                                                                    mainAxisSize: MainAxisSize.max,
+                                                                                    mainAxisAlignment: MainAxisAlignment.start,
+                                                                                    children: [
+                                                                                      Container(
+                                                                                        width: 91.0,
+                                                                                        height: 91.0,
+                                                                                        decoration: BoxDecoration(
+                                                                                          color: FlutterFlowTheme.of(context).primaryBackground,
+                                                                                          shape: BoxShape.circle,
+                                                                                        ),
+                                                                                        alignment: AlignmentDirectional(0.0, 0.0),
+                                                                                        child: ClipRRect(
+                                                                                          borderRadius: BorderRadius.circular(0.0),
+                                                                                          child: CachedNetworkImage(
+                                                                                            fadeInDuration: Duration(milliseconds: 200),
+                                                                                            fadeOutDuration: Duration(milliseconds: 200),
+                                                                                            imageUrl: '${FFAppConstants.imageUrl}${getJsonField(
+                                                                                              recommendedServiceListItem,
+                                                                                              r'''$.image''',
+                                                                                            ).toString()}',
+                                                                                            width: 80.0,
+                                                                                            height: 80.0,
+                                                                                            fit: BoxFit.contain,
+                                                                                          ),
+                                                                                        ),
+                                                                                      ),
+                                                                                      Text(
+                                                                                        getJsonField(
+                                                                                          recommendedServiceListItem,
+                                                                                          r'''$.name''',
+                                                                                        ).toString(),
+                                                                                        textAlign: TextAlign.center,
+                                                                                        maxLines: 2,
+                                                                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                              fontFamily: 'SF Pro Display',
+                                                                                              fontSize: 16.0,
+                                                                                              letterSpacing: 0.0,
+                                                                                              useGoogleFonts: false,
+                                                                                              lineHeight: 1.2,
+                                                                                            ),
+                                                                                      ),
+                                                                                    ].divide(SizedBox(height: 8.0)),
+                                                                                  ),
+                                                                                ),
+                                                                              );
+                                                                            },
+                                                                          ),
+                                                                        );
+                                                                      },
+                                                                    ),
+                                                                ],
+                                                              ),
                                                             ),
                                                           ],
                                                         ),
@@ -1608,267 +1648,265 @@ class _HomeComponantWidgetState extends State<HomeComponantWidget> {
                                                               //     ],
                                                               //   ),
                                                               // ),
-                                                           
-                                                            if (CarServiceGroup
-                                                                    .allPackagesApiCall
-                                                                    .success(
-                                                                  containerAllPackagesApiResponse
-                                                                      .jsonBody,
-                                                                ) ==
-                                                                1)
-                                                              Padding(
-                                                                padding: EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        0.0,
-                                                                        16.0,
-                                                                        0.0,
-                                                                        16.0),
-                                                                // child: Builder(
-                                                                //   builder:
-                                                                //       (context) {
-                                                                //     final maintainYourCarList = (CarServiceGroup.allPackagesApiCall
-                                                                //                 .packageDetailsList(
-                                                                //                   containerAllPackagesApiResponse.jsonBody,
-                                                                //                 )
-                                                                //                 ?.toList() ??
-                                                                //             [])
-                                                                //         .take(3)
-                                                                //         .toList();
 
-                                                                //     return SingleChildScrollView(
-                                                                //       scrollDirection:
-                                                                //           Axis.horizontal,
-                                                                //       child:
-                                                                //           Row(
-                                                                //         mainAxisSize:
-                                                                //             MainAxisSize.max,
-                                                                //         children: List.generate(
-                                                                //             maintainYourCarList.length,
-                                                                //             (maintainYourCarListIndex) {
-                                                                //           final maintainYourCarListItem =
-                                                                //               maintainYourCarList[maintainYourCarListIndex];
-                                                                //           return InkWell(
-                                                                //             splashColor:
-                                                                //                 Colors.transparent,
-                                                                //             focusColor:
-                                                                //                 Colors.transparent,
-                                                                //             hoverColor:
-                                                                //                 Colors.transparent,
-                                                                //             highlightColor:
-                                                                //                 Colors.transparent,
-                                                                //             onTap:
-                                                                //                 () async {
-                                                                //               context.pushNamed(
-                                                                //                 'AllCarDetailsPage',
-                                                                //                 queryParameters: {
-                                                                //                   'packageId': serializeParam(
-                                                                //                     getJsonField(
-                                                                //                       maintainYourCarListItem,
-                                                                //                       r'''$.id''',
-                                                                //                     ).toString(),
-                                                                //                     ParamType.String,
-                                                                //                   ),
-                                                                //                   'packageName': serializeParam(
-                                                                //                     getJsonField(
-                                                                //                       maintainYourCarListItem,
-                                                                //                       r'''$.title''',
-                                                                //                     ).toString(),
-                                                                //                     ParamType.String,
-                                                                //                   ),
-                                                                //                   'packageImage': serializeParam(
-                                                                //                     '${FFAppConstants.imageUrl}${getJsonField(
-                                                                //                       maintainYourCarListItem,
-                                                                //                       r'''$.image''',
-                                                                //                     ).toString()}',
-                                                                //                     ParamType.String,
-                                                                //                   ),
-                                                                //                   'price': serializeParam(
-                                                                //                     getJsonField(
-                                                                //                       maintainYourCarListItem,
-                                                                //                       r'''$.price''',
-                                                                //                     ),
-                                                                //                     ParamType.double,
-                                                                //                   ),
-                                                                //                   'serviceId': serializeParam(
-                                                                //                     getJsonField(
-                                                                //                       maintainYourCarListItem,
-                                                                //                       r'''$.serviceDetails._id''',
-                                                                //                     ).toString(),
-                                                                //                     ParamType.String,
-                                                                //                   ),
-                                                                //                   'serviceName': serializeParam(
-                                                                //                     getJsonField(
-                                                                //                       maintainYourCarListItem,
-                                                                //                       r'''$.serviceDetails.name''',
-                                                                //                     ).toString(),
-                                                                //                     ParamType.String,
-                                                                //                   ),
-                                                                //                   'serviceImage': serializeParam(
-                                                                //                     getJsonField(
-                                                                //                       maintainYourCarListItem,
-                                                                //                       r'''$.serviceDetails.image''',
-                                                                //                     ).toString(),
-                                                                //                     ParamType.String,
-                                                                //                   ),
-                                                                //                   'currencySymbol': serializeParam(
-                                                                //                     CarServiceGroup.currencyApiCall.currency(
-                                                                //                       listViewCurrencyApiResponse.jsonBody,
-                                                                //                     ),
-                                                                //                     ParamType.String,
-                                                                //                   ),
-                                                                //                 }.withoutNulls,
-                                                                //               );
-                                                                //             },
-                                                                //             child:
-                                                                //                 Container(
-                                                                //               width: 320.0,
-                                                                //               height: 345.0,
-                                                                //               decoration: BoxDecoration(
-                                                                //                 color: FlutterFlowTheme.of(context).primaryBackground,
-                                                                //                 borderRadius: BorderRadius.circular(16.0),
-                                                                //               ),
-                                                                //               child: Padding(
-                                                                //                 padding: EdgeInsets.all(8.0),
-                                                                //                 child: Column(
-                                                                //                   mainAxisSize: MainAxisSize.max,
-                                                                //                   crossAxisAlignment: CrossAxisAlignment.start,
-                                                                //                   children: [
-                                                                //                     ClipRRect(
-                                                                //                       borderRadius: BorderRadius.only(
-                                                                //                         bottomLeft: Radius.circular(0.0),
-                                                                //                         bottomRight: Radius.circular(0.0),
-                                                                //                         topLeft: Radius.circular(16.0),
-                                                                //                         topRight: Radius.circular(16.0),
-                                                                //                       ),
-                                                                //                       child: CachedNetworkImage(
-                                                                //                         fadeInDuration: Duration(milliseconds: 200),
-                                                                //                         fadeOutDuration: Duration(milliseconds: 200),
-                                                                //                         imageUrl: '${FFAppConstants.imageUrl}${getJsonField(
-                                                                //                           maintainYourCarListItem,
-                                                                //                           r'''$.image''',
-                                                                //                         ).toString()}',
-                                                                //                         width: double.infinity,
-                                                                //                         height: 174.0,
-                                                                //                         fit: BoxFit.cover,
-                                                                //                         alignment: Alignment(-1.0, -1.0),
-                                                                //                       ),
-                                                                //                     ),
-                                                                //                     Expanded(
-                                                                //                       child: Column(
-                                                                //                         mainAxisSize: MainAxisSize.max,
-                                                                //                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                //                         crossAxisAlignment: CrossAxisAlignment.start,
-                                                                //                         children: [
-                                                                //                           Text(
-                                                                //                             getJsonField(
-                                                                //                               maintainYourCarListItem,
-                                                                //                               r'''$.title''',
-                                                                //                             ).toString(),
-                                                                //                             maxLines: 1,
-                                                                //                             style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                //                                   fontFamily: 'SF Pro Display',
-                                                                //                                   fontSize: 18.0,
-                                                                //                                   letterSpacing: 0.0,
-                                                                //                                   fontWeight: FontWeight.w600,
-                                                                //                                   useGoogleFonts: false,
-                                                                //                                   lineHeight: 1.5,
-                                                                //                                 ),
-                                                                //                           ),
-                                                                //                           Row(
-                                                                //                             mainAxisSize: MainAxisSize.max,
-                                                                //                             children: [
-                                                                //                               Align(
-                                                                //                                 alignment: AlignmentDirectional(0.0, 0.0),
-                                                                //                                 child: Padding(
-                                                                //                                   padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 6.0),
-                                                                //                                   child: custom_widgets.GetCurrencySymboolBold(
-                                                                //                                     width: 15.0,
-                                                                //                                     height: 20.0,
-                                                                //                                     isSimbool: CarServiceGroup.currencyApiCall.currency(
-                                                                //                                       listViewCurrencyApiResponse.jsonBody,
-                                                                //                                     ),
-                                                                //                                     color: FlutterFlowTheme.of(context).primaryText,
-                                                                //                                     fontSize: 18.0,
-                                                                //                                   ),
-                                                                //                                 ),
-                                                                //                               ),
-                                                                //                               Text(
-                                                                //                                 getJsonField(
-                                                                //                                   maintainYourCarListItem,
-                                                                //                                   r'''$.price''',
-                                                                //                                 ).toString(),
-                                                                //                                 maxLines: 1,
-                                                                //                                 style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                //                                       fontFamily: 'SF Pro Display',
-                                                                //                                       fontSize: 18.0,
-                                                                //                                       letterSpacing: 0.0,
-                                                                //                                       fontWeight: FontWeight.w600,
-                                                                //                                       useGoogleFonts: false,
-                                                                //                                     ),
-                                                                //                               ),
-                                                                //                             ],
-                                                                //                           ),
-                                                                //                           Row(
-                                                                //                             mainAxisSize: MainAxisSize.max,
-                                                                //                             crossAxisAlignment: CrossAxisAlignment.end,
-                                                                //                             children: [
-                                                                //                               Expanded(
-                                                                //                                 child: custom_widgets.ReadMoreHtml(
-                                                                //                                   width: double.infinity,
-                                                                //                                   height: 50.0,
-                                                                //                                   htmlContent: getJsonField(
-                                                                //                                     maintainYourCarListItem,
-                                                                //                                     r'''$.description''',
-                                                                //                                   ).toString(),
-                                                                //                                   maxLength: 50,
-                                                                //                                 ),
-                                                                //                               ),
-                                                                //                               Align(
-                                                                //                                 alignment: AlignmentDirectional(0.0, 1.0),
-                                                                //                                 child: Padding(
-                                                                //                                   padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 8.0, 8.0),
-                                                                //                                   child: Container(
-                                                                //                                     decoration: BoxDecoration(
-                                                                //                                       color: FlutterFlowTheme.of(context).primary,
-                                                                //                                       borderRadius: BorderRadius.circular(10.0),
-                                                                //                                     ),
-                                                                //                                     child: Padding(
-                                                                //                                       padding: EdgeInsetsDirectional.fromSTEB(26.0, 12.0, 26.0, 12.0),
-                                                                //                                       child: Text(
-                                                                //                                         'Book now',
-                                                                //                                         style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                //                                               fontFamily: 'SF Pro Display',
-                                                                //                                               color: FlutterFlowTheme.of(context).primaryBackground,
-                                                                //                                               fontSize: 15.0,
-                                                                //                                               letterSpacing: 0.0,
-                                                                //                                               fontWeight: FontWeight.bold,
-                                                                //                                               useGoogleFonts: false,
-                                                                //                                             ),
-                                                                //                                       ),
-                                                                //                                     ),
-                                                                //                                   ),
-                                                                //                                 ),
-                                                                //                               ),
-                                                                //                             ].divide(SizedBox(width: 8.0)),
-                                                                //                           ),
-                                                                //                         ].divide(SizedBox(height: 1.0)).addToStart(SizedBox(height: 2.0)),
-                                                                //                       ),
-                                                                //                     ),
-                                                                //                   ],
-                                                                //                 ),
-                                                                //               ),
-                                                                //             ),
-                                                                //           );
-                                                                //         }).divide(SizedBox(width: 16.0)).addToStart(SizedBox(width: 16.0)).addToEnd(SizedBox(
-                                                                //             width:
-                                                                //                 16.0)),
-                                                                //       ),
-                                                                //     );
-                                                                //   },
-                                                                // ),
-                                                             
-                                                              ),
-                                                          
+                                                              if (CarServiceGroup
+                                                                      .allPackagesApiCall
+                                                                      .success(
+                                                                    containerAllPackagesApiResponse
+                                                                        .jsonBody,
+                                                                  ) ==
+                                                                  1)
+                                                                Padding(
+                                                                  padding: EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          16.0,
+                                                                          0.0,
+                                                                          16.0),
+                                                                  // child: Builder(
+                                                                  //   builder:
+                                                                  //       (context) {
+                                                                  //     final maintainYourCarList = (CarServiceGroup.allPackagesApiCall
+                                                                  //                 .packageDetailsList(
+                                                                  //                   containerAllPackagesApiResponse.jsonBody,
+                                                                  //                 )
+                                                                  //                 ?.toList() ??
+                                                                  //             [])
+                                                                  //         .take(3)
+                                                                  //         .toList();
+
+                                                                  //     return SingleChildScrollView(
+                                                                  //       scrollDirection:
+                                                                  //           Axis.horizontal,
+                                                                  //       child:
+                                                                  //           Row(
+                                                                  //         mainAxisSize:
+                                                                  //             MainAxisSize.max,
+                                                                  //         children: List.generate(
+                                                                  //             maintainYourCarList.length,
+                                                                  //             (maintainYourCarListIndex) {
+                                                                  //           final maintainYourCarListItem =
+                                                                  //               maintainYourCarList[maintainYourCarListIndex];
+                                                                  //           return InkWell(
+                                                                  //             splashColor:
+                                                                  //                 Colors.transparent,
+                                                                  //             focusColor:
+                                                                  //                 Colors.transparent,
+                                                                  //             hoverColor:
+                                                                  //                 Colors.transparent,
+                                                                  //             highlightColor:
+                                                                  //                 Colors.transparent,
+                                                                  //             onTap:
+                                                                  //                 () async {
+                                                                  //               context.pushNamed(
+                                                                  //                 'AllCarDetailsPage',
+                                                                  //                 queryParameters: {
+                                                                  //                   'packageId': serializeParam(
+                                                                  //                     getJsonField(
+                                                                  //                       maintainYourCarListItem,
+                                                                  //                       r'''$.id''',
+                                                                  //                     ).toString(),
+                                                                  //                     ParamType.String,
+                                                                  //                   ),
+                                                                  //                   'packageName': serializeParam(
+                                                                  //                     getJsonField(
+                                                                  //                       maintainYourCarListItem,
+                                                                  //                       r'''$.title''',
+                                                                  //                     ).toString(),
+                                                                  //                     ParamType.String,
+                                                                  //                   ),
+                                                                  //                   'packageImage': serializeParam(
+                                                                  //                     '${FFAppConstants.imageUrl}${getJsonField(
+                                                                  //                       maintainYourCarListItem,
+                                                                  //                       r'''$.image''',
+                                                                  //                     ).toString()}',
+                                                                  //                     ParamType.String,
+                                                                  //                   ),
+                                                                  //                   'price': serializeParam(
+                                                                  //                     getJsonField(
+                                                                  //                       maintainYourCarListItem,
+                                                                  //                       r'''$.price''',
+                                                                  //                     ),
+                                                                  //                     ParamType.double,
+                                                                  //                   ),
+                                                                  //                   'serviceId': serializeParam(
+                                                                  //                     getJsonField(
+                                                                  //                       maintainYourCarListItem,
+                                                                  //                       r'''$.serviceDetails._id''',
+                                                                  //                     ).toString(),
+                                                                  //                     ParamType.String,
+                                                                  //                   ),
+                                                                  //                   'serviceName': serializeParam(
+                                                                  //                     getJsonField(
+                                                                  //                       maintainYourCarListItem,
+                                                                  //                       r'''$.serviceDetails.name''',
+                                                                  //                     ).toString(),
+                                                                  //                     ParamType.String,
+                                                                  //                   ),
+                                                                  //                   'serviceImage': serializeParam(
+                                                                  //                     getJsonField(
+                                                                  //                       maintainYourCarListItem,
+                                                                  //                       r'''$.serviceDetails.image''',
+                                                                  //                     ).toString(),
+                                                                  //                     ParamType.String,
+                                                                  //                   ),
+                                                                  //                   'currencySymbol': serializeParam(
+                                                                  //                     CarServiceGroup.currencyApiCall.currency(
+                                                                  //                       listViewCurrencyApiResponse.jsonBody,
+                                                                  //                     ),
+                                                                  //                     ParamType.String,
+                                                                  //                   ),
+                                                                  //                 }.withoutNulls,
+                                                                  //               );
+                                                                  //             },
+                                                                  //             child:
+                                                                  //                 Container(
+                                                                  //               width: 320.0,
+                                                                  //               height: 345.0,
+                                                                  //               decoration: BoxDecoration(
+                                                                  //                 color: FlutterFlowTheme.of(context).primaryBackground,
+                                                                  //                 borderRadius: BorderRadius.circular(16.0),
+                                                                  //               ),
+                                                                  //               child: Padding(
+                                                                  //                 padding: EdgeInsets.all(8.0),
+                                                                  //                 child: Column(
+                                                                  //                   mainAxisSize: MainAxisSize.max,
+                                                                  //                   crossAxisAlignment: CrossAxisAlignment.start,
+                                                                  //                   children: [
+                                                                  //                     ClipRRect(
+                                                                  //                       borderRadius: BorderRadius.only(
+                                                                  //                         bottomLeft: Radius.circular(0.0),
+                                                                  //                         bottomRight: Radius.circular(0.0),
+                                                                  //                         topLeft: Radius.circular(16.0),
+                                                                  //                         topRight: Radius.circular(16.0),
+                                                                  //                       ),
+                                                                  //                       child: CachedNetworkImage(
+                                                                  //                         fadeInDuration: Duration(milliseconds: 200),
+                                                                  //                         fadeOutDuration: Duration(milliseconds: 200),
+                                                                  //                         imageUrl: '${FFAppConstants.imageUrl}${getJsonField(
+                                                                  //                           maintainYourCarListItem,
+                                                                  //                           r'''$.image''',
+                                                                  //                         ).toString()}',
+                                                                  //                         width: double.infinity,
+                                                                  //                         height: 174.0,
+                                                                  //                         fit: BoxFit.cover,
+                                                                  //                         alignment: Alignment(-1.0, -1.0),
+                                                                  //                       ),
+                                                                  //                     ),
+                                                                  //                     Expanded(
+                                                                  //                       child: Column(
+                                                                  //                         mainAxisSize: MainAxisSize.max,
+                                                                  //                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                  //                         crossAxisAlignment: CrossAxisAlignment.start,
+                                                                  //                         children: [
+                                                                  //                           Text(
+                                                                  //                             getJsonField(
+                                                                  //                               maintainYourCarListItem,
+                                                                  //                               r'''$.title''',
+                                                                  //                             ).toString(),
+                                                                  //                             maxLines: 1,
+                                                                  //                             style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                  //                                   fontFamily: 'SF Pro Display',
+                                                                  //                                   fontSize: 18.0,
+                                                                  //                                   letterSpacing: 0.0,
+                                                                  //                                   fontWeight: FontWeight.w600,
+                                                                  //                                   useGoogleFonts: false,
+                                                                  //                                   lineHeight: 1.5,
+                                                                  //                                 ),
+                                                                  //                           ),
+                                                                  //                           Row(
+                                                                  //                             mainAxisSize: MainAxisSize.max,
+                                                                  //                             children: [
+                                                                  //                               Align(
+                                                                  //                                 alignment: AlignmentDirectional(0.0, 0.0),
+                                                                  //                                 child: Padding(
+                                                                  //                                   padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 6.0),
+                                                                  //                                   child: custom_widgets.GetCurrencySymboolBold(
+                                                                  //                                     width: 15.0,
+                                                                  //                                     height: 20.0,
+                                                                  //                                     isSimbool: CarServiceGroup.currencyApiCall.currency(
+                                                                  //                                       listViewCurrencyApiResponse.jsonBody,
+                                                                  //                                     ),
+                                                                  //                                     color: FlutterFlowTheme.of(context).primaryText,
+                                                                  //                                     fontSize: 18.0,
+                                                                  //                                   ),
+                                                                  //                                 ),
+                                                                  //                               ),
+                                                                  //                               Text(
+                                                                  //                                 getJsonField(
+                                                                  //                                   maintainYourCarListItem,
+                                                                  //                                   r'''$.price''',
+                                                                  //                                 ).toString(),
+                                                                  //                                 maxLines: 1,
+                                                                  //                                 style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                  //                                       fontFamily: 'SF Pro Display',
+                                                                  //                                       fontSize: 18.0,
+                                                                  //                                       letterSpacing: 0.0,
+                                                                  //                                       fontWeight: FontWeight.w600,
+                                                                  //                                       useGoogleFonts: false,
+                                                                  //                                     ),
+                                                                  //                               ),
+                                                                  //                             ],
+                                                                  //                           ),
+                                                                  //                           Row(
+                                                                  //                             mainAxisSize: MainAxisSize.max,
+                                                                  //                             crossAxisAlignment: CrossAxisAlignment.end,
+                                                                  //                             children: [
+                                                                  //                               Expanded(
+                                                                  //                                 child: custom_widgets.ReadMoreHtml(
+                                                                  //                                   width: double.infinity,
+                                                                  //                                   height: 50.0,
+                                                                  //                                   htmlContent: getJsonField(
+                                                                  //                                     maintainYourCarListItem,
+                                                                  //                                     r'''$.description''',
+                                                                  //                                   ).toString(),
+                                                                  //                                   maxLength: 50,
+                                                                  //                                 ),
+                                                                  //                               ),
+                                                                  //                               Align(
+                                                                  //                                 alignment: AlignmentDirectional(0.0, 1.0),
+                                                                  //                                 child: Padding(
+                                                                  //                                   padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 8.0, 8.0),
+                                                                  //                                   child: Container(
+                                                                  //                                     decoration: BoxDecoration(
+                                                                  //                                       color: FlutterFlowTheme.of(context).primary,
+                                                                  //                                       borderRadius: BorderRadius.circular(10.0),
+                                                                  //                                     ),
+                                                                  //                                     child: Padding(
+                                                                  //                                       padding: EdgeInsetsDirectional.fromSTEB(26.0, 12.0, 26.0, 12.0),
+                                                                  //                                       child: Text(
+                                                                  //                                         'Book now',
+                                                                  //                                         style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                  //                                               fontFamily: 'SF Pro Display',
+                                                                  //                                               color: FlutterFlowTheme.of(context).primaryBackground,
+                                                                  //                                               fontSize: 15.0,
+                                                                  //                                               letterSpacing: 0.0,
+                                                                  //                                               fontWeight: FontWeight.bold,
+                                                                  //                                               useGoogleFonts: false,
+                                                                  //                                             ),
+                                                                  //                                       ),
+                                                                  //                                     ),
+                                                                  //                                   ),
+                                                                  //                                 ),
+                                                                  //                               ),
+                                                                  //                             ].divide(SizedBox(width: 8.0)),
+                                                                  //                           ),
+                                                                  //                         ].divide(SizedBox(height: 1.0)).addToStart(SizedBox(height: 2.0)),
+                                                                  //                       ),
+                                                                  //                     ),
+                                                                  //                   ],
+                                                                  //                 ),
+                                                                  //               ),
+                                                                  //             ),
+                                                                  //           );
+                                                                  //         }).divide(SizedBox(width: 16.0)).addToStart(SizedBox(width: 16.0)).addToEnd(SizedBox(
+                                                                  //             width:
+                                                                  //                 16.0)),
+                                                                  //       ),
+                                                                  //     );
+                                                                  //   },
+                                                                  // ),
+                                                                ),
                                                           ],
                                                         ),
                                                     ],

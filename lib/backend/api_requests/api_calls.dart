@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'dart:typed_data';
+import 'package:translator/translator.dart';
+
 import '../schema/structs/index.dart';
 
 import 'package:flutter/foundation.dart';
@@ -17,6 +19,7 @@ class CarServiceGroup {
   static String getBaseUrl({
     String? token = '',
   }) =>
+  //'http://192.168.0.105:3000/api';
         'https://stage.goclean.ba/api';
       //'https://go-clean-backend.onrender.com/api';
   static Map<String, String> headers = {
@@ -1068,19 +1071,21 @@ class PackagesByServiceApiCall {
 }
 
 class PackageDetailsApiCall {
+  final GoogleTranslator translator = GoogleTranslator();
+
   Future<ApiCallResponse> call({
     String? packageId = '',
     String? token = '',
+    String langCode = 'en', // Language code for translation
   }) async {
-    final baseUrl = CarServiceGroup.getBaseUrl(
-      token: token,
-    );
+    final baseUrl = CarServiceGroup.getBaseUrl(token: token);
 
     final ffApiRequestBody = '''
-{
-  "packageId": "${packageId}"
-}''';
-    return ApiManager.instance.makeApiCall(
+    {
+      "packageId": "${packageId}"
+    }''';
+
+    ApiCallResponse apiResponse = await ApiManager.instance.makeApiCall(
       callName: 'PackageDetailsApi',
       apiUrl: '${baseUrl}/package_details',
       callType: ApiCallType.POST,
@@ -1097,23 +1102,45 @@ class PackageDetailsApiCall {
       isStreamingApi: false,
       alwaysAllowBody: false,
     );
+
+    // Get the description and translate it
+    String? descriptionText = description(apiResponse.jsonBody);
+    String translatedDescription = await _translateText(descriptionText, langCode);
+
+    // Replace translated text in the response
+    apiResponse.jsonBody['data']['packageDetails'][0]['description'] = translatedDescription;
+
+    return apiResponse;
   }
 
-  String? description(dynamic response) => castToType<String>(getJsonField(
-        response,
-        r'''$.data.packageDetails[:].description''',
-      ));
+  // Extract the description field
+  String? description(dynamic response) => castToType<String>(
+        getJsonField(response, r'''$.data.packageDetails[:].description'''),
+      );
+
+  // Extract gallery images
   List? galleryImagesList(dynamic response) => getJsonField(
         response,
         r'''$.data.packageDetails[:].gallery_images''',
         true,
       ) as List?;
-  String? image(dynamic response) => castToType<String>(getJsonField(
-        response,
-        r'''$.data.packageDetails[:].image''',
-      ));
-}
 
+  // Extract image URL
+  String? image(dynamic response) => castToType<String>(
+        getJsonField(response, r'''$.data.packageDetails[:].image'''),
+      );
+
+  // Function to translate text
+  Future<String> _translateText(String? text, String langCode) async {
+    if (text == null || text.isEmpty) return text ?? '';
+    try {
+      return (await translator.translate(text, to: langCode)).text;
+    } catch (e) {
+      print('Translation error: $e');
+      return text; // Fallback to original text
+    }
+  }
+}
 class SearchServiceApiCall {
   Future<ApiCallResponse> call({
     String? search = '',
