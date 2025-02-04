@@ -3796,7 +3796,7 @@ void addService(Service service) {
 
                                                 safeSetState(() {});
                                               },
-                                              text: translated[21].isEmpty ? txt[21] : translated[21], //'Proceed to payment',
+                                              text: translated[22].isEmpty ? txt[22] : translated[22], //'Proceed to payment',
                                               options: FFButtonOptions(
                                                 width: double.infinity,
                                                 height: 56.0,

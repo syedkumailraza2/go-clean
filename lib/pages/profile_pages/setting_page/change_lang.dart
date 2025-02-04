@@ -52,6 +52,7 @@ class _ChangeLangState extends State<ChangeLang> {
       appBar: AppBar(title: Text('Change Language'), centerTitle: true),
       body: Column(
         children: [
+          
           RadioListTile<String>(
             activeColor: FlutterFlowTheme.of(context).primary,
             title: Row(
@@ -65,6 +66,7 @@ class _ChangeLangState extends State<ChangeLang> {
             groupValue: _selectedLang,
             onChanged: _changeLanguage,
           ),
+
           RadioListTile<String>(
             activeColor: FlutterFlowTheme.of(context).primary,
             title: Row(
@@ -78,6 +80,7 @@ class _ChangeLangState extends State<ChangeLang> {
             groupValue: _selectedLang,
             onChanged: _changeLanguage,
           ),
+
            RadioListTile<String>(
             activeColor: FlutterFlowTheme.of(context).primary,
             title: Row(
@@ -92,20 +95,6 @@ class _ChangeLangState extends State<ChangeLang> {
             onChanged: _changeLanguage,
           ),
          
-          RadioListTile<String>(
-            activeColor: FlutterFlowTheme.of(context).primary,
-            title: Row(
-              children: [
-                Image.asset('assets/images/croatia.png', width: 30, height: 20),
-                SizedBox(width: 10),
-                Text('Croatian'),
-              ],
-            ),
-            value: 'hr',
-            groupValue: _selectedLang,
-            onChanged: _changeLanguage,
-          ),
-           
            RadioListTile<String>(
             activeColor: FlutterFlowTheme.of(context).primary,
             title: Row(
