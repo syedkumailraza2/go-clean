@@ -1,3 +1,6 @@
+import 'package:get_storage/get_storage.dart'; // Import GetStorage
+import 'package:translator/translator.dart'; // Import the translator package
+
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -20,17 +23,28 @@ class _PaymentFailedPageWidgetState extends State<PaymentFailedPageWidget> {
   late PaymentFailedPageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  final box = GetStorage(); // Initialize GetStorage
 
   @override
   void initState() {
     super.initState();
     _model = createModel(context, () => PaymentFailedPageModel());
+
+    translated = box.read('payment_failed_static') ?? txt; // Read translated text from storage
   }
+
+
+  var translated = List<String>.filled(3, '', growable: false); // Initialize translated list
+
+  List<String> txt = [ // Original text
+    'Payment failed!',
+    'It seems we have not received money',
+    'Back to home',
+  ];
 
   @override
   void dispose() {
     _model.dispose();
-
     super.dispose();
   }
 
@@ -63,7 +77,7 @@ class _PaymentFailedPageWidgetState extends State<PaymentFailedPageWidget> {
                       ),
                     ),
                     Text(
-                      'Payment failed!',
+                      translated[0].isEmpty ? txt[0] : translated[0], // Display translated text or original
                       textAlign: TextAlign.center,
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                             fontFamily: 'SF Pro Display',
@@ -75,7 +89,7 @@ class _PaymentFailedPageWidgetState extends State<PaymentFailedPageWidget> {
                           ),
                     ),
                     Text(
-                      'It seems we have not received money',
+                      translated[1].isEmpty ? txt[1] : translated[1],  // Display translated text or original
                       textAlign: TextAlign.center,
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                             fontFamily: 'SF Pro Display',
@@ -92,7 +106,7 @@ class _PaymentFailedPageWidgetState extends State<PaymentFailedPageWidget> {
                         onPressed: () async {
                           context.goNamed('HomeMainPage');
                         },
-                        text: 'Back to home',
+                        text: translated[2].isEmpty ? txt[2] : translated[2],  // Display translated text or original
                         options: FFButtonOptions(
                           width: 190.0,
                           height: 54.0,

@@ -1,3 +1,5 @@
+import 'package:get_storage/get_storage.dart';
+
 import '/backend/api_requests/api_calls.dart';
 import '/componants/no_slot_set_componant/no_slot_set_componant_widget.dart';
 import '/components/custom_center_appbar_widget.dart';
@@ -46,12 +48,21 @@ class _SelectTmeDatePageWidgetState extends State<SelectTmeDatePageWidget> {
   late SelectTmeDatePageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  final box = GetStorage();
 
   @override
   void initState() {
     super.initState();
     _model = createModel(context, () => SelectTmeDatePageModel());
+    translated = box.read('select_time_static') ?? txt;
   }
+
+var translated = List<String>.filled(8, '', growable: false); // Initialize translated list
+
+  List<String> txt = [
+    'Select time & date',
+    'Checkout',
+  ];
 
   @override
   void dispose() {
@@ -79,7 +90,7 @@ class _SelectTmeDatePageWidgetState extends State<SelectTmeDatePageWidget> {
                 model: _model.customCenterAppbarModel,
                 updateCallback: () => safeSetState(() {}),
                 child: CustomCenterAppbarWidget(
-                  title: 'Select time & date',
+                  title: translated[1].isEmpty ? txt[1] : translated[1], //'Select time & date',
                   backIcon: false,
                   addIcon: false,
                   onTapAdd: () async {},
@@ -858,7 +869,7 @@ class _SelectTmeDatePageWidgetState extends State<SelectTmeDatePageWidget> {
                                           }.withoutNulls,
                                         );
                                       },
-                                text: 'Checkout',
+                                text: translated[1].isEmpty ? txt[1] : translated[1], //'Checkout',
                                 options: FFButtonOptions(
                                   width: double.infinity,
                                   height: 56.0,

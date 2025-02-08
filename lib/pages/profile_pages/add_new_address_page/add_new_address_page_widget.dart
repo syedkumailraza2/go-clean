@@ -1,3 +1,5 @@
+import 'package:get_storage/get_storage.dart';
+
 import '/backend/api_requests/api_calls.dart';
 import '/components/address_add_success_componant_widget.dart';
 import '/components/custom_center_appbar_widget.dart';
@@ -26,11 +28,13 @@ class _AddNewAddressPageWidgetState extends State<AddNewAddressPageWidget> {
   late AddNewAddressPageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  final box = GetStorage();
 
   @override
   void initState() {
     super.initState();
     _model = createModel(context, () => AddNewAddressPageModel());
+    translated = box.read('add_address_static') ?? txt;
 
     _model.textController1 ??= TextEditingController();
     _model.textFieldFocusNode1 ??= FocusNode();
@@ -47,6 +51,21 @@ class _AddNewAddressPageWidgetState extends State<AddNewAddressPageWidget> {
     _model.textController5 ??= TextEditingController();
     _model.textFieldFocusNode5 ??= FocusNode();
   }
+
+  var translated = List<String>.filled(8, '', growable: false); // Initialize translated list
+
+  List<String> txt = [ // Original text
+    'Add new address',
+    'Locatility / area / street',
+    'City',
+    'State',
+    'Zipcode',
+    'Country',
+    'Home',
+    'Office ',
+    'Other',
+    'Add',
+  ];
 
   @override
   void dispose() {
@@ -74,7 +93,7 @@ class _AddNewAddressPageWidgetState extends State<AddNewAddressPageWidget> {
                 model: _model.customCenterAppbarModel,
                 updateCallback: () => safeSetState(() {}),
                 child: CustomCenterAppbarWidget(
-                  title: 'Add new address',
+                  title: translated[0].isEmpty ? txt[0] : translated[0], //'Add new address',
                   backIcon: false,
                   addIcon: false,
                   onTapAdd: () async {},
@@ -168,7 +187,7 @@ class _AddNewAddressPageWidgetState extends State<AddNewAddressPageWidget> {
                                                 obscureText: false,
                                                 decoration: InputDecoration(
                                                   labelText:
-                                                      'Locatility / area / street',
+                                                      translated[1].isEmpty ? txt[1] : translated[1], //'Locatility / area / street',
                                                   labelStyle: FlutterFlowTheme
                                                           .of(context)
                                                       .labelMedium
@@ -185,7 +204,7 @@ class _AddNewAddressPageWidgetState extends State<AddNewAddressPageWidget> {
                                                       ),
                                                   alignLabelWithHint: true,
                                                   hintText:
-                                                      'Locatility / area / street',
+                                                      translated[1].isEmpty ? txt[1] : translated[1], //'Locatility / area / street',
                                                   hintStyle: FlutterFlowTheme
                                                           .of(context)
                                                       .labelMedium
@@ -303,7 +322,7 @@ class _AddNewAddressPageWidgetState extends State<AddNewAddressPageWidget> {
                                                     TextInputAction.next,
                                                 obscureText: false,
                                                 decoration: InputDecoration(
-                                                  labelText: 'City',
+                                                  labelText: translated[2].isEmpty ? txt[2] : translated[2], //'City',
                                                   labelStyle: FlutterFlowTheme
                                                           .of(context)
                                                       .labelMedium
@@ -318,7 +337,7 @@ class _AddNewAddressPageWidgetState extends State<AddNewAddressPageWidget> {
                                                         letterSpacing: 0.0,
                                                         useGoogleFonts: false,
                                                       ),
-                                                  hintText: 'City',
+                                                  hintText: translated[2].isEmpty ? txt[2] : translated[2], //'City',
                                                   hintStyle: FlutterFlowTheme
                                                           .of(context)
                                                       .labelMedium
@@ -435,7 +454,7 @@ class _AddNewAddressPageWidgetState extends State<AddNewAddressPageWidget> {
                                                     TextInputAction.next,
                                                 obscureText: false,
                                                 decoration: InputDecoration(
-                                                  labelText: 'State',
+                                                  labelText: translated[3].isEmpty ? txt[3] : translated[3], //'State',
                                                   labelStyle: FlutterFlowTheme
                                                           .of(context)
                                                       .labelMedium
@@ -450,7 +469,7 @@ class _AddNewAddressPageWidgetState extends State<AddNewAddressPageWidget> {
                                                         letterSpacing: 0.0,
                                                         useGoogleFonts: false,
                                                       ),
-                                                  hintText: 'State',
+                                                  hintText: translated[3].isEmpty ? txt[3] : translated[3], //'State',
                                                   hintStyle: FlutterFlowTheme
                                                           .of(context)
                                                       .labelMedium
@@ -567,7 +586,7 @@ class _AddNewAddressPageWidgetState extends State<AddNewAddressPageWidget> {
                                                     TextInputAction.next,
                                                 obscureText: false,
                                                 decoration: InputDecoration(
-                                                  labelText: 'Zipcode',
+                                                  labelText: translated[4].isEmpty ? txt[4] : translated[4], //'Zipcode',
                                                   labelStyle: FlutterFlowTheme
                                                           .of(context)
                                                       .labelMedium
@@ -582,7 +601,7 @@ class _AddNewAddressPageWidgetState extends State<AddNewAddressPageWidget> {
                                                         letterSpacing: 0.0,
                                                         useGoogleFonts: false,
                                                       ),
-                                                  hintText: 'Zipcode',
+                                                  hintText: translated[4].isEmpty ? txt[4] : translated[4], //'Zipcode',
                                                   hintStyle: FlutterFlowTheme
                                                           .of(context)
                                                       .labelMedium
@@ -697,7 +716,7 @@ class _AddNewAddressPageWidgetState extends State<AddNewAddressPageWidget> {
                                                   TextInputAction.next,
                                               obscureText: false,
                                               decoration: InputDecoration(
-                                                labelText: 'Country',
+                                                labelText: translated[5].isEmpty ? txt[5] : translated[5], //'Country',
                                                 labelStyle:
                                                     FlutterFlowTheme.of(context)
                                                         .labelMedium
@@ -711,7 +730,7 @@ class _AddNewAddressPageWidgetState extends State<AddNewAddressPageWidget> {
                                                           letterSpacing: 0.0,
                                                           useGoogleFonts: false,
                                                         ),
-                                                hintText: 'Country',
+                                                hintText: translated[5].isEmpty ? txt[5] : translated[5], //'Country',
                                                 hintStyle:
                                                     FlutterFlowTheme.of(context)
                                                         .labelMedium
@@ -880,7 +899,7 @@ class _AddNewAddressPageWidgetState extends State<AddNewAddressPageWidget> {
                                                                       16.0,
                                                                       0.0),
                                                           child: Text(
-                                                            'Home',
+                                                            translated[6].isEmpty ? txt[6] : translated[6], //'Home',
                                                             style: FlutterFlowTheme
                                                                     .of(context)
                                                                 .bodyMedium
@@ -967,7 +986,7 @@ class _AddNewAddressPageWidgetState extends State<AddNewAddressPageWidget> {
                                                                       16.0,
                                                                       0.0),
                                                           child: Text(
-                                                            'Office ',
+                                                            translated[7].isEmpty ? txt[7] : translated[7], //'Office ',
                                                             style: FlutterFlowTheme
                                                                     .of(context)
                                                                 .bodyMedium
@@ -1054,8 +1073,8 @@ class _AddNewAddressPageWidgetState extends State<AddNewAddressPageWidget> {
                                                                       16.0,
                                                                       0.0),
                                                           child: Text(
-                                                            'Other',
-                                                            style: FlutterFlowTheme
+                                                            translated[8].isEmpty ? txt[8] : translated[8], //'Other',
+                                                            style: FlutterFlowTheme                                           
                                                                     .of(context)
                                                                 .bodyMedium
                                                                 .override(
@@ -1200,7 +1219,7 @@ class _AddNewAddressPageWidgetState extends State<AddNewAddressPageWidget> {
 
                                                     safeSetState(() {});
                                                   },
-                                                  text: 'Add',
+                                                  text: translated[9].isEmpty ? txt[9] : translated[9], //'Add',
                                                   options: FFButtonOptions(
                                                     width: double.infinity,
                                                     height: 56.0,

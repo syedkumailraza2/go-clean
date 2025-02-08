@@ -1,3 +1,5 @@
+import 'package:get_storage/get_storage.dart';
+
 import '/backend/api_requests/api_calls.dart';
 import '/componants/no_address_yet_componant/no_address_yet_componant_widget.dart';
 import '/components/address_change_success_componant_widget.dart';
@@ -28,12 +30,13 @@ class _AddressPageWidgetState extends State<AddressPageWidget> {
   late AddressPageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  final box = GetStorage();
 
   @override
   void initState() {
     super.initState();
     _model = createModel(context, () => AddressPageModel());
-
+    translated = box.read('address_static') ?? txt;
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       safeSetState(() {
@@ -43,6 +46,15 @@ class _AddressPageWidgetState extends State<AddressPageWidget> {
       await _model.waitForApiRequestCompleted();
     });
   }
+  
+  var translated = List<String>.filled(8, '', growable: false); // Initialize translated list
+
+  List<String> txt = [
+    'Address',
+    'Default',
+    'Edit',
+    'Add new address',
+  ];
 
   @override
   void dispose() {
@@ -70,7 +82,7 @@ class _AddressPageWidgetState extends State<AddressPageWidget> {
                 model: _model.customCenterAppbarModel,
                 updateCallback: () => safeSetState(() {}),
                 child: CustomCenterAppbarWidget(
-                  title: 'Address',
+                  title: translated[0].isEmpty ? txt[0] : translated[0], //'Address',
                   backIcon: false,
                   addIcon: false,
                   onTapAdd: () async {},
@@ -385,7 +397,7 @@ class _AddressPageWidgetState extends State<AddressPageWidget> {
                                                                               10.0),
                                                                       child:
                                                                           Text(
-                                                                        'Edit',
+                                                                        translated[2].isEmpty ? txt[2] : translated[2], //'Edit',
                                                                         textAlign:
                                                                             TextAlign.center,
                                                                         style: FlutterFlowTheme.of(context)
@@ -679,7 +691,7 @@ class _AddressPageWidgetState extends State<AddressPageWidget> {
                                                                           12.0,
                                                                           5.0),
                                                                   child: Text(
-                                                                    'Default',
+                                                                    translated[1].isEmpty ? txt[1] : translated[1], //'Default',
                                                                     style: FlutterFlowTheme.of(
                                                                             context)
                                                                         .bodyMedium
@@ -728,7 +740,7 @@ class _AddressPageWidgetState extends State<AddressPageWidget> {
                                 onPressed: () async {
                                   context.pushNamed('AddNewAddressPage');
                                 },
-                                text: 'Add new address',
+                                text: translated[3].isEmpty ? txt[3] : translated[3], //'Add new address',
                                 options: FFButtonOptions(
                                   width: double.infinity,
                                   height: 56.0,

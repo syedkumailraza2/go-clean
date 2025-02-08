@@ -1,3 +1,5 @@
+import 'package:get_storage/get_storage.dart';
+
 import '/backend/api_requests/api_calls.dart';
 import '/components/custom_center_appbar_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -80,12 +82,21 @@ class _PaymentMethodPageWidgetState extends State<PaymentMethodPageWidget> {
   late PaymentMethodPageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  final box = GetStorage();
 
   @override
   void initState() {
     super.initState();
     _model = createModel(context, () => PaymentMethodPageModel());
+    translated = box.read('payment_method_static') ?? txt;
   }
+
+  var translated = List<String>.filled(8, '', growable: false); // Initialize translated list
+
+  List<String> txt = [ // Original text
+    'Payment method',
+    'Pay ',
+    ];
 
   @override
   void dispose() {
@@ -125,7 +136,7 @@ class _PaymentMethodPageWidgetState extends State<PaymentMethodPageWidget> {
                     model: _model.customCenterAppbarModel,
                     updateCallback: () => safeSetState(() {}),
                     child: CustomCenterAppbarWidget(
-                      title: 'Payment method',
+                      title: translated[0].isEmpty ? txt[0] : translated[0], //'Payment method',
                       backIcon: false,
                       addIcon: false,
                       onTapAdd: () async {},
@@ -697,7 +708,7 @@ class _PaymentMethodPageWidgetState extends State<PaymentMethodPageWidget> {
                                               alignment: AlignmentDirectional(
                                                   0.0, 0.0),
                                               child: Text(
-                                                'Pay ',
+                                                translated[1].isEmpty ? txt[1] : translated[1], //'Pay ',
                                                 style:
                                                     FlutterFlowTheme.of(context)
                                                         .bodyMedium

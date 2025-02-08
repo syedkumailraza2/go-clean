@@ -1,3 +1,5 @@
+import 'package:get_storage/get_storage.dart';
+
 import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -23,12 +25,24 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
   late MyProfilePageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  final box = GetStorage();
 
   @override
   void initState() {
     super.initState();
     _model = createModel(context, () => MyProfilePageModel());
+    translated = box.read('my_profile_static') ?? txt;
   }
+
+  var translated = List<String>.filled(8, '', growable: false); // Initialize translated list
+
+  List<String> txt = [
+    'My profile',
+    'Name',
+    'Email',
+    'Phone Number',
+  ];
+
 
   @override
   void dispose() {
@@ -125,7 +139,7 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         12.0, 0.0, 12.0, 0.0),
                                     child: Text(
-                                      'My profile',
+                                      translated[0].isEmpty ? txt[0] : translated[0], //'My profile',
                                       textAlign: TextAlign.center,
                                       maxLines: 1,
                                       style: FlutterFlowTheme.of(context)
@@ -275,7 +289,7 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                                             .start,
                                                     children: [
                                                       Text(
-                                                        'Name',
+                                                        translated[1].isEmpty ? txt[1] : translated[1], //'Name',
                                                         style: FlutterFlowTheme
                                                                 .of(context)
                                                             .bodyMedium
@@ -370,7 +384,7 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                                             .start,
                                                     children: [
                                                       Text(
-                                                        'Email',
+                                                        translated[2].isEmpty ? txt[2] : translated[2], //'Email',
                                                         style: FlutterFlowTheme
                                                                 .of(context)
                                                             .bodyMedium
@@ -457,7 +471,7 @@ class _MyProfilePageWidgetState extends State<MyProfilePageWidget> {
                                                             .start,
                                                     children: [
                                                       Text(
-                                                        'Phone Number',
+                                                        translated[3].isEmpty ? txt[3] : translated[3], //'Phone Number',
                                                         style: FlutterFlowTheme
                                                                 .of(context)
                                                             .bodyMedium

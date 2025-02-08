@@ -96,6 +96,8 @@ class _PaymentSuccessPageWidgetState extends State<PaymentSuccessPageWidget> {
     super.initState();
     _model = createModel(context, () => PaymentSuccessPageModel());
 
+translated = box.read('payment_success_static') ?? txt;
+
     if(widget.isCarService == true){
       addDataToDB();
     }
@@ -362,6 +364,16 @@ Future<void> addDataToDB() async {
   }
 }
 
+
+
+  var translated = List<String>.filled(10, '', growable: false);
+  
+  List<String> txt = [
+    'Booking successfull!',
+    'Booking successfull',
+    'Ok',
+  ];
+
   @override
   void dispose() {
     _model.dispose();
@@ -399,7 +411,7 @@ Future<void> addDataToDB() async {
                       ),
                     ),
                     Text(
-                      'Payment successfull!',
+                      translated[0].isEmpty ? txt[0] : translated[0], //'Booking successfull!',
                       textAlign: TextAlign.center,
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                             fontFamily: 'SF Pro Display',
@@ -411,7 +423,7 @@ Future<void> addDataToDB() async {
                           ),
                     ),
                     Text(
-                      'Payment successfull',
+                       translated[1].isEmpty ? txt[1] : translated[1], //'Booking successfull',
                       textAlign: TextAlign.center,
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                             fontFamily: 'SF Pro Display',
@@ -428,7 +440,7 @@ Future<void> addDataToDB() async {
                         onPressed: () async {
                           context.goNamed('MyOrderConfirmPage');
                         },
-                        text: 'Ok',
+                        text: translated[2].isEmpty ? txt[2] : translated[2], //'Ok',
                         options: FFButtonOptions(
                           width: 190.0,
                           height: 54.0,

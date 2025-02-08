@@ -1,3 +1,5 @@
+import 'package:get_storage/get_storage.dart';
+
 import '/backend/api_requests/api_calls.dart';
 import '/componants/blank_componant/blank_componant_widget.dart';
 import '/components/custom_center_appbar_widget.dart';
@@ -88,12 +90,26 @@ class _PaymentGatewayPageWidgetState extends State<PaymentGatewayPageWidget> {
   late PaymentGatewayPageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  final box = GetStorage();
 
   @override
   void initState() {
     super.initState();
     _model = createModel(context, () => PaymentGatewayPageModel());
+    translated = box.read('payment_gateway_static') ?? txt;
   }
+
+var translated = List<String>.filled(8, '', growable: false); // Initialize translated list
+
+  List<String> txt = [ // Original text
+    'Payment',
+    'Your Secured Payment Details',
+    'Name :',
+    'Mobile No :',
+    'Amount :',
+    'Payment To :',
+    'Pay Now',
+  ];
 
   @override
   void dispose() {
@@ -155,7 +171,7 @@ class _PaymentGatewayPageWidgetState extends State<PaymentGatewayPageWidget> {
                         model: _model.customCenterAppbarModel,
                         updateCallback: () => safeSetState(() {}),
                         child: CustomCenterAppbarWidget(
-                          title: 'Payment',
+                          title: translated[0].isEmpty ? txt[0] : translated[0], //'Payment',
                           backIcon: false,
                           addIcon: false,
                           onTapAdd: () async {},
@@ -215,8 +231,8 @@ class _PaymentGatewayPageWidgetState extends State<PaymentGatewayPageWidget> {
                                                       CrossAxisAlignment.start,
                                                   children: [
                                                     Text(
-                                                      'Your Secured Payment Details',
-                                                      style: FlutterFlowTheme
+                                                      translated[1].isEmpty ? txt[1] : translated[1], //'Your Secured Payment Details',
+                                                      style: FlutterFlowTheme                 
                                                               .of(context)
                                                           .bodyMedium
                                                           .override(
@@ -249,7 +265,7 @@ class _PaymentGatewayPageWidgetState extends State<PaymentGatewayPageWidget> {
                                                         children: [
                                                           Expanded(
                                                             child: Text(
-                                                              'Name :',
+                                                              translated[2].isEmpty ? txt[2] : translated[2], //'Name :',
                                                               style: FlutterFlowTheme
                                                                       .of(context)
                                                                   .bodyMedium
@@ -319,7 +335,7 @@ class _PaymentGatewayPageWidgetState extends State<PaymentGatewayPageWidget> {
                                                         children: [
                                                           Expanded(
                                                             child: Text(
-                                                              'Mobile No :',
+                                                              translated[3].isEmpty ? txt[3] : translated[3], //'Mobile No :',
                                                               style: FlutterFlowTheme
                                                                       .of(context)
                                                                   .bodyMedium
@@ -392,7 +408,7 @@ class _PaymentGatewayPageWidgetState extends State<PaymentGatewayPageWidget> {
                                                         children: [
                                                           Expanded(
                                                             child: Text(
-                                                              'Amount :',
+                                                              translated[4].isEmpty ? txt[4] : translated[4], //'Amount :',
                                                               style: FlutterFlowTheme
                                                                       .of(context)
                                                                   .bodyMedium
@@ -477,7 +493,7 @@ class _PaymentGatewayPageWidgetState extends State<PaymentGatewayPageWidget> {
                                                         children: [
                                                           Expanded(
                                                             child: Text(
-                                                              'Payment To :',
+                                                              translated[5].isEmpty ? txt[5] : translated[5], //'Payment To :',
                                                               style: FlutterFlowTheme
                                                                       .of(context)
                                                                   .bodyMedium
@@ -1332,7 +1348,7 @@ class _PaymentGatewayPageWidgetState extends State<PaymentGatewayPageWidget> {
 
                                             safeSetState(() {});
                                           },
-                                          text: 'Pay Now',
+                                          text: translated[6].isEmpty ? txt[6] : translated[6], //'Pay Now',
                                           options: FFButtonOptions(
                                             width: double.infinity,
                                             height: 54.0,

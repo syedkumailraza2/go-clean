@@ -1,4 +1,5 @@
 import 'package:car_wash/pages/profile_pages/setting_page/change_lang.dart';
+import 'package:get_storage/get_storage.dart';
 
 import '/backend/api_requests/api_calls.dart';
 import '/components/custom_center_appbar_widget.dart';
@@ -24,12 +25,25 @@ class _SettingPageWidgetState extends State<SettingPageWidget> {
   late SettingPageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  final box = GetStorage();
 
   @override
   void initState() {
     super.initState();
     _model = createModel(context, () => SettingPageModel());
+    translated = box.read('setting_static') ?? txt;
   }
+
+  var translated = List<String>.filled(8, '', growable: false); // Initialize translated list
+
+  List<String> txt = [
+    'More',
+    'Privacy policy',
+    'Terms and conditions',
+    'About us',
+    'Change Language',
+    'Delete account',
+  ];
 
   @override
   void dispose() {
@@ -56,7 +70,7 @@ class _SettingPageWidgetState extends State<SettingPageWidget> {
                 model: _model.customCenterAppbarModel,
                 updateCallback: () => safeSetState(() {}),
                 child: CustomCenterAppbarWidget(
-                  title: 'More',
+                  title: translated[0].isEmpty ? txt[0] : translated[0], //'More',
                   backIcon: false,
                   addIcon: false,
                   onTapAdd: () async {},
@@ -124,7 +138,7 @@ class _SettingPageWidgetState extends State<SettingPageWidget> {
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           16.0, 0.0, 16.0, 0.0),
                                       child: Text(
-                                        'Privacy policy',
+                                        translated[1].isEmpty ? txt[1] : translated[1], //'Privacy policy',
                                         maxLines: 1,
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
@@ -197,7 +211,7 @@ class _SettingPageWidgetState extends State<SettingPageWidget> {
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           16.0, 0.0, 16.0, 0.0),
                                       child: Text(
-                                        'Terms and conditions',
+                                        translated[2].isEmpty ? txt[2] : translated[2], //'Terms and conditions',
                                         maxLines: 1,
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
@@ -270,7 +284,7 @@ class _SettingPageWidgetState extends State<SettingPageWidget> {
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           16.0, 0.0, 16.0, 0.0),
                                       child: Text(
-                                        'About us',
+                                        translated[3].isEmpty ? txt[3] : translated[3], //'About us',
                                         maxLines: 1,
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
@@ -344,7 +358,7 @@ class _SettingPageWidgetState extends State<SettingPageWidget> {
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           16.0, 0.0, 16.0, 0.0),
                                       child: Text(
-                                        'Change Language',
+                                        translated[4].isEmpty ? txt[4] : translated[4], //'Change Language',
                                         maxLines: 1,
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
@@ -498,7 +512,7 @@ class _SettingPageWidgetState extends State<SettingPageWidget> {
                                               EdgeInsetsDirectional.fromSTEB(
                                                   16.0, 0.0, 16.0, 0.0),
                                           child: Text(
-                                            'Delete account',
+                                            translated[5].isEmpty ? txt[5] : translated[5], //'Delete account',
                                             maxLines: 1,
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium

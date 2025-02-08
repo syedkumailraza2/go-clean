@@ -1,3 +1,5 @@
+import 'package:get_storage/get_storage.dart';
+
 import '/backend/api_requests/api_calls.dart';
 import '/componants/no_my_car_componant/no_my_car_componant_widget.dart';
 import '/components/car_change_success_componant_widget.dart';
@@ -28,12 +30,23 @@ class _MyCarsPageWidgetState extends State<MyCarsPageWidget> {
   late MyCarsPageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  final box = GetStorage();
 
   @override
   void initState() {
     super.initState();
     _model = createModel(context, () => MyCarsPageModel());
+    translated = box.read('my_cars_static') ?? txt;
   }
+
+  var translated = List<String>.filled(8, '', growable: false); // Initialize translated list
+
+  List<String> txt = [
+    'My cars',
+    'Default',
+    'Edit',
+    'Add new car',
+  ];
 
   @override
   void dispose() {
@@ -61,7 +74,7 @@ class _MyCarsPageWidgetState extends State<MyCarsPageWidget> {
                 model: _model.customCenterAppbarModel,
                 updateCallback: () => safeSetState(() {}),
                 child: CustomCenterAppbarWidget(
-                  title: 'My cars',
+                  title: translated[0].isEmpty ? txt[0] : translated[0], //'My cars',
                   backIcon: false,
                   addIcon: false,
                   onTapAdd: () async {},
@@ -355,7 +368,7 @@ class _MyCarsPageWidgetState extends State<MyCarsPageWidget> {
                                                                               10.0),
                                                                       child:
                                                                           Text(
-                                                                        'Edit',
+                                                                        translated[2].isEmpty ? txt[2] : translated[2], //'Edit',
                                                                         textAlign:
                                                                             TextAlign.center,
                                                                         style: FlutterFlowTheme.of(context)
@@ -654,7 +667,7 @@ class _MyCarsPageWidgetState extends State<MyCarsPageWidget> {
                                                                           12.0,
                                                                           5.0),
                                                                   child: Text(
-                                                                    'Default',
+                                                                    translated[1].isEmpty ? txt[1] : translated[1], //'Default',
                                                                     style: FlutterFlowTheme.of(
                                                                             context)
                                                                         .bodyMedium
@@ -703,7 +716,7 @@ class _MyCarsPageWidgetState extends State<MyCarsPageWidget> {
                                 onPressed: () async {
                                   context.pushNamed('SelectVehicleTypePage');
                                 },
-                                text: 'Add new car',
+                                text: translated[3].isEmpty ? txt[3] : translated[3], //'Add new car',
                                 options: FFButtonOptions(
                                   width: double.infinity,
                                   height: 56.0,

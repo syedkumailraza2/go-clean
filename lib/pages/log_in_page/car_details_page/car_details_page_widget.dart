@@ -57,27 +57,6 @@ class _CarDetailsPageWidgetState extends State<CarDetailsPageWidget> {
   ];
 
 
-  // Future<void> car_detail_static_translate (String from, String dest) async {
-  //   GoogleTranslator translator = GoogleTranslator();
-  //   List<String> translatedTexts = [];
-
-  //   for (String text in txt) {
-  //     try {
-  //       var translation = await translator.translate(text, from: from, to: dest);
-  //       translatedTexts.add(translation.text.toString());
-  //     } catch (e) {
-  //       print('Translation error: $e');
-  //       translatedTexts.add(text); // Fallback to original text if translation fails
-  //     }
-  //   }
-
-  //   setState(() {
-  //     translated = translatedTexts;
-  //     box.write('car_detail_static', translatedTexts);
-  //   });
-  // }
-
-
   @override
   void dispose() {
     _model.dispose();

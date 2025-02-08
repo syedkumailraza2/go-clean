@@ -1,3 +1,5 @@
+import 'package:get_storage/get_storage.dart';
+
 import '/backend/api_requests/api_calls.dart';
 import '/components/custom_center_appbar_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -38,11 +40,13 @@ class _SelectVehicleTypeEditPageWidgetState
   late SelectVehicleTypeEditPageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  final box = GetStorage();
 
   @override
   void initState() {
     super.initState();
     _model = createModel(context, () => SelectVehicleTypeEditPageModel());
+    translated = box.read('vehicle_type_static') ?? txt;
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
@@ -50,6 +54,14 @@ class _SelectVehicleTypeEditPageWidgetState
       safeSetState(() {});
     });
   }
+
+   var translated = List<String>.filled(8, '', growable: false); // Initialize translated list
+
+  List<String> txt = [
+    'Select vehicle type',
+    'Continue',
+  ];
+
 
   @override
   void dispose() {
@@ -76,7 +88,7 @@ class _SelectVehicleTypeEditPageWidgetState
                 model: _model.customCenterAppbarModel,
                 updateCallback: () => safeSetState(() {}),
                 child: CustomCenterAppbarWidget(
-                  title: 'Select vehicle type',
+                  title: translated[0].isEmpty ? txt[0] : translated[0], //'Select vehicle type',
                   backIcon: false,
                   addIcon: false,
                   onTapAdd: () async {},
@@ -429,7 +441,7 @@ class _SelectVehicleTypeEditPageWidgetState
                                           );
                                         }
                                       },
-                                      text: 'Continue',
+                                      text: translated[1].isEmpty ? txt[1] : translated[1], //'Continue',
                                       options: FFButtonOptions(
                                         width: double.infinity,
                                         height: 56.0,

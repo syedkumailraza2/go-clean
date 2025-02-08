@@ -1,3 +1,5 @@
+import 'package:get_storage/get_storage.dart';
+
 import '/backend/api_requests/api_calls.dart';
 import '/components/custom_center_appbar_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -25,7 +27,7 @@ class EditProfilePageWidget extends StatefulWidget {
 
 class _EditProfilePageWidgetState extends State<EditProfilePageWidget> {
   late EditProfilePageModel _model;
-
+  final box = GetStorage(); 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -33,12 +35,24 @@ class _EditProfilePageWidgetState extends State<EditProfilePageWidget> {
     super.initState();
     _model = createModel(context, () => EditProfilePageModel());
 
+    translated = box.read('edit_profile_static') ?? txt; 
+
     _model.textFieldFocusNode1 ??= FocusNode();
 
     _model.textFieldFocusNode2 ??= FocusNode();
 
     _model.textFieldFocusNode3 ??= FocusNode();
   }
+
+    var translated = List<String>.filled(8, '', growable: false); // Initialize translated list
+
+  List<String> txt = [
+    'Edit profile',
+    'First name',
+    'Last name',
+    'Email address',
+    'Save',
+  ];
 
   @override
   void dispose() {
@@ -65,7 +79,7 @@ class _EditProfilePageWidgetState extends State<EditProfilePageWidget> {
                 model: _model.customCenterAppbarModel,
                 updateCallback: () => safeSetState(() {}),
                 child: CustomCenterAppbarWidget(
-                  title: 'Edit profile',
+                  title: translated[0].isEmpty ? txt[0] : translated[0], //'Edit profile',
                   backIcon: false,
                   addIcon: false,
                   onTapAdd: () async {},
@@ -368,7 +382,7 @@ class _EditProfilePageWidgetState extends State<EditProfilePageWidget> {
                                                   TextInputAction.next,
                                               obscureText: false,
                                               decoration: InputDecoration(
-                                                labelText: 'First name',
+                                                labelText: translated[1].isEmpty ? txt[1] : translated[1], //'First name',
                                                 labelStyle:
                                                     FlutterFlowTheme.of(context)
                                                         .labelMedium
@@ -382,7 +396,7 @@ class _EditProfilePageWidgetState extends State<EditProfilePageWidget> {
                                                           letterSpacing: 0.0,
                                                           useGoogleFonts: false,
                                                         ),
-                                                hintText: 'First name',
+                                                hintText: translated[1].isEmpty ? txt[1] : translated[1], //'First name',
                                                 hintStyle:
                                                     FlutterFlowTheme.of(context)
                                                         .labelMedium
@@ -498,7 +512,7 @@ class _EditProfilePageWidgetState extends State<EditProfilePageWidget> {
                                                   TextInputAction.next,
                                               obscureText: false,
                                               decoration: InputDecoration(
-                                                labelText: 'Last name',
+                                                labelText: translated[2].isEmpty ? txt[2] : translated[2], //'Last name',
                                                 labelStyle:
                                                     FlutterFlowTheme.of(context)
                                                         .labelMedium
@@ -512,7 +526,7 @@ class _EditProfilePageWidgetState extends State<EditProfilePageWidget> {
                                                           letterSpacing: 0.0,
                                                           useGoogleFonts: false,
                                                         ),
-                                                hintText: 'Last name',
+                                                hintText: translated[2].isEmpty ? txt[2] : translated[2], //'Last name',
                                                 hintStyle:
                                                     FlutterFlowTheme.of(context)
                                                         .labelMedium
@@ -627,7 +641,7 @@ class _EditProfilePageWidgetState extends State<EditProfilePageWidget> {
                                               readOnly: true,
                                               obscureText: false,
                                               decoration: InputDecoration(
-                                                hintText: 'Email address',
+                                                hintText: translated[3].isEmpty ? txt[3] : translated[3], //'Email address',
                                                 hintStyle:
                                                     FlutterFlowTheme.of(context)
                                                         .labelMedium
@@ -839,7 +853,7 @@ class _EditProfilePageWidgetState extends State<EditProfilePageWidget> {
 
                                                 safeSetState(() {});
                                               },
-                                              text: 'Save',
+                                              text: translated[4].isEmpty ? txt[4] : translated[4], //'Save',
                                               options: FFButtonOptions(
                                                 width: double.infinity,
                                                 height: 56.0,

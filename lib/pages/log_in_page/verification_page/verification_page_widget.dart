@@ -64,26 +64,7 @@ class _VerificationPageWidgetState extends State<VerificationPageWidget> {
 
   List<String> translatedTexts = [];
 
-  Future<void> verification_page_static_translate (String from, String dest) async {
-    GoogleTranslator translator = GoogleTranslator();
-    List<String> translatedTexts = [];
-
-    for (String text in txt) {
-      try {
-        var translation = await translator.translate(text, from: from, to: dest);
-        translatedTexts.add(translation.text.toString());
-      } catch (e) {
-        print('Translation error: $e');
-        translatedTexts.add(text); // Fallback to original text if translation fails
-      }
-    }
-
-    setState(() {
-      translated = translatedTexts;
-      box.write('verification_page_static', translatedTexts);
-    });
-  }
-
+  
 
   @override
   void dispose() {

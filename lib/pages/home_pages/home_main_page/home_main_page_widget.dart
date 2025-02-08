@@ -1,3 +1,5 @@
+import 'package:get_storage/get_storage.dart';
+
 import '/backend/api_requests/api_calls.dart';
 import '/components/verified_email_dialog_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -28,11 +30,15 @@ class _HomeMainPageWidgetState extends State<HomeMainPageWidget> {
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
+  final box = GetStorage();
+  
   @override
   void initState() {
     super.initState();
     print('token: ${FFAppState().tokenFcm}');
     _model = createModel(context, () => HomeMainPageModel());
+
+translated = box.read('bottom_nav_static') ?? txt;
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
@@ -120,6 +126,18 @@ class _HomeMainPageWidgetState extends State<HomeMainPageWidget> {
       }
     });
   }
+
+
+  var translated = List<String>.filled(10, '', growable: false);
+  
+  List<String> txt = [
+    'Home',
+    'Search',
+    'My order',
+    'Profile',
+  ];
+
+
 
   @override
   void dispose() {
@@ -287,7 +305,7 @@ class _HomeMainPageWidgetState extends State<HomeMainPageWidget> {
                                 },
                               ),
                               Text(
-                                'Home',
+                               translated[0].isEmpty ? txt[0] : translated[0], //'Home',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
@@ -368,7 +386,7 @@ class _HomeMainPageWidgetState extends State<HomeMainPageWidget> {
                                 },
                               ),
                               Text(
-                                'Search',
+                                translated[1].isEmpty ? txt[1] : translated[1], //'Search',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
@@ -449,7 +467,7 @@ class _HomeMainPageWidgetState extends State<HomeMainPageWidget> {
                                 },
                               ),
                               Text(
-                                'My order',
+                                translated[2].isEmpty ? txt[2] : translated[2], //'My order',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
@@ -530,7 +548,7 @@ class _HomeMainPageWidgetState extends State<HomeMainPageWidget> {
                                 },
                               ),
                               Text(
-                                'Profile',
+                                translated[3].isEmpty ? txt[3] : translated[3], //'Profile',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(

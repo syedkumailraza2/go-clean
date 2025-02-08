@@ -1,3 +1,5 @@
+import 'package:get_storage/get_storage.dart';
+
 import '/backend/api_requests/api_calls.dart';
 import '/componants/blank_componant/blank_componant_widget.dart';
 import '/componants/no_service_yet_componant/no_service_yet_componant_widget.dart';
@@ -50,6 +52,11 @@ class _BannerPageWidgetState extends State<BannerPageWidget> {
   @override
   Widget build(BuildContext context) {
     context.watch<FFAppState>();
+
+    final box = GetStorage();
+String? _selectedLang;
+ _selectedLang = box.read('selected_lang') ?? 'en';
+
 
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),

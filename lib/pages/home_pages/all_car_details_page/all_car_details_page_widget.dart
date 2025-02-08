@@ -56,11 +56,13 @@ class _AllCarDetailsPageWidgetState extends State<AllCarDetailsPageWidget>
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   final animationsMap = <String, AnimationInfo>{};
+  final box = GetStorage();
 
   @override
   void initState() {
     super.initState();
     _model = createModel(context, () => AllCarDetailsPageModel());
+       translated = box.read('car_details_static') ?? txt;
 
     animationsMap.addAll({
       'containerOnPageLoadAnimation': AnimationInfo(
@@ -77,6 +79,13 @@ class _AllCarDetailsPageWidgetState extends State<AllCarDetailsPageWidget>
       ),
     });
   }
+
+var translated = List<String>.filled(8, '', growable: false); // Initialize translated list
+
+  List<String> txt = [
+    'Package includes',
+    'Book now',
+  ];
 
   @override
   void dispose() {
@@ -363,7 +372,7 @@ String? _selectedLang;
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   16.0, 24.0, 16.0, 8.0),
                               child: Text(
-                                'Package includes',
+                                translated[0].isEmpty ? txt[0] : translated[0], //'Package includes',
                                 maxLines: 1,
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
@@ -534,7 +543,7 @@ String? _selectedLang;
 
                               safeSetState(() {});
                             },
-                            text: 'Book now',
+                            text: translated[1].isEmpty ? txt[1] : translated[1], //'Book now',
                             options: FFButtonOptions(
                               width: double.infinity,
                               height: 56.0,

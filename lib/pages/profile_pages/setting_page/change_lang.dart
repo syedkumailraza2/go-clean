@@ -36,7 +36,25 @@ class _ChangeLangState extends State<ChangeLang> {
   await Translate().home_static_translate(_selectedLang!, lang);
   await Translate().coupon_static_translate(_selectedLang!, lang);
   await Translate().my_order_static_translate(_selectedLang!, lang);
-  
+  await Translate().bottom_nav_static_translate(_selectedLang!, lang);
+  await Translate().payment_success_static_translate(_selectedLang!, lang);
+  await Translate().payment_failed_static_translate(_selectedLang!, lang);
+  await Translate().edit_profile_static_translate(_selectedLang!, lang);
+  await Translate().payment_gateway_static_translate(_selectedLang!, lang);
+  await Translate().payment_method_static_translate(_selectedLang!, lang);
+  await Translate().car_details_static_translate(_selectedLang!, lang);
+  await Translate().select_time_static_translate(_selectedLang!, lang);
+  await Translate().recommended_static_translate(_selectedLang!, lang);
+  await Translate().add_address_static_translate(_selectedLang!, lang);
+  await Translate().address_static_translate(_selectedLang!, lang);
+  await Translate().car_detail_edit_static_translate(_selectedLang!, lang);
+  await Translate().edit_address_static_translate(_selectedLang!, lang);
+  await Translate().my_cars_static_translate(_selectedLang!, lang);
+  await Translate().my_profile_static_translate(_selectedLang!, lang);
+  await Translate().profile_static_translate(_selectedLang!, lang);
+  await Translate().vehicle_type_static_translate(_selectedLang!, lang);
+  await Translate().setting_static_translate(_selectedLang!, lang);
+
 
   setState(() {
     _selectedLang = lang;

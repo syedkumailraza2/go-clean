@@ -1,3 +1,5 @@
+import 'package:get_storage/get_storage.dart';
+
 import '/backend/api_requests/api_calls.dart';
 import '/components/car_change_success_componant_widget.dart';
 import '/components/change_car_componant_widget.dart';
@@ -32,11 +34,28 @@ class _ProfileComponantWidgetState extends State<ProfileComponantWidget> {
     _model.onUpdate();
   }
 
+final box = GetStorage();
+
   @override
   void initState() {
     super.initState();
     _model = createModel(context, () => ProfileComponantModel());
+    translated = box.read('profile_static') ?? txt;
   }
+
+  var translated = List<String>.filled(8, '', growable: false); // Initialize translated list
+
+  List<String> txt = [
+    'View your account details here',
+    'Default',
+    'Add car',
+    'My profile',
+    'My address',
+    'My cars',
+    'More',
+    'Log out',
+    'Sign in',
+  ];
 
   @override
   void dispose() {
@@ -137,7 +156,7 @@ class _ProfileComponantWidgetState extends State<ProfileComponantWidget> {
                                       },
                                     ),
                                     Text(
-                                      'View your account details here',
+                                      translated[0].isEmpty ? txt[0] : translated[0], //'View your account details here',
                                       maxLines: 1,
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
@@ -516,7 +535,7 @@ class _ProfileComponantWidgetState extends State<ProfileComponantWidget> {
                                                                                 0.0),
                                                                             child:
                                                                                 Text(
-                                                                              'Default',
+                                                                              translated[1].isEmpty ? txt[1] : translated[1], //'Default',
                                                                               style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                     fontFamily: 'SF Pro Display',
                                                                                     color: true ==
@@ -602,7 +621,7 @@ class _ProfileComponantWidgetState extends State<ProfileComponantWidget> {
                                                 ),
                                               ),
                                               Text(
-                                                'Add car',
+                                                translated[2].isEmpty ? txt[2] : translated[2], //'Add car',
                                                 textAlign: TextAlign.center,
                                                 style:
                                                     FlutterFlowTheme.of(context)
@@ -679,7 +698,7 @@ class _ProfileComponantWidgetState extends State<ProfileComponantWidget> {
                                           ),
                                         ),
                                         Text(
-                                          'Add car',
+                                          translated[2].isEmpty ? txt[2] : translated[2], //'Add car',
                                           textAlign: TextAlign.center,
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
@@ -764,7 +783,7 @@ class _ProfileComponantWidgetState extends State<ProfileComponantWidget> {
                                               EdgeInsetsDirectional.fromSTEB(
                                                   16.0, 0.0, 16.0, 0.0),
                                           child: Text(
-                                            'My profile',
+                                            translated[3].isEmpty ? txt[3] : translated[3], //'My profile',
                                             maxLines: 1,
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
@@ -842,7 +861,7 @@ class _ProfileComponantWidgetState extends State<ProfileComponantWidget> {
                                               EdgeInsetsDirectional.fromSTEB(
                                                   16.0, 0.0, 16.0, 0.0),
                                           child: Text(
-                                            'My address',
+                                            translated[4].isEmpty ? txt[4] : translated[4], //'My address',
                                             maxLines: 1,
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
@@ -923,7 +942,7 @@ class _ProfileComponantWidgetState extends State<ProfileComponantWidget> {
                                               EdgeInsetsDirectional.fromSTEB(
                                                   16.0, 0.0, 16.0, 0.0),
                                           child: Text(
-                                            'My cars',
+                                            translated[5].isEmpty ? txt[5] : translated[5], //'My cars',
                                             maxLines: 1,
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
@@ -998,7 +1017,7 @@ class _ProfileComponantWidgetState extends State<ProfileComponantWidget> {
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             16.0, 0.0, 16.0, 0.0),
                                         child: Text(
-                                          'More',
+                                          translated[6].isEmpty ? txt[6] : translated[6], //'More',
                                           maxLines: 1,
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
@@ -1170,7 +1189,7 @@ class _ProfileComponantWidgetState extends State<ProfileComponantWidget> {
                                                       .fromSTEB(
                                                           16.0, 0.0, 16.0, 0.0),
                                                   child: Text(
-                                                    'Log out',
+                                                    translated[7].isEmpty ? txt[7] : translated[7], //'Log out',
                                                     maxLines: 1,
                                                     style: FlutterFlowTheme.of(
                                                             context)
@@ -1253,7 +1272,7 @@ class _ProfileComponantWidgetState extends State<ProfileComponantWidget> {
                                                   .fromSTEB(
                                                       16.0, 0.0, 16.0, 0.0),
                                               child: Text(
-                                                'Sign in',
+                                                translated[8].isEmpty ? txt[8] : translated[8], //'Sign in',
                                                 maxLines: 1,
                                                 style:
                                                     FlutterFlowTheme.of(context)

@@ -1,3 +1,5 @@
+import 'package:get_storage/get_storage.dart';
+
 import '/backend/api_requests/api_calls.dart';
 import '/components/car_edit_successfull_dialog_widget.dart';
 import '/components/custom_center_appbar_widget.dart';
@@ -35,11 +37,13 @@ class _CarDetailsEditPageWidgetState extends State<CarDetailsEditPageWidget> {
   late CarDetailsEditPageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  final box = GetStorage();
 
   @override
   void initState() {
     super.initState();
     _model = createModel(context, () => CarDetailsEditPageModel());
+    translated = box.read('car_detail_edit_static') ?? txt;
 
     _model.textController1 ??= TextEditingController(text: widget!.vehicleName);
     _model.textFieldFocusNode1 ??= FocusNode();
@@ -48,6 +52,15 @@ class _CarDetailsEditPageWidgetState extends State<CarDetailsEditPageWidget> {
         TextEditingController(text: widget!.vehicleNumber);
     _model.textFieldFocusNode2 ??= FocusNode();
   }
+
+  var translated = List<String>.filled(8, '', growable: false); // Initialize translated list
+
+  List<String> txt = [
+    'Edit car details',
+    'Car name',
+    'Car number',
+    'Save',
+  ];
 
   @override
   void dispose() {
@@ -75,7 +88,7 @@ class _CarDetailsEditPageWidgetState extends State<CarDetailsEditPageWidget> {
                 model: _model.customCenterAppbarModel,
                 updateCallback: () => safeSetState(() {}),
                 child: CustomCenterAppbarWidget(
-                  title: 'Edit car details',
+                  title: translated[0].isEmpty ? txt[0] : translated[0], //'Edit car details',
                   backIcon: false,
                   addIcon: false,
                   onTapAdd: () async {},
@@ -145,7 +158,7 @@ class _CarDetailsEditPageWidgetState extends State<CarDetailsEditPageWidget> {
                                       textInputAction: TextInputAction.next,
                                       obscureText: false,
                                       decoration: InputDecoration(
-                                        labelText: 'Car name',
+                                        labelText: translated[1].isEmpty ? txt[1] : translated[1], //'Car name',
                                         labelStyle: FlutterFlowTheme.of(context)
                                             .labelMedium
                                             .override(
@@ -157,7 +170,7 @@ class _CarDetailsEditPageWidgetState extends State<CarDetailsEditPageWidget> {
                                               letterSpacing: 0.0,
                                               useGoogleFonts: false,
                                             ),
-                                        hintText: 'Car name',
+                                        hintText: translated[1].isEmpty ? txt[1] : translated[1], //'Car name',
                                         hintStyle: FlutterFlowTheme.of(context)
                                             .labelMedium
                                             .override(
@@ -243,7 +256,7 @@ class _CarDetailsEditPageWidgetState extends State<CarDetailsEditPageWidget> {
                                         textInputAction: TextInputAction.done,
                                         obscureText: false,
                                         decoration: InputDecoration(
-                                          labelText: 'Car number',
+                                          labelText: translated[2].isEmpty ? txt[2] : translated[2], //'Car number',
                                           labelStyle: FlutterFlowTheme.of(
                                                   context)
                                               .labelMedium
@@ -256,7 +269,7 @@ class _CarDetailsEditPageWidgetState extends State<CarDetailsEditPageWidget> {
                                                 letterSpacing: 0.0,
                                                 useGoogleFonts: false,
                                               ),
-                                          hintText: 'Car number',
+                                          hintText: translated[2].isEmpty ? txt[2] : translated[2], //'Car number',
                                           hintStyle:
                                               FlutterFlowTheme.of(context)
                                                   .labelMedium
@@ -442,7 +455,7 @@ class _CarDetailsEditPageWidgetState extends State<CarDetailsEditPageWidget> {
 
                                             safeSetState(() {});
                                           },
-                                          text: 'Save',
+                                          text: translated[3].isEmpty ? txt[3] : translated[3], //'Save',
                                           options: FFButtonOptions(
                                             width: double.infinity,
                                             height: 56.0,

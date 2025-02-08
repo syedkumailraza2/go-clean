@@ -44,11 +44,10 @@ translated = box.read('my_order_static') ?? txt;
 
    var translated = List<String>.filled(10, '', growable: false);
   List<String> txt = [
-    'View your account details here',
-    'Default',
-    'Add car',
-    'Our Services',
-    'View all',
+    'My order',
+    'Ongoing',
+    'Canceled',
+    'Completed',
   ];
 
   List<String> translatedTexts = [];

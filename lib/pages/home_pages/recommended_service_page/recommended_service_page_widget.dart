@@ -1,3 +1,5 @@
+import 'package:get_storage/get_storage.dart';
+
 import '/backend/api_requests/api_calls.dart';
 import '/components/custom_center_appbar_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -26,12 +28,21 @@ class _RecommendedServicePageWidgetState
   late RecommendedServicePageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  final box = GetStorage();
+  
 
   @override
   void initState() {
     super.initState();
     _model = createModel(context, () => RecommendedServicePageModel());
+    translated = box.read('recommended_static') ?? txt;
   }
+
+  var translated = List<String>.filled(8, '', growable: false); // Initialize translated list
+
+  List<String> txt = [
+    'Recommended service',
+  ];
 
   @override
   void dispose() {
@@ -59,7 +70,7 @@ class _RecommendedServicePageWidgetState
                 model: _model.customCenterAppbarModel,
                 updateCallback: () => safeSetState(() {}),
                 child: CustomCenterAppbarWidget(
-                  title: 'Recommended service',
+                  title: translated[0].isEmpty ? txt[0] : translated[0], //'Recommended service',
                   backIcon: false,
                   addIcon: false,
                   onTapAdd: () async {},
