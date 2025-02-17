@@ -16,6 +16,7 @@ import 'package:dio/dio.dart';
 class PaymentSuccessPageWidget extends StatefulWidget {
   const PaymentSuccessPageWidget({
     super.key,
+    required this.vinNumber,
     required this.isCarService,
     required this.addressId,
     required this.addressType,
@@ -49,6 +50,7 @@ class PaymentSuccessPageWidget extends StatefulWidget {
   });
 
   final String? addressId;
+  final String? vinNumber;
   final bool? isCarService;
   final String? addressType;
   final String? addressStreet;
@@ -98,9 +100,9 @@ class _PaymentSuccessPageWidgetState extends State<PaymentSuccessPageWidget> {
 
 translated = box.read('payment_success_static') ?? txt;
 
-    if(widget.isCarService == true){
-      addDataToDB();
-    }
+    // if(widget.isCarService == true){
+    //   addDataToDB();
+    // }
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
@@ -272,7 +274,177 @@ translated = box.read('payment_success_static') ?? txt;
             );
           }
         }
-      } 
+      }
+      else if (widget!.isCarService == true) {
+        _model.getUserPayment = await CarServiceGroup.getUserApiCall.call(
+          userId: FFAppState().userId,
+          token: FFAppState().token,
+        );
+
+        if (widget!.couponCode == '0') {
+          _model.bookingPaypalApiNoCouponFunction =
+              await CarServiceGroup.bookAVehicleNoCouponCall.call(
+            userId: FFAppState().userId,
+            username: CarServiceGroup.getUserApiCall.username(
+              (_model.getUserPayment?.jsonBody ?? ''),
+            ),
+            email: CarServiceGroup.getUserApiCall.email(
+              (_model.getUserPayment?.jsonBody ?? ''),
+            ),
+            city: widget!.addressCity,
+            addressId: widget!.addressId,
+            type: widget!.addressType,
+            street: widget!.addressStreet,
+            state: widget!.addressStreet,
+            zipcode: widget!.addresZipcode,
+            country: widget!.addressCountry,
+            vehicleId: widget!.vehicleId,
+            vehicleName: widget!.vehicleName,
+            vehicleNumber: widget!.vehicleNumber,
+            serviceId: widget!.serviceId,
+            name: widget!.serviceName,
+            image: widget!.serviceImage,
+            packageId: widget!.packageId,
+            title: widget!.packageTitle,
+            packageImage: widget!.packageImage,
+            price: widget!.packagePrice,
+            bookingDate: widget!.bookingDate,
+            bookingTime: widget!.bookingTime,
+            paymentMode: widget!.paymentMode,
+            transactionId: FFAppState().paypalTransationId,
+            paymentStatus: 'success',
+            orderStatus: 'pending',
+            subTotal: widget!.subTotal,
+            vat: widget!.vat,
+            total: widget!.total,
+            token: FFAppState().token,
+            VinNumber: widget.vinNumber
+          );
+
+          if (CarServiceGroup.bookAVehicleNoCouponCall.success(
+                (_model.bookingPaypalApiNoCouponFunction?.jsonBody ?? ''),
+              ) ==
+              1) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(
+                  CarServiceGroup.bookAVehicleNoCouponCall.message(
+                    (_model.bookingPaypalApiNoCouponFunction?.jsonBody ?? ''),
+                  )!,
+                  style: TextStyle(
+                    color: FlutterFlowTheme.of(context).primaryBackground,
+                  ),
+                ),
+                duration: Duration(milliseconds: 2000),
+                backgroundColor: FlutterFlowTheme.of(context).primaryText,
+              ),
+            );
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(
+                  CarServiceGroup.bookAVehicleNoCouponCall.message(
+                    (_model.bookingPaypalApiNoCouponFunction?.jsonBody ?? ''),
+                  )!,
+                  style: TextStyle(
+                    color: FlutterFlowTheme.of(context).primaryBackground,
+                  ),
+                ),
+                duration: Duration(milliseconds: 2000),
+                backgroundColor: FlutterFlowTheme.of(context).primaryText,
+              ),
+            );
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(
+                  'ffffffffffff',
+                  style: TextStyle(
+                    color: FlutterFlowTheme.of(context).primaryBackground,
+                  ),
+                ),
+                duration: Duration(milliseconds: 2000),
+                backgroundColor: FlutterFlowTheme.of(context).primaryText,
+              ),
+            );
+          }
+        } else {
+          _model.bookingPaypalApiFunction =
+              await CarServiceGroup.bookAVehicleCall.call(
+            userId: FFAppState().userId,
+            username: CarServiceGroup.getUserApiCall.username(
+              (_model.getUserPayment?.jsonBody ?? ''),
+            ),
+            email: CarServiceGroup.getUserApiCall.email(
+              (_model.getUserPayment?.jsonBody ?? ''),
+            ),
+            addressId: widget!.addressId,
+            type: widget!.addressType,
+            street: widget!.addressStreet,
+            city: widget!.addressCity,
+            state: widget!.addresState,
+            zipcode: widget!.addresZipcode,
+            country: widget!.addressCountry,
+            vehicleId: widget!.vehicleId,
+            vehicleName: widget!.vehicleName,
+            vehicleNumber: widget!.vehicleNumber,
+            serviceId: widget!.serviceId,
+            name: widget!.serviceName,
+            image: widget!.serviceImage,
+            packageId: widget!.packageId,
+            title: widget!.packageTitle,
+            packageImage: widget!.packageImage,
+            bookingDate: widget!.bookingDate,
+            bookingTime: widget!.bookingTime,
+            paymentMode: widget!.paymentMode,
+            transactionId: FFAppState().paypalTransationId,
+            paymentStatus: 'success',
+            orderStatus: 'pending',
+            subTotal: widget!.subTotal,
+            couponCode: widget!.couponCode,
+            couponType: widget!.couponType,
+            couponAmount: widget!.couponAmount,
+            vat: widget!.vat,
+            total: widget!.total,
+            token: FFAppState().token,
+            price: widget!.packagePrice,
+          );
+
+          if (CarServiceGroup.bookAVehicleCall.success(
+                (_model.bookingPaypalApiFunction?.jsonBody ?? ''),
+              ) ==
+              1) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(
+                  CarServiceGroup.bookAVehicleCall.message(
+                    (_model.bookingPaypalApiFunction?.jsonBody ?? ''),
+                  )!,
+                  style: TextStyle(
+                    color: FlutterFlowTheme.of(context).primaryBackground,
+                  ),
+                ),
+                duration: Duration(milliseconds: 2000),
+                backgroundColor: FlutterFlowTheme.of(context).primaryText,
+              ),
+            );
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(
+                  CarServiceGroup.bookAVehicleCall.message(
+                    (_model.bookingPaypalApiFunction?.jsonBody ?? ''),
+                  )!,
+                  style: TextStyle(
+                    color: FlutterFlowTheme.of(context).primaryBackground,
+                  ),
+                ),
+                duration: Duration(milliseconds: 2000),
+                backgroundColor: FlutterFlowTheme.of(context).primaryText,
+              ),
+            );
+          }
+        }
+      }
       // else {
       //   ScaffoldMessenger.of(context).showSnackBar(
       //     SnackBar(

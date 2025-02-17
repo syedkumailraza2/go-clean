@@ -528,10 +528,252 @@ class _PaymentMethodPageWidgetState extends State<PaymentMethodPageWidget> {
                                             ),
                                           ),
                                         ),
+
+                                        InkWell(
+                                          splashColor: Colors.transparent,
+                                          focusColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          onTap: () async {
+                                            _model.selectPaymentIndex = 3;
+                                            safeSetState(() {});
+                                          },
+                                          child: Container(
+                                            width: double.infinity,
+                                            decoration: BoxDecoration(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryBackground,
+                                              borderRadius:
+                                                  BorderRadius.circular(16.0),
+                                            ),
+                                            child: Padding(
+                                              padding: EdgeInsets.all(8.0),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  Container(
+                                                    width: 59.0,
+                                                    height: 59.0,
+                                                    decoration: BoxDecoration(
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .gray100,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              16.0),
+                                                    ),
+                                                    alignment:
+                                                        AlignmentDirectional(
+                                                            0.0, 0.0),
+                                                    child: ClipRRect(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              0.0),
+                                                      child: Container(
+                                                        width: 43.0,
+                                                        height: 43.0,
+                                                        child: Icon(Icons.money))
+                                                    ),
+                                                  ),
+                                                  Expanded(
+                                                    child: Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  16.0,
+                                                                  0.0,
+                                                                  16.0,
+                                                                  0.0),
+                                                      child: Text(
+                                                        'Cash',
+                                                        style: FlutterFlowTheme
+                                                                .of(context)
+                                                            .bodyMedium
+                                                            .override(
+                                                              fontFamily:
+                                                                  'SF Pro Display',
+                                                              fontSize: 18.0,
+                                                              letterSpacing:
+                                                                  0.0,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                              useGoogleFonts:
+                                                                  false,
+                                                              lineHeight: 1.5,
+                                                            ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Builder(
+                                                    builder: (context) {
+                                                      if (_model
+                                                              .selectPaymentIndex ==
+                                                          3) {
+                                                        return ClipRRect(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      0.0),
+                                                          child:
+                                                              SvgPicture.asset(
+                                                            'assets/images/radio_button_fill.svg',
+                                                            width: 32.0,
+                                                            height: 32.0,
+                                                            fit: BoxFit.contain,
+                                                          ),
+                                                        );
+                                                      } else {
+                                                        return ClipRRect(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      0.0),
+                                                          child:
+                                                              SvgPicture.asset(
+                                                            'assets/images/radio_button.svg',
+                                                            width: 32.0,
+                                                            height: 32.0,
+                                                            fit: BoxFit.contain,
+                                                          ),
+                                                        );
+                                                      }
+                                                    },
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+
+                                         InkWell(
+                                          splashColor: Colors.transparent,
+                                          focusColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          onTap: () async {
+                                            _model.selectPaymentIndex = 4;
+                                            safeSetState(() {});
+                                          },
+                                          child: Container(
+                                            width: double.infinity,
+                                            decoration: BoxDecoration(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryBackground,
+                                              borderRadius:
+                                                  BorderRadius.circular(16.0),
+                                            ),
+                                            child: Padding(
+                                              padding: EdgeInsets.all(8.0),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  Container(
+                                                    width: 59.0,
+                                                    height: 59.0,
+                                                    decoration: BoxDecoration(
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .gray100,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              16.0),
+                                                    ),
+                                                    alignment:
+                                                        AlignmentDirectional(
+                                                            0.0, 0.0),
+                                                    child: ClipRRect(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              0.0),
+                                                      child: Container(
+                                                        width: 43.0,
+                                                        height: 43.0,
+                                                        child: Icon(Icons.inventory_2_sharp))
+                                                    ),
+                                                  ),
+                                                  Expanded(
+                                                    child: Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  16.0,
+                                                                  0.0,
+                                                                  16.0,
+                                                                  0.0),
+                                                      child: Text(
+                                                        'Invoice',
+                                                        style: FlutterFlowTheme
+                                                                .of(context)
+                                                            .bodyMedium
+                                                            .override(
+                                                              fontFamily:
+                                                                  'SF Pro Display',
+                                                              fontSize: 18.0,
+                                                              letterSpacing:
+                                                                  0.0,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                              useGoogleFonts:
+                                                                  false,
+                                                              lineHeight: 1.5,
+                                                            ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Builder(
+                                                    builder: (context) {
+                                                      if (_model
+                                                              .selectPaymentIndex ==
+                                                        4) {
+                                                        return ClipRRect(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      0.0),
+                                                          child:
+                                                              SvgPicture.asset(
+                                                            'assets/images/radio_button_fill.svg',
+                                                            width: 32.0,
+                                                            height: 32.0,
+                                                            fit: BoxFit.contain,
+                                                          ),
+                                                        );
+                                                      } else {
+                                                        return ClipRRect(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      0.0),
+                                                          child:
+                                                              SvgPicture.asset(
+                                                            'assets/images/radio_button.svg',
+                                                            width: 32.0,
+                                                            height: 32.0,
+                                                            fit: BoxFit.contain,
+                                                          ),
+                                                        );
+                                                      }
+                                                    },
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                       
                                       ].divide(SizedBox(height: 16.0)),
                                     ),
                                   ),
                                 ),
+
+
+
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       16.0, 8.0, 16.0, 16.0),
@@ -561,8 +803,18 @@ class _PaymentMethodPageWidgetState extends State<PaymentMethodPageWidget> {
                                                       .selectPaymentIndex ==
                                                   1) {
                                                 return 'Stripe';
-                                              } else {
+                                              } else if (_model
+                                                      .selectPaymentIndex ==
+                                                  2){
                                                 return 'RazorPay';
+                                              }
+                                               else if (_model
+                                                      .selectPaymentIndex ==
+                                                  3){
+                                                return 'Cash';
+                                              }
+                                              else {
+                                                return 'Invoice';
                                               }
                                             }(),
                                             ParamType.String,

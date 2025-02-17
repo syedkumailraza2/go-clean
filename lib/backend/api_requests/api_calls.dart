@@ -25,6 +25,7 @@ class CarServiceGroup {
   static Map<String, String> headers = {
     'Authorization': 'Bearer [token]',
   };
+  
   static AuthenticateRegisteredUserApiCall authenticateRegisteredUserApiCall =
       AuthenticateRegisteredUserApiCall();
   static SignUpApiCall signUpApiCall = SignUpApiCall();
@@ -2186,6 +2187,7 @@ class BookAVehicleNoCouponCall {
     double? vat,
     double? total,
     String? token = '',
+    String? VinNumber = ''
   }) async {
     final baseUrl = CarServiceGroup.getBaseUrl(
       token: token,
@@ -2232,6 +2234,7 @@ class BookAVehicleNoCouponCall {
   "subTotal": ${subTotal},
   "VAT": ${vat},
   "Total": ${total}
+  "VinNumber": ${VinNumber}
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'BookAVehicleNoCoupon',

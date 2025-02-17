@@ -103,7 +103,8 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
     'Coupon',
     'Grand total',
     'Proceed to payment',
-    'Enter VIN Number'
+    'Enter VIN Number',
+    'Book Now'
   ];
 
   List<String> translatedTexts = [];
@@ -3893,6 +3894,11 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
                                                           true,
                                                           ParamType.bool,
                                                         ),
+                                                        'vinNumber': 
+                                                        serializeParam(
+                                                         _vinController.toString(),
+                                                          ParamType.String,
+                                                        ),
                                                         'packageId':
                                                             serializeParam(
                                                           widget!.packageId,
@@ -4778,10 +4784,9 @@ class _CheckoutPageWidgetState extends State<CheckoutPageWidget> {
 
                                                 safeSetState(() {});
                                               },
-                                              text: translated[22].isEmpty
-                                                  ? txt[22]
-                                                  : translated[
-                                                      22], //'Proceed to payment',
+                                              text: widget.serviceName == "car wash"
+    ? (translated[22].isEmpty ? txt[22] : translated[22])
+    : (translated[24].isEmpty ? txt[24] : translated[24]),
                                               options: FFButtonOptions(
                                                 width: double.infinity,
                                                 height: 56.0,

@@ -584,7 +584,7 @@ var translated = List<String>.filled(8, '', growable: false); // Initialize tran
                                         child: FFButtonWidget(
                                           onPressed: () async {
                                             if (widget!.paymentMethod ==
-                                                'Paypal') {
+                                            'Paypal') {
                                               await actions.paypalCustom(
                                                 context,
                                                 CarServiceGroup
@@ -752,6 +752,7 @@ var translated = List<String>.filled(8, '', growable: false); // Initialize tran
                                                     }.withoutNulls,
                                                   );
                                                 },
+                                                
                                                 () async {
                                                   context.goNamed(
                                                       'PaymentFailedPage');
@@ -761,7 +762,8 @@ var translated = List<String>.filled(8, '', growable: false); // Initialize tran
                                                       'PaymentFailedPage');
                                                 },
                                               );
-                                            } else {
+                                            }
+                                             else {
                                               if (widget!.paymentMethod ==
                                                   'Stripe') {
                                                 await actions.initStripe(
@@ -1345,6 +1347,155 @@ var translated = List<String>.filled(8, '', growable: false); // Initialize tran
                                                 );
                                               }
                                             }
+
+                                            if(widget!.paymentMethod ==
+                                                  'Cash'){
+                                                  context.goNamed(
+                                                    'PaymentSuccessPage',
+                                                    queryParameters: {
+                                                      'addressId':
+                                                          serializeParam(
+                                                        widget!.addressId,
+                                                        ParamType.String,
+                                                      ),
+                                                      'addressType':
+                                                          serializeParam(
+                                                        widget!.addressType,
+                                                        ParamType.String,
+                                                      ),
+                                                      'addressStreet':
+                                                          serializeParam(
+                                                        widget!.addressStreet,
+                                                        ParamType.String,
+                                                      ),
+                                                      'addressCity':
+                                                          serializeParam(
+                                                        widget!.addressCity,
+                                                        ParamType.String,
+                                                      ),
+                                                      'addresState':
+                                                          serializeParam(
+                                                        widget!.addressState,
+                                                        ParamType.String,
+                                                      ),
+                                                      'addresZipcode':
+                                                          serializeParam(
+                                                        widget!.addressZipcode,
+                                                        ParamType.String,
+                                                      ),
+                                                      'addressCountry':
+                                                          serializeParam(
+                                                        widget!.addressCountry,
+                                                        ParamType.String,
+                                                      ),
+                                                      'vehicleId':
+                                                          serializeParam(
+                                                        widget!.vehicleId,
+                                                        ParamType.String,
+                                                      ),
+                                                      'vehicleName':
+                                                          serializeParam(
+                                                        widget!.vehicleName,
+                                                        ParamType.String,
+                                                      ),
+                                                      'vehicleNumber':
+                                                          serializeParam(
+                                                        widget!.vehicleNumber,
+                                                        ParamType.String,
+                                                      ),
+                                                      'serviceId':
+                                                          serializeParam(
+                                                        widget!.serviceId,
+                                                        ParamType.String,
+                                                      ),
+                                                      'serviceName':
+                                                          serializeParam(
+                                                        widget!.serviceName,
+                                                        ParamType.String,
+                                                      ),
+                                                      'serviceImage':
+                                                          serializeParam(
+                                                        widget!.serviceImage,
+                                                        ParamType.String,
+                                                      ),
+                                                      'packageId':
+                                                          serializeParam(
+                                                        widget!.packageId,
+                                                        ParamType.String,
+                                                      ),
+                                                      'packageTitle':
+                                                          serializeParam(
+                                                        widget!.paymentToName,
+                                                        ParamType.String,
+                                                      ),
+                                                      'packageImage':
+                                                          serializeParam(
+                                                        widget!.packageImage,
+                                                        ParamType.String,
+                                                      ),
+                                                      'packagePrice':
+                                                          serializeParam(
+                                                        widget!.packagePrice,
+                                                        ParamType.double,
+                                                      ),
+                                                      'bookingDate':
+                                                          serializeParam(
+                                                        widget!.bookingDate,
+                                                        ParamType.String,
+                                                      ),
+                                                      'bookingTime':
+                                                          serializeParam(
+                                                        widget!.bookingTime,
+                                                        ParamType.String,
+                                                      ),
+                                                      'paymentMode':
+                                                          serializeParam(
+                                                        widget!.paymentMethod,
+                                                        ParamType.String,
+                                                      ),
+                                                      
+                                                      'paymentStatus':
+                                                          serializeParam(
+                                                        'pending',
+                                                        ParamType.String,
+                                                      ),
+                                                      'orderStatus':
+                                                          serializeParam(
+                                                        'pending',
+                                                        ParamType.String,
+                                                      ),
+                                                      'subTotal':
+                                                          serializeParam(
+                                                        widget!.subTotal,
+                                                        ParamType.double,
+                                                      ),
+                                                      'couponCode':
+                                                          serializeParam(
+                                                        widget!.couponCode,
+                                                        ParamType.String,
+                                                      ),
+                                                      'couponType':
+                                                          serializeParam(
+                                                        widget!.couponType,
+                                                        ParamType.String,
+                                                      ),
+                                                      'couponAmount':
+                                                          serializeParam(
+                                                        widget!.couponAmount,
+                                                        ParamType.double,
+                                                      ),
+                                                      'vat': serializeParam(
+                                                        widget!.vat,
+                                                        ParamType.double,
+                                                      ),
+                                                      'total': serializeParam(
+                                                        widget!.total,
+                                                        ParamType.double,
+                                                      ),
+                                                    }.withoutNulls,
+                                                  );
+                                                }
+                                                
 
                                             safeSetState(() {});
                                           },
